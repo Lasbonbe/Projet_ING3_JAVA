@@ -11,6 +11,6 @@ module com.example.ing3_projet_java {
 
     opens Vue to javafx.fxml;
     exports Vue;
-    exports Controler;
-    opens Controler to javafx.fxml;
+    exports Controller;
+    opens Controller to javafx.fxml;
 }
