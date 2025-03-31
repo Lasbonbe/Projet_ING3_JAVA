@@ -23,8 +23,9 @@ public class AttractionDao implements AttractionInterface {
             while (resultSet.next()) {
                 int attractionID = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
+                int attractionPlace = resultSet.getInt("place");
 
-                Attraction attraction = new Attraction(attractionID, attractionName);
+                Attraction attraction = new Attraction(attractionID, attractionName, attractionPlace);
 
                 listAttractions.add(attraction);
             }
@@ -55,9 +56,10 @@ public class AttractionDao implements AttractionInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom) values(?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, places) values(?,?,?)");
             preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.setString(2, attraction.getAttractionName());
+            preparedStatement.setString(2, attraction.getName());
+            preparedStatement.setInt(3, attraction.getPlace());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -114,9 +116,10 @@ public class AttractionDao implements AttractionInterface {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
+                int attractionPlace = resultSet.getInt("place");
 
                 if (attractionID == attractionID) {
-                    attractionFound = new Attraction(id, attractionName);
+                    attractionFound = new Attraction(id, attractionName, attractionPlace);
                     break;
                 }
             }
@@ -145,9 +148,10 @@ public class AttractionDao implements AttractionInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Attraction set ID=?, nom=?");
+            preparedStatement = connection.prepareStatement("UPDATE Attraction set ID=?, nom=?, place=?");
             preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.setString(2, attraction.getAttractionName());
+            preparedStatement.setString(2, attraction.getName());
+            preparedStatement.setInt(3, attraction.getPlace());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

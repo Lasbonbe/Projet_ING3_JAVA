@@ -2,15 +2,18 @@ package Modele;
 
 public class Attraction {
     private int attractionID;
-    private String attractionName;
+    private String name;
+    private int place;
 
     public Attraction() {
         attractionID = 0;
-        attractionName = "Le Gigolo N'golo D Kante - The attraction";
+        name = "Le Gigolo N'golo D Kante - The attraction";
+        place = 10;
     }
-    public Attraction(int attractionID, String attractionName) {
+    public Attraction(int attractionID, String name, int place) {
         this.attractionID = attractionID;
-        this.attractionName = attractionName;
+        this.name = name;
+        this.place = place;
     }
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
@@ -20,8 +23,10 @@ public class Attraction {
     //╚██████╔╝███████╗░░░██║░░░██╔╝░░░██████╔╝███████╗░░░██║░░░
     //░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝░░░╚═╝░░░
     public int getAttractionID() { return attractionID;}
-    public String getAttractionName() { return attractionName;}
+    public String getName() { return name;}
+    public int getPlace() { return place;}
 
     public void setAttractionID(int attractionID) { this.attractionID = attractionID;}
-    public void setAttractionName(String attractionName) { this.attractionName = attractionName;}
+    public void setName(String name) { this.name = name;}
+    public void setPlace(int place) { this.place = place;}
 }
