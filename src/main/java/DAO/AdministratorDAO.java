@@ -151,11 +151,12 @@ public class AdministratorDAO implements AdministratorInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("update Admin set nom=?, prenom=?, email=?, password=?");
+            preparedStatement = connection.prepareStatement("update Admin set nom=?, prenom=?, email=?, password=? where ID=?");
             preparedStatement.setString(1, admin.getLastName());
             preparedStatement.setString(2, admin.getFirstName());
             preparedStatement.setString(3, admin.getEmail());
             preparedStatement.setString(4, admin.getPassword());
+            preparedStatement.setInt(5, admin.getUserID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

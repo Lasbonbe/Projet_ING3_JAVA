@@ -148,10 +148,10 @@ public class AttractionDao implements AttractionInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Attraction set ID=?, nom=?, place=?");
-            preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.setString(2, attraction.getName());
-            preparedStatement.setInt(3, attraction.getPlace());
+            preparedStatement = connection.prepareStatement("UPDATE Attraction set nom=?, place=? where ID=?");
+            preparedStatement.setString(1, attraction.getName());
+            preparedStatement.setInt(2, attraction.getPlace());
+            preparedStatement.setInt(3, attraction.getAttractionID());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
