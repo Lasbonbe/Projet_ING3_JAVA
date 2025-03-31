@@ -6,22 +6,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
     @FXML
+    public ImageView img;
+    @FXML
     private TextField emailField;
-
     @FXML
     private PasswordField passwordField;
 
-    private Stage stage;
     private AccesSQLDatabase db = new AccesSQLDatabase();
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void initialize() {
+        Image image = new Image(getClass().getResource("/imgs/raf.jpg").toExternalForm());
+        img.setImage(image);
     }
 
     @FXML
