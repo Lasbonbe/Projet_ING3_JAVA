@@ -3,8 +3,8 @@ package Modele;
 public class Administrator extends User {
     private int adminID;
 
-    public Administrator(int userID, String lastName, String firstName, String email, String password, int age, int adminID) {
-        super(userID,lastName, firstName, email, password, age);
+    public Administrator(String lastName, String firstName, String email, String password, int adminID) {
+        super(0,lastName, firstName, email, password, 0);
         this.adminID = adminID;
     }
 
