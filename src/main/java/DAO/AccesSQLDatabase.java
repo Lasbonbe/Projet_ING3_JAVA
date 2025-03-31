@@ -52,4 +52,17 @@ public class AccesSQLDatabase {
             e.printStackTrace();
         }
     }
+
+    public boolean LoginSuccess(String email, String password) {
+        String sql = "SELECT * FROM User WHERE email = ? AND password = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            System.out.println("An error occurred. Could not check login");
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
