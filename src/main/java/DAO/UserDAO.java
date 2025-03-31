@@ -105,7 +105,7 @@ public class UserDAO implements UserInterface {
     }
 
     @Override
-    public User findUser(int userID) {
+    public User findUser(User user) {
         User userFound = null;
 
         Connection connection = null;
@@ -124,7 +124,7 @@ public class UserDAO implements UserInterface {
                 String email = resultSet.getString("email");
                 int age = resultSet.getInt("age");
 
-                if (userID == id) {
+                if (user.getUserID() == id) {
                     userFound = new User(id, nom, prenom, password, email, age);
                     break;
                 }
@@ -153,12 +153,13 @@ public class UserDAO implements UserInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("update User set nom=?, prenom=?, email=?, password=?, age=?");
+            preparedStatement = connection.prepareStatement("update User set nom=?, prenom=?, email=?, password=?, age=? where ID=?");
             preparedStatement.setString(1, user.getLastName());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setInt(5, user.getAge());
+            preparedStatement.setInt(6, user.getUserID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
