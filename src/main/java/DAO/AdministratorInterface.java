@@ -5,7 +5,7 @@ import Modele.Administrator;
 import java.util.ArrayList;
 
 public interface AdministratorInterface {
-    public ArrayList<Administrator> getAdministrators();
+    public ArrayList<Administrator> getAllAdministrators();
 
 
     public void addAdmin(Administrator admin);
