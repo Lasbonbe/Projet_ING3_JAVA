@@ -1,37 +1,37 @@
 package Vue;
 
-import Controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class MainApp extends Application {
+
+    public static StackPane rootPane; // accessible globalement
+
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/Vue/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-        LoginController controller = fxmlLoader.getController();
-        System.out.println(controller.img);  // Should not print 'null'
+    public void start(Stage primaryStage) throws Exception {
+        // Charge la première vue (login)
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+        Parent loginView = fxmlLoader.load();
 
-        // Correct the image path
-        //Image image = new Image(new File("src/main/resources/imgs/img.png").toURI().toString());
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imgs/img.png")));
-        ImageView im = new ImageView();
-        im.setImage(image);
-        primaryStage.getIcons().add(image);
+        // Création du StackPane racine
+        rootPane = new StackPane();
+        rootPane.getChildren().add(loginView);
 
-        ImageView displayview = new ImageView();
-        displayview.setImage(image);
-
-        primaryStage.setTitle("Login");
+        Scene scene = new Scene(rootPane, 1280, 720);
         primaryStage.setScene(scene);
+
+        // Icône optionnelle
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imgs/img.png")));
+        primaryStage.getIcons().add(icon);
+
+        primaryStage.setTitle("Parc Attractions - Connexion");
         primaryStage.show();
     }
 
