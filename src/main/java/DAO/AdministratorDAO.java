@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class AdministratorDAO implements AdministratorInterface {
-    private AccesSQLDatabase sqlDatabase;
+    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
     public ArrayList<Administrator> getAllAdministrators() {

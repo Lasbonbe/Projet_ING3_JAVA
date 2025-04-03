@@ -6,7 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class AttractionDao implements AttractionInterface {
-    private AccesSQLDatabase sqlDatabase;
+
+    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
     public ArrayList<Attraction> getAllAttractions() {
@@ -14,6 +15,7 @@ public class AttractionDao implements AttractionInterface {
         Connection connection = null;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
+
 
         try {
             connection = sqlDatabase.getConnection();
@@ -23,10 +25,11 @@ public class AttractionDao implements AttractionInterface {
             while (resultSet.next()) {
                 int attractionID = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
-                int attractionPlace = resultSet.getInt("place");
+                int attractionCapacity = resultSet.getInt("max_capacity");
+                int attractionPrice = resultSet.getInt("base_price");
+                int attractionDuration = resultSet.getInt("duration");
 
-                Attraction attraction = new Attraction(attractionID, attractionName, attractionPlace);
-
+                Attraction attraction = new Attraction(attractionID, attractionName, attractionCapacity, attractionPrice, attractionDuration);
                 listAttractions.add(attraction);
             }
         }
@@ -56,10 +59,12 @@ public class AttractionDao implements AttractionInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, places) values(?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, max_capacity, base_price, duration) values(?,?,?,?,?)");
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setString(2, attraction.getName());
-            preparedStatement.setInt(3, attraction.getPlace());
+            preparedStatement.setInt(3, attraction.getCapacity());
+            preparedStatement.setDouble(4, attraction.getPrice());
+            preparedStatement.setInt(5, attraction.getDuration());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -116,10 +121,12 @@ public class AttractionDao implements AttractionInterface {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
-                int attractionPlace = resultSet.getInt("place");
+                int attractionCapacity = resultSet.getInt("max_capacity");
+                int attractionPrice = resultSet.getInt("base_price");
+                int attractionDuration = resultSet.getInt("duration");
 
-                if (attractionID == attractionID) {
-                    attractionFound = new Attraction(id, attractionName, attractionPlace);
+                if (attractionID.getAttractionID() == id) {
+                    attractionFound = new Attraction(id, attractionName, attractionCapacity, attractionPrice, attractionDuration);
                     break;
                 }
             }
@@ -148,10 +155,12 @@ public class AttractionDao implements AttractionInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Attraction set nom=?, place=? where ID=?");
+            preparedStatement = connection.prepareStatement("UPDATE Attraction set nom=?, max_capacity=?, base_price=?, duration=? where ID=?");
             preparedStatement.setString(1, attraction.getName());
-            preparedStatement.setInt(2, attraction.getPlace());
-            preparedStatement.setInt(3, attraction.getAttractionID());
+            preparedStatement.setInt(2, attraction.getCapacity());
+            preparedStatement.setInt(3, attraction.getPrice());
+            preparedStatement.setInt(4, attraction.getDuration());
+            preparedStatement.setInt(5, attraction.getAttractionID());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
