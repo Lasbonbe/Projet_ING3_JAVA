@@ -7,11 +7,7 @@ import java.util.ArrayList;
 
 public class AttractionDao implements AttractionInterface {
 
-    private AccesSQLDatabase sqlDatabase;
-
-    private String url = "jdbc:mysql://72.145.14.178:3306/PROJET?useSSL=false";
-    private String user = "pilote";
-    private String pass = "rafale";
+    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
     public ArrayList<Attraction> getAllAttractions() {
@@ -22,7 +18,7 @@ public class AttractionDao implements AttractionInterface {
 
 
         try {
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = sqlDatabase.getConnection();
             preparedStatement = connection.createStatement();
             resultSet = preparedStatement.executeQuery("SELECT * FROM Attraction");
 
@@ -62,7 +58,7 @@ public class AttractionDao implements AttractionInterface {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, max_capacity, base_price, duration) values(?,?,?,?,?)");
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setString(2, attraction.getName());
@@ -91,7 +87,7 @@ public class AttractionDao implements AttractionInterface {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("DELETE from Attraction where ID = ?");
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.executeUpdate();
