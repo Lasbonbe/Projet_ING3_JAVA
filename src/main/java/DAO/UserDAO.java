@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO implements UserInterface {
-    private AccesSQLDatabase sqlDatabase;
+    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
     public ArrayList<User> getAllUser() {
