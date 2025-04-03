@@ -52,27 +52,23 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
                 Parent homeView = loader.load();
 
-                // Initialiser position de départ (hors de l'écran à droite)
                 homeView.translateXProperty().set(MainApp.rootPane.getWidth());
-
-                // Ajouter la nouvelle vue par-dessus
                 MainApp.rootPane.getChildren().add(homeView);
 
-                // Transition slide vers la gauche
+                TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), MainApp.rootPane.getChildren().get(0));
+                slideOut.setToX(-1920); // Slide vers la gauche
                 TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), homeView);
                 slideIn.setToX(0);
 
-                // Optionnel : retirer la vue login après l'animation
                 slideIn.setOnFinished(event -> {
-                    // Garde uniquement la HomeView dans la pile
                     MainApp.rootPane.getChildren().remove(0);
                 });
 
+                slideOut.play();
                 slideIn.play();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(AlertType.ERROR, "Erreur", "Impossible de charger la page d'accueil.");
+            } catch (JavaFXPaneException | IOException exception) {
+                System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
             }
 
         } else {
