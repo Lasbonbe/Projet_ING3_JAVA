@@ -34,7 +34,7 @@ public class ButtonNavigation {
         this.button.setStyle("-fx-background-color: transparent; -fx-min-width: 175px; -fx-min-height: 75px; -fx-border-radius: 20; -fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #051039; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
 
         Rectangle mouseEffect = new Rectangle();
-        mouseEffect.setFill(Color.web("#cdd5e4"));
+        mouseEffect.setFill(Color.web("#ebf1fa"));
         mouseEffect.setArcHeight(20);
         mouseEffect.setArcWidth(20);
         mouseEffect.setOpacity(0.6);

@@ -17,9 +17,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class ButtonImpossibleDay extends ButtonFreeCalendar {
-    Button button;
-    StackPane root;
-
     public ButtonImpossibleDay(String value) {
         super(value);
         this.root = new StackPane();
