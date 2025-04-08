@@ -111,10 +111,21 @@ public class Calendar extends Application {
         int col = startDay;
         while (day <= this.currentYearMonth.lengthOfMonth()) {
             ButtonFreeCalendar dayButton;
+            int cday = day;
             if (this.currentYearMonth.equals(YearMonth.from(this.today)) && day < this.today.getDayOfMonth()) {
                 dayButton = new ButtonImpossibleDay(String.valueOf(day));
             } else {
-                dayButton = new ButtonFreeCalendar(String.valueOf(day));
+                if(day == this.today.getDayOfMonth()) {
+                    dayButton = new ButtonOnDay(String.valueOf(day));
+                } else {
+                    dayButton = new ButtonFreeCalendar(String.valueOf(day));
+                }
+
+                dayButton.setOnAction(e -> {
+                    LocalDate selectedDate = this.currentYearMonth.atDay(cday);
+                    DayWindow dayWindow = new DayWindow(selectedDate);
+                    dayWindow.show();
+                });
             }
             this.calendarGrid.add(dayButton.getRoot(), col, row);
             day++;

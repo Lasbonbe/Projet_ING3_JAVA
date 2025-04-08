@@ -2,6 +2,7 @@ package Vue;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,8 +17,8 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class ButtonFreeCalendar {
-    private Button button;
-    private StackPane root;
+    protected Button button;
+    protected StackPane root;
 
     public ButtonFreeCalendar(String value) {
         this.root = new StackPane();
@@ -32,7 +33,7 @@ public class ButtonFreeCalendar {
         this.button.setStyle("-fx-background-color: transparent; -fx-min-width: 80px; -fx-min-height: 80px;-fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #051039; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
 
         Circle mouseEffect = new Circle(0, 0, 0);
-        mouseEffect.setFill(Color.web("#cdd5e4"));
+        mouseEffect.setFill(Color.web("#ebf1fa"));
         mouseEffect.setOpacity(0.6);
         mouseEffect.setVisible(false);
         mouseEffect.setMouseTransparent(true);
@@ -59,14 +60,10 @@ public class ButtonFreeCalendar {
                 mouseEffect.setVisible(false);
             }
         });
+    }
 
-        this.button.setOnAction(e -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText(null);
-            alert.setContentText("Réservation effectuée");
-            alert.show();
-        });
+    public void setOnAction(EventHandler<ActionEvent> handler) {
+        this.button.setOnAction(handler);
     }
 
     public StackPane getRoot() {
