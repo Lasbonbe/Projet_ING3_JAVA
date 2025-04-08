@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class DEBUG_TestDAO {
     public static void main(String[] args) {
+        //Test find attraction
         AttractionDao attractionDao = new AttractionDao();
         VueAttraction vueAttraction = new VueAttraction();
 
@@ -19,6 +20,14 @@ public class DEBUG_TestDAO {
         Attraction findAttraction = attractionDao.findAttraction(1);
         vueAttraction.displayAttraction(findAttraction);
 
+        //Test find user
+        UserDAO userDao = new UserDAO();
+        VueUser vueUser = new VueUser();
 
+        ArrayList<User> users = userDao.getAllUser();
+        vueUser.displayUserList(users);
+
+        User findUser = userDao.findUser(1);
+        vueUser.displayUser(findUser);
     }
 }

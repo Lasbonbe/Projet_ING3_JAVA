@@ -12,10 +12,9 @@ public class AttractionDao implements AttractionInterface {
     @Override
     public ArrayList<Attraction> getAllAttractions() {
         ArrayList<Attraction> listAttractions = new ArrayList<>();
-        Connection connection = null;
+        Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
-
 
         try {
             connection = sqlDatabase.getConnection();
@@ -32,17 +31,14 @@ public class AttractionDao implements AttractionInterface {
                 Attraction attraction = new Attraction(attractionID, attractionName, attractionCapacity, attractionPrice, attractionDuration);
                 listAttractions.add(attraction);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Création de la liste d'attractions impossible");
-        }
-        finally {
+        } finally {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
             }
@@ -53,7 +49,7 @@ public class AttractionDao implements AttractionInterface {
     @Override
     public void addAttraction(Attraction attraction) {
 
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
@@ -72,7 +68,6 @@ public class AttractionDao implements AttractionInterface {
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -82,7 +77,7 @@ public class AttractionDao implements AttractionInterface {
 
     @Override
     public void deleteAttraction(Attraction attraction) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
@@ -97,7 +92,6 @@ public class AttractionDao implements AttractionInterface {
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -108,11 +102,9 @@ public class AttractionDao implements AttractionInterface {
     @Override
     public Attraction findAttraction(int attractionID) {
         Attraction attractionFound = null;
-
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
 
         try {
             connection = sqlDatabase.getConnection();
@@ -139,7 +131,6 @@ public class AttractionDao implements AttractionInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -151,7 +142,7 @@ public class AttractionDao implements AttractionInterface {
     @Override
     public Attraction editAttraction(Attraction attraction) {
 
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -172,7 +163,6 @@ public class AttractionDao implements AttractionInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");

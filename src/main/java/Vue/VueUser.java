@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class VueUser {
 
-    public void displayClient(User user) {
-        System.out.println("Utilisateur :\n");
+    public void displayUser(User user) {
+        System.out.println("\nUtilisateur :");
         System.out.println("Nom : " + user.getLastName());
         System.out.println("Prenom : "+  user.getFirstName());
         System.out.println("Age : " + user.getAge());
@@ -16,7 +16,7 @@ public class VueUser {
     public void displayUserList(ArrayList<User> users) {
         // Afficher la liste des clients récupérés de l'objet de ClientDAO
         for (User user : users) {
-            displayClient(user);
+            displayUser(user);
         }
     }
 }

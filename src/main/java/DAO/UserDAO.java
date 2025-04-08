@@ -1,7 +1,6 @@
 package DAO;
 
 import Modele.User;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,14 +10,14 @@ public class UserDAO implements UserInterface {
     @Override
     public ArrayList<User> getAllUser() {
         ArrayList<User> listUsers = new ArrayList<>();
-        Connection connection = null;
+        Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-             preparedStatement = connection.createStatement();
-             resultSet = preparedStatement.executeQuery("SELECT * FROM User");
+            preparedStatement = connection.createStatement();
+            resultSet = preparedStatement.executeQuery("SELECT * FROM User");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -39,21 +38,18 @@ public class UserDAO implements UserInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-
         return listUsers;
     }
 
     @Override
     public void addUser(User user) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
-
 
         try {
             connection = sqlDatabase.getConnection();
@@ -64,14 +60,12 @@ public class UserDAO implements UserInterface {
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setInt(5, user.getAge());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Ajout du User impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -81,7 +75,7 @@ public class UserDAO implements UserInterface {
 
     @Override
     public void deleteUser(User user) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
@@ -96,7 +90,6 @@ public class UserDAO implements UserInterface {
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -105,16 +98,17 @@ public class UserDAO implements UserInterface {
     }
 
     @Override
-    public User findUser(User user) {
+    public User findUser(int userID) {
         User userFound = null;
-
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("select * from User where ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM User where ID = ?");
+            preparedStatement.setInt(1, userID);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -124,7 +118,7 @@ public class UserDAO implements UserInterface {
                 String email = resultSet.getString("email");
                 int age = resultSet.getInt("age");
 
-                if (user.getUserID() == id) {
+                if (userID == id) {
                     userFound = new User(id, nom, prenom, password, email, age);
                     break;
                 }
@@ -136,7 +130,6 @@ public class UserDAO implements UserInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -147,7 +140,7 @@ public class UserDAO implements UserInterface {
 
     @Override
     public User editUser(User user) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -168,7 +161,6 @@ public class UserDAO implements UserInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
