@@ -12,7 +12,7 @@ public class AdministratorDAO implements AdministratorInterface {
     @Override
     public ArrayList<Administrator> getAllAdministrators() {
         ArrayList<Administrator> listAdmins = new ArrayList<>();
-        Connection connection = null;
+        Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -39,21 +39,18 @@ public class AdministratorDAO implements AdministratorInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-
         return listAdmins;
     }
 
     @Override
     public void addAdmin(Administrator admin) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
-
 
         try {
             connection = sqlDatabase.getConnection();
@@ -70,7 +67,6 @@ public class AdministratorDAO implements AdministratorInterface {
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -80,7 +76,7 @@ public class AdministratorDAO implements AdministratorInterface {
 
     @Override
     public void deleteAdmin(Administrator admin) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
@@ -95,7 +91,6 @@ public class AdministratorDAO implements AdministratorInterface {
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -104,16 +99,17 @@ public class AdministratorDAO implements AdministratorInterface {
     }
 
     @Override
-    public Administrator findAdmin(Administrator admin) {
+    public Administrator findAdmin(int adminID) {
         Administrator adminFound = null;
-
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("select * from Admin where ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Admin where ID = ?");
+            preparedStatement.setInt(1, adminID);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -122,10 +118,11 @@ public class AdministratorDAO implements AdministratorInterface {
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
 
-                if (admin.getId() == id) {
+                if (adminID == id) {
                     adminFound = new Administrator(nom, prenom, password, email, id);
                     break;
                 }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -134,7 +131,6 @@ public class AdministratorDAO implements AdministratorInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
@@ -145,7 +141,7 @@ public class AdministratorDAO implements AdministratorInterface {
 
     @Override
     public Administrator editAdmin(Administrator admin) {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -165,7 +161,6 @@ public class AdministratorDAO implements AdministratorInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Erreur de fermeture des ressources");
