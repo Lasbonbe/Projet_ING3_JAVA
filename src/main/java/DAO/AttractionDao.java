@@ -41,7 +41,6 @@ public class AttractionDao implements AttractionInterface {
             try {
                 if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -90,7 +89,7 @@ public class AttractionDao implements AttractionInterface {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("DELETE from Attraction where ID = ?");
             preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.executeUpdate();
+            preparedStatement.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,16 +106,19 @@ public class AttractionDao implements AttractionInterface {
     }
 
     @Override
-    public Attraction findAttraction(Attraction attractionID) {
+    public Attraction findAttraction(int attractionID) {
         Attraction attractionFound = null;
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
+
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("select * from Attraction where ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Attraction where ID = ?");
+            preparedStatement.setInt(1, attractionID);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -125,7 +127,7 @@ public class AttractionDao implements AttractionInterface {
                 int attractionPrice = resultSet.getInt("base_price");
                 int attractionDuration = resultSet.getInt("duration");
 
-                if (attractionID.getAttractionID() == id) {
+                if (attractionID == id) {
                     attractionFound = new Attraction(id, attractionName, attractionCapacity, attractionPrice, attractionDuration);
                     break;
                 }

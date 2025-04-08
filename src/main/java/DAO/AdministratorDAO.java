@@ -19,7 +19,7 @@ public class AdministratorDAO implements AdministratorInterface {
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.createStatement();
-            resultSet = preparedStatement.executeQuery("SELECT * FROM ADMIN");
+            resultSet = preparedStatement.executeQuery("SELECT * FROM Admin");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");

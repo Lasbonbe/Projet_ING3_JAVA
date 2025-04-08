@@ -18,7 +18,7 @@ public class UserDAO implements UserInterface {
         try {
             connection = sqlDatabase.getConnection();
              preparedStatement = connection.createStatement();
-             resultSet = preparedStatement.executeQuery("SELECT * FROM USER");
+             resultSet = preparedStatement.executeQuery("SELECT * FROM User");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");

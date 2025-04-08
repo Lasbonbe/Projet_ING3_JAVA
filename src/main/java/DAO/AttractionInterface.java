@@ -8,6 +8,6 @@ public interface AttractionInterface {
 
     public void addAttraction(Attraction attraction);
     public void deleteAttraction(Attraction attraction);
-    public Attraction findAttraction(Attraction attraction);
+    public Attraction findAttraction(int attraction);
     public Attraction editAttraction(Attraction attraction);
 }
