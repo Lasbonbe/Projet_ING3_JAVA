@@ -8,6 +8,12 @@ public class Client extends User {
         this.clientID = clientID;
     }
 
+    public String determinePersonType(){
+        if (age<12) { return "Mini Resa"; }
+        else if (age<60) { return "Maxi Resa"; }
+        else return "Senior Resa";
+    }
+
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
     //██╔════╝░██╔════╝╚══██╔══╝░░░██╔╝██╔════╝██╔════╝╚══██╔══╝
     //██║░░██╗░█████╗░░░░░██║░░░░░██╔╝░╚█████╗░█████╗░░░░░██║░░░
@@ -24,7 +30,6 @@ public class Client extends User {
     public String getFirstName() {
         return super.firstName;
     }
-
 
     @Override
     public String getEmail() {
