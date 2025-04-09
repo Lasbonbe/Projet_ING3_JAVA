@@ -1,13 +1,18 @@
 package Modele;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 
 public class Schedule {
-    private String nameAttraction;
+    private int idSchedule;
+    private int attractionId;
     private Time hourDebut;
     private Time hourEnd;
+    private int totalPlaces;
+    private int reservedPlaces;
     private int placesDispos;
+    private Date date;
     private String statut;
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
@@ -17,8 +22,21 @@ public class Schedule {
     //╚██████╔╝███████╗░░░██║░░░██╔╝░░░██████╔╝███████╗░░░██║░░░
     //░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝░░░╚═╝░░░
 
-    public String getNameAttraction() {
-        return nameAttraction;
+
+    public int getIdSchedule() {
+        return idSchedule;
+    }
+    public int getAttractionId() {
+        return attractionId;
+    }
+    public Date getDate() {
+        return date;
+    }
+    public int getReservedPlaces() {
+        return reservedPlaces;
+    }
+    public int getTotalPlaces() {
+        return totalPlaces;
     }
     public Time getHourDebut() {
         return hourDebut;
@@ -40,11 +58,15 @@ public class Schedule {
     //╚█████╔╝╚█████╔╝██║░╚███║██████╔╝░░░██║░░░██║░░██║╚██████╔╝╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║██████╔╝
     //░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░╚═════╝░░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝╚═════╝░
 
-    public Schedule(String nameAttraction, Time hourDebut, Time hourEnd, int placesDispos, String statut) {
-        this.nameAttraction = nameAttraction;
+    public Schedule(int idSchedule, int idAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, Date date, String statut) {
+        this.idSchedule = idSchedule;
+        this.attractionId = idAttraction;
         this.hourDebut = hourDebut;
         this.hourEnd = hourEnd;
-        this.placesDispos = placesDispos;
+        this.totalPlaces = totalPlaces;
+        this.reservedPlaces = reservedPlaces;
+        this.placesDispos = this.totalPlaces - this.reservedPlaces;
+        this.date = date;
         this.statut = statut;
     }
 }
