@@ -1,17 +1,16 @@
 package DAO;
 
-import Modele.Administrator;
 import Modele.Attraction;
-import Modele.User;
+import Modele.Client;
 import Vue.VueAttraction;
-import Vue.VueUser;
+import Vue.VueClient;
 
 import java.util.ArrayList;
 
 public class DEBUG_TestDAO {
     public static void main(String[] args) {
         //Test find attraction
-        AttractionDao attractionDao = new AttractionDao();
+        AttractionDAO attractionDao = new AttractionDAO();
         VueAttraction vueAttraction = new VueAttraction();
 
         ArrayList<Attraction> attractions = attractionDao.getAllAttractions();
@@ -20,12 +19,14 @@ public class DEBUG_TestDAO {
         Attraction findAttraction = attractionDao.findAttraction(1);
         vueAttraction.displayAttraction(findAttraction);
 
-        //Test find user
-        UserDAO userDao = new UserDAO();
-        VueUser vueUser = new VueUser();
+        //Test find client
+        ClientDAO clientDao = new ClientDAO();
+        VueClient vueClient = new VueClient();
 
-        ArrayList<User> users = userDao.getAllUser();
-        vueUser.displayUserList(users);
+        ArrayList<Client> clients = clientDao.getAllClient();
+        vueClient.displayClientList(clients);
 
+        Client findClient = clientDao.findClient(1);
+        vueClient.displayClient(findClient);
     }
 }

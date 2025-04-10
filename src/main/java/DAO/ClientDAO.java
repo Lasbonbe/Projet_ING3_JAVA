@@ -1,15 +1,15 @@
 package DAO;
 
-import Modele.User;
+import Modele.Client;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDAO implements UserInterface {
+public class ClientDAO implements ClientInterface {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
-    public ArrayList<User> getAllUser() {
-        ArrayList<User> listUsers = new ArrayList<>();
+    public ArrayList<Client> getAllClient() {
+        ArrayList<Client> listClients = new ArrayList<>();
         Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
@@ -17,7 +17,7 @@ public class UserDAO implements UserInterface {
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.createStatement();
-            resultSet = preparedStatement.executeQuery("SELECT * FROM User");
+            resultSet = preparedStatement.executeQuery("SELECT * FROM Client");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -27,13 +27,13 @@ public class UserDAO implements UserInterface {
                 String email = resultSet.getString("email");
                 int age = resultSet.getInt("age");
 
-                User user = new User(id, nom, prenom, password, email, age);
+                Client client = new Client(id, nom, prenom, age, email, password);
 
-                listUsers.add(user);
+                listClients.add(client);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Création de la liste de users impossible");
+            System.out.println("Création de la liste de clients impossible");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -43,26 +43,26 @@ public class UserDAO implements UserInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return listUsers;
+        return listClients;
     }
 
     @Override
-    public void addUser(User user) {
+    public void addClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("insert into User(nom, prenom, email, password, age) values(?,?,?,?,?)");
-            preparedStatement.setString(1, user.getLastName());
-            preparedStatement.setString(2, user.getFirstName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setInt(5, user.getAge());
+            preparedStatement = connection.prepareStatement("INSERT INTO Client(nom, prenom, email, password, age) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setString(3, client.getEmail());
+            preparedStatement.setString(4, client.getPassword());
+            preparedStatement.setInt(5, client.getAge());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Ajout du User impossible");
+            System.out.println("Ajout du Client impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -74,19 +74,19 @@ public class UserDAO implements UserInterface {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("delete from User where ID = ?");
-            preparedStatement.setInt(1, user.getUserID());
+            preparedStatement = connection.prepareStatement("DELETE FROM Client where ID = ?");
+            preparedStatement.setInt(1, client.getUserID());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Suppression de User impossible");
+            System.out.println("Suppression de Client impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -98,15 +98,15 @@ public class UserDAO implements UserInterface {
     }
 
     @Override
-    public User findUser(int userID) {
-        User userFound = null;
+    public Client findClient(int userID) {
+        Client clientFound = null;
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM User where ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client where ID = ?");
             preparedStatement.setInt(1, userID);
             resultSet = preparedStatement.executeQuery();
 
@@ -119,13 +119,13 @@ public class UserDAO implements UserInterface {
                 int age = resultSet.getInt("age");
 
                 if (userID == id) {
-                    userFound = new User(id, nom, prenom, password, email, age);
+                    clientFound = new Client(id, nom, prenom, age, email, password);
                     break;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Utilisateur introuvable");
+            System.out.println("Client introuvable");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -135,28 +135,28 @@ public class UserDAO implements UserInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return userFound;
+        return clientFound;
     }
 
     @Override
-    public User editUser(User user) {
+    public Client editClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("update User set nom=?, prenom=?, email=?, password=?, age=? where ID=?");
-            preparedStatement.setString(1, user.getLastName());
-            preparedStatement.setString(2, user.getFirstName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setInt(5, user.getAge());
-            preparedStatement.setInt(6, user.getUserID());
+            preparedStatement = connection.prepareStatement("UPDATE Client set nom=?, prenom=?, email=?, password=?, age=? where ID=?");
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setString(3, client.getEmail());
+            preparedStatement.setString(4, client.getPassword());
+            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.setInt(6, client.getUserID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur de modification de User");
+            System.out.println("Erreur de modification de Client");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -166,6 +166,6 @@ public class UserDAO implements UserInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return user;
+        return client;
     }
 }

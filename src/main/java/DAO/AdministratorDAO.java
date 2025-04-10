@@ -28,7 +28,7 @@ public class AdministratorDAO implements AdministratorInterface {
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
 
-                Administrator admin = new Administrator(nom, prenom, password, email, id);
+                Administrator admin = new Administrator(id, nom, prenom, password, email);
 
                 listAdmins.add(admin);
             }
@@ -119,7 +119,7 @@ public class AdministratorDAO implements AdministratorInterface {
                 String email = resultSet.getString("email");
 
                 if (adminID == id) {
-                    adminFound = new Administrator(nom, prenom, password, email, id);
+                    adminFound = new Administrator(id, nom, prenom, password, email);
                     break;
                 }
 

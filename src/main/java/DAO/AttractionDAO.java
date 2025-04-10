@@ -5,7 +5,7 @@ import Modele.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AttractionDao implements AttractionInterface {
+public class AttractionDAO implements AttractionInterface {
 
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
