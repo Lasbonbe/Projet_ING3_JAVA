@@ -27,7 +27,5 @@ public class DEBUG_TestDAO {
         ArrayList<User> users = userDao.getAllUser();
         vueUser.displayUserList(users);
 
-        User findUser = userDao.findUser(1);
-        vueUser.displayUser(findUser);
     }
 }
