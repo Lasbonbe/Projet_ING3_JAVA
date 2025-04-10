@@ -32,11 +32,13 @@ public class Calendar extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        stage.setMaximized(true);
 
         this.currentYearMonth = YearMonth.now();
 
         HBox hBox = getHBox();
         BorderPane borderPane = new BorderPane();
+        borderPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         borderPane.setTop(hBox);
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         HBox calendarBox = new HBox(this.calendarGrid);
@@ -44,7 +46,7 @@ public class Calendar extends Application {
         calendarBox.setPadding(new Insets(30, 0, 0, 0)); /// Temporaire je pense
         borderPane.setCenter(calendarBox);
         updateCalendar();
-        Scene scene = new Scene(borderPane, 800, 600, Color.WHITE);
+        Scene scene = new Scene(borderPane, Color.WHITE);
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.show();

@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +29,7 @@ public class DayWindow {
     public DayWindow(LocalDate date) {
         this.date = date;
         this.stage = new Stage();
+        this.stage.setMaximized(true);
         initialize();
         chargeDatas();
     }
@@ -41,28 +43,62 @@ public class DayWindow {
         root.setTop(hbox);
 
         this.tableView = new TableView<>();
+
+        // STYLE DE LA TABLE
+
+        this.tableView.setStyle("-fx-table-cell-border-color: transparent; " +
+                "-fx-border-color: transparent;" +
+                "-fx-font-family:'Bungee'; ");
+        this.tableView.setFixedCellSize(40);
         this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableColumn<Schedule, String> attractionCol = new TableColumn<>("Attraction");
         attractionCol.setCellValueFactory(new PropertyValueFactory<>("nameAttraction"));
+        attractionCol.setPrefWidth(500);
         TableColumn<Schedule, Time> debutCol = new TableColumn<>("Heure de début");
         debutCol.setCellValueFactory(new PropertyValueFactory<>("HourDebut"));
+        debutCol.setPrefWidth(250);
         TableColumn<Schedule, Time> endCol = new TableColumn<>("Heure de fin");
         endCol.setCellValueFactory(new PropertyValueFactory<>("HourEnd"));
+        endCol.setPrefWidth(250);
         TableColumn<Schedule, Integer> pDisposCol = new TableColumn<>("Places disponibles");
         pDisposCol.setCellValueFactory(new PropertyValueFactory<>("PDispos"));
+        pDisposCol.setPrefWidth(250);
         TableColumn<Schedule, String> statusCol = new TableColumn<>("Statut");
         statusCol.setCellValueFactory(new PropertyValueFactory<>("Statut"));
+        statusCol.setPrefWidth(250);
         TableColumn<Schedule, ButtonNavigation> resCol = new TableColumn<>("Réserver");
         resCol.setCellValueFactory(new PropertyValueFactory<>("BtnNav"));
+        resCol.setPrefWidth(250);
 
         this.tableView.getColumns().addAll(attractionCol, debutCol, endCol, pDisposCol, statusCol, resCol);
 
+        for (TableColumn<Schedule, ?> col : this.tableView.getColumns()) {
+            col.setStyle("-fx-alignment: CENTER;" +
+                    "-fx-font-size: 18px");
+            col.setResizable(false);
+            col.setReorderable(false);
+        }
+
+        this.tableView.setRowFactory(row -> new TableRow<Schedule>() {
+            @Override
+            protected void updateItem(Schedule item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setStyle("-fx-background-color: transparent;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+
         VBox vbox = new VBox(this.tableView);
+        VBox.setVgrow(this.tableView, javafx.scene.layout.Priority.ALWAYS);
+        vbox.setStyle("-fx-background-color: transparent;");
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
         root.setCenter(vbox);
 
-        Scene scene = new Scene(root, 800, 400);
+        Scene scene = new Scene(root);
         stage.setTitle("Details");
         stage.setScene(scene);
     }
