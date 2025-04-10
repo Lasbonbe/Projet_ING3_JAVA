@@ -3,6 +3,7 @@ package DAO;
 import Modele.Schedule;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ScheduleDAO implements ScheduleInterface{
@@ -18,6 +19,7 @@ public class ScheduleDAO implements ScheduleInterface{
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM Schedule");
+
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -44,7 +46,46 @@ public class ScheduleDAO implements ScheduleInterface{
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return null;
+        return schedules;
+    }
+
+    @Override
+    public ArrayList<Schedule> getScheduleWithAttractionNamesByDate(LocalDate date) {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT nom, hour_debut, hour_end, total_places, reserved_places, statut " +
+                    "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = Attraction.ID WHERE date = ? ORDER BY hour_debut");
+            preparedStatement.setDate(1, java.sql.Date.valueOf(date));
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String nameAttraction = resultSet.getString("nom");
+                Time hourDebut = resultSet.getTime("hour_debut");
+                Time hourEnd = resultSet.getTime("hour_end");
+                int totalPlaces = resultSet.getInt("total_places");
+                int reservedPlaces = resultSet.getInt("reserved_places");
+                String statut = resultSet.getString("statut");
+
+                Schedule schedule = new Schedule(nameAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, statut);
+                schedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Création de la liste de schedules impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return schedules;
     }
 
     @Override

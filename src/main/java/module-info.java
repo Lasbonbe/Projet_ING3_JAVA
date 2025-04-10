@@ -10,7 +10,10 @@ module com.example.ing3_projet_java {
     requires java.management;
 
     opens Vue to javafx.fxml;
+    opens Modele to javafx.base;
     exports Vue;
     exports Controller;
     opens Controller to javafx.fxml;
+    exports Vue.Calendar;
+    opens Vue.Calendar to javafx.fxml;
 }

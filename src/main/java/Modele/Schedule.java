@@ -1,11 +1,14 @@
 package Modele;
 
+import Vue.Calendar.ButtonNavigation;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 
 public class Schedule {
     private int idSchedule;
+    private String nameAttraction;
     private int attractionId;
     private Time hourDebut;
     private Time hourEnd;
@@ -14,6 +17,7 @@ public class Schedule {
     private int placesDispos;
     private Date date;
     private String statut;
+    private ButtonNavigation btnNav;
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
     //██╔════╝░██╔════╝╚══██╔══╝░░░██╔╝██╔════╝██╔════╝╚══██╔══╝
@@ -38,6 +42,15 @@ public class Schedule {
     public int getTotalPlaces() {
         return totalPlaces;
     }
+    public String getNameAttraction() {
+        return nameAttraction;
+    }
+    public ButtonNavigation getBtnNav() {
+        return btnNav;
+    }
+    public int getPDispos() {
+        return this.placesDispos;
+    }
     public Time getHourDebut() {
         return hourDebut;
     }
@@ -46,9 +59,6 @@ public class Schedule {
     }
     public String getStatut() {
         return statut;
-    }
-    public int getPlacesDispos() {
-        return placesDispos;
     }
 
     //░█████╗░░█████╗░███╗░░██╗░██████╗████████╗██████╗░██╗░░░██╗░█████╗░████████╗░█████╗░██████╗░░██████╗
@@ -68,5 +78,16 @@ public class Schedule {
         this.placesDispos = this.totalPlaces - this.reservedPlaces;
         this.date = date;
         this.statut = statut;
+    }
+
+    public Schedule(String nameAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, String statut) {
+        this.nameAttraction = nameAttraction;
+        this.hourDebut = hourDebut;
+        this.hourEnd = hourEnd;
+        this.reservedPlaces = reservedPlaces;
+        this.totalPlaces = totalPlaces;
+        this.placesDispos = this.totalPlaces - this.reservedPlaces;
+        this.statut = statut;
+        this.btnNav = new ButtonNavigation("Réserver");
     }
 }
