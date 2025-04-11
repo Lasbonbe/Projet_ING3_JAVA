@@ -6,15 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.sql.Time;
@@ -35,7 +34,9 @@ public class DayWindow {
     }
 
     private void initialize() {
-        Label title = new Label("Réservations pour le : " + this.date);
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        //System.out.println("Screen width: " + screenWidth);
+        Label title = new Label("Horaires pour le : " + this.date);
         title.setFont(Font.font("Bungee", 18));
         HBox hbox = new HBox(title);
         hbox.setAlignment(Pos.CENTER);
@@ -46,35 +47,36 @@ public class DayWindow {
 
         // STYLE DE LA TABLE
 
-        this.tableView.setStyle("-fx-table-cell-border-color: transparent; " +
-                "-fx-border-color: transparent;" +
-                "-fx-font-family:'Bungee'; ");
-        this.tableView.setFixedCellSize(40);
+        this.tableView.setStyle("-fx-table-cell-border-color: WHITE; " +
+                "-fx-border-color: WHITE;" +
+                "-fx-font-family:'Bungee';");
+        this.tableView.setFixedCellSize(100);
         this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableColumn<Schedule, String> attractionCol = new TableColumn<>("Attraction");
         attractionCol.setCellValueFactory(new PropertyValueFactory<>("nameAttraction"));
-        attractionCol.setPrefWidth(500);
-        TableColumn<Schedule, Time> debutCol = new TableColumn<>("Heure de début");
+        attractionCol.setPrefWidth(4.0/12 * screenWidth);
+        TableColumn<Schedule, Time> debutCol = new TableColumn<>("Début");
         debutCol.setCellValueFactory(new PropertyValueFactory<>("HourDebut"));
-        debutCol.setPrefWidth(250);
-        TableColumn<Schedule, Time> endCol = new TableColumn<>("Heure de fin");
+        debutCol.setPrefWidth(1.0/12 * screenWidth);
+        TableColumn<Schedule, Time> endCol = new TableColumn<>("Fin");
         endCol.setCellValueFactory(new PropertyValueFactory<>("HourEnd"));
-        endCol.setPrefWidth(250);
+        endCol.setPrefWidth(1.0/12 * screenWidth);
         TableColumn<Schedule, Integer> pDisposCol = new TableColumn<>("Places disponibles");
         pDisposCol.setCellValueFactory(new PropertyValueFactory<>("PDispos"));
-        pDisposCol.setPrefWidth(250);
+        pDisposCol.setPrefWidth(2.4/12 * screenWidth);
         TableColumn<Schedule, String> statusCol = new TableColumn<>("Statut");
         statusCol.setCellValueFactory(new PropertyValueFactory<>("Statut"));
-        statusCol.setPrefWidth(250);
+        statusCol.setPrefWidth(1.6/12 * screenWidth);
         TableColumn<Schedule, ButtonNavigation> resCol = new TableColumn<>("Réserver");
         resCol.setCellValueFactory(new PropertyValueFactory<>("BtnNav"));
-        resCol.setPrefWidth(250);
+        resCol.setPrefWidth(2.0/12 * screenWidth);
 
         this.tableView.getColumns().addAll(attractionCol, debutCol, endCol, pDisposCol, statusCol, resCol);
 
         for (TableColumn<Schedule, ?> col : this.tableView.getColumns()) {
             col.setStyle("-fx-alignment: CENTER;" +
-                    "-fx-font-size: 18px");
+                    "-fx-font-size: 18px;" +
+                    "-fx-background-color: transparent;");
             col.setResizable(false);
             col.setReorderable(false);
         }
@@ -84,9 +86,22 @@ public class DayWindow {
             protected void updateItem(Schedule item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setStyle("-fx-background-color: transparent;");
+                    setStyle("-fx-background-color: WHITE;");
                 } else {
                     setStyle("");
+                }
+            }
+        });
+
+        resCol.setCellFactory(col -> new TableCell<Schedule, ButtonNavigation>() {
+            @Override
+            protected void updateItem(ButtonNavigation item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(item.getRoot());
+                    setAlignment(Pos.CENTER);
                 }
             }
         });
@@ -110,6 +125,13 @@ public class DayWindow {
         ArrayList<Schedule> listSchedule = dao.getScheduleWithAttractionNamesByDate(this.date);
 
         if (listSchedule != null && !listSchedule.isEmpty()) {
+            for (Schedule schedule : listSchedule) {
+                ButtonNavigation button = schedule.getBtnNav();
+                button.setOnAction(e -> {
+                    ReservationWindow resWindow = new ReservationWindow(schedule);
+                    resWindow.show();
+                });
+            }
             data.addAll(listSchedule);
         }
 

@@ -8,6 +8,7 @@ module com.example.ing3_projet_java {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.management;
+    requires java.desktop;
 
     opens Vue to javafx.fxml;
     opens Modele to javafx.base;
