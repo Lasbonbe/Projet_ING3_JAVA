@@ -38,7 +38,7 @@ public class LoginController {
     private AccesSQLDatabase db = new AccesSQLDatabase();
 
     public void initialize() {
-        Image image = new Image(getClass().getResource("/imgs/raf.jpg").toExternalForm());
+        Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
         img.setImage(image);
     }
 

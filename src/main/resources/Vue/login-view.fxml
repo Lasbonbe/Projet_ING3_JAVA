@@ -13,7 +13,6 @@
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.LoginController">
 
     <ImageView fx:id="img">
-        <Image url="@imgs/raf.jpg"/>
     </ImageView>
 
     <VBox alignment="CENTER" spacing="20.0">

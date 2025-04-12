@@ -8,6 +8,7 @@ module com.example.ing3_projet_java {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.management;
+    requires eu.iamgio.animated;
 
     opens Vue to javafx.fxml;
     exports Vue;
