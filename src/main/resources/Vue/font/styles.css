@@ -1,0 +1,21 @@
+.custom-text-field {
+    /* Couleur de fond du champ */
+    -fx-background-color: black;
+
+    /* Couleur du texte saisi par l'utilisateur */
+    -fx-text-fill: white;
+
+    /* Couleur du texte lorsque le champ est vide (prompt text) */
+    -fx-prompt-text-fill: #aaaaaa;
+
+    /* Couleur et épaisseur de la bordure */
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+
+    /* Gestion du rayon des bords pour un effet "carré" (ou arrondi) */
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+
+    /* Ajoute un peu de marge intérieure pour plus d'espace */
+    -fx-padding: 5;
+}

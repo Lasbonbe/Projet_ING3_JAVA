@@ -10,8 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.LoginController">
-
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.LoginController" stylesheets="@css/loginstyle.css">
     <ImageView fx:id="img">
     </ImageView>
 
@@ -20,9 +19,10 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
 
-        <Label text="Login" style="-fx-font-family: 'JetBrains Mono ExtraBold'; -fx-font-size: 24px; -fx-text-fill: #FFFFFF;"/>        <TextField fx:id="emailField" promptText="Email" prefWidth="200" maxWidth="200"/>
-        <PasswordField fx:id="passwordField" promptText="Password" prefWidth="200" maxWidth="200"/>
+        <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200"/>
+        <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200"/>
         <Button text="Login" onAction="#onLoginButtonClick"/>
+
     </VBox>
 
 
