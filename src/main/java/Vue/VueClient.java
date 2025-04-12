@@ -6,9 +6,10 @@ import java.util.ArrayList;
 public class VueClient {
 
     public void displayClient(Client client) {
-        System.out.println("Client :\n");
+        System.out.println("\nClient :");
         System.out.println("Nom : " + client.getLastName());
         System.out.println("Prenom : "+  client.getFirstName());
+        System.out.println("Age : " + client.getAge());
         System.out.println("Email : " + client.getEmail());
     }
 

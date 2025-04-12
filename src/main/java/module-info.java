@@ -8,10 +8,15 @@ module com.example.ing3_projet_java {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.management;
+    requires java.desktop;
     requires eu.iamgio.animated;
 
+
     opens Vue to javafx.fxml;
+    opens Modele to javafx.base;
     exports Vue;
     exports Controller;
     opens Controller to javafx.fxml;
+    exports Vue.Calendar;
+    opens Vue.Calendar to javafx.fxml;
 }

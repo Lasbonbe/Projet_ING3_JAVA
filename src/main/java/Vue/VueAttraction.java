@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class VueAttraction {
     public void displayAttraction(Attraction attraction) {
-        System.out.println("Nom de l'attraction : " + attraction.getName());
+        System.out.println("\nNom de l'attraction : " + attraction.getName());
         System.out.println("Nombre de places : " + attraction.getCapacity());
         System.out.println("Prix : " + attraction.getPrice());
         System.out.println("Durée d'un tour : " + attraction.getDuration());

@@ -1,17 +1,15 @@
 package DAO;
 
-import Modele.*;
-
+import Modele.Client;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AttractionDao implements AttractionInterface {
-
+public class ClientDAO implements ClientInterface {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
-    public ArrayList<Attraction> getAllAttractions() {
-        ArrayList<Attraction> listAttractions = new ArrayList<>();
+    public ArrayList<Client> getAllClient() {
+        ArrayList<Client> listClients = new ArrayList<>();
         Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
@@ -19,21 +17,23 @@ public class AttractionDao implements AttractionInterface {
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.createStatement();
-            resultSet = preparedStatement.executeQuery("SELECT * FROM Attraction");
+            resultSet = preparedStatement.executeQuery("SELECT * FROM Client");
 
             while (resultSet.next()) {
-                int attractionID = resultSet.getInt("ID");
-                String attractionName = resultSet.getString("nom");
-                int attractionCapacity = resultSet.getInt("max_capacity");
-                int attractionPrice = resultSet.getInt("base_price");
-                int attractionDuration = resultSet.getInt("duration");
+                int id = resultSet.getInt("ID");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                int age = resultSet.getInt("age");
 
-                Attraction attraction = new Attraction(attractionID, attractionName, attractionCapacity, attractionPrice, attractionDuration);
-                listAttractions.add(attraction);
+                Client client = new Client(id, nom, prenom, age, email, password);
+
+                listClients.add(client);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Création de la liste d'attractions impossible");
+            System.out.println("Création de la liste de clients impossible");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -43,28 +43,50 @@ public class AttractionDao implements AttractionInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return listAttractions;
+        return listClients;
     }
 
     @Override
-    public void addAttraction(Attraction attraction) {
-
+    public void addClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, max_capacity, base_price, duration) values(?,?,?,?,?)");
-            preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.setString(2, attraction.getName());
-            preparedStatement.setInt(3, attraction.getCapacity());
-            preparedStatement.setDouble(4, attraction.getPrice());
-            preparedStatement.setInt(5, attraction.getDuration());
+            preparedStatement = connection.prepareStatement("INSERT INTO Client(nom, prenom, email, password, age) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setString(3, client.getEmail());
+            preparedStatement.setString(4, client.getPassword());
+            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ajout du Client impossible");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
+
+    @Override
+    public void deleteClient(Client client) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM Client where ID = ?");
+            preparedStatement.setInt(1, client.getUserID());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Ajout du Attraction impossible");
+            System.out.println("Suppression de Client impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -76,57 +98,34 @@ public class AttractionDao implements AttractionInterface {
     }
 
     @Override
-    public void deleteAttraction(Attraction attraction) {
-        Connection connection;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE from Attraction where ID = ?");
-            preparedStatement.setInt(1, attraction.getAttractionID());
-            preparedStatement.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Suppression de Attraction impossible");
-        } finally {
-            try {
-                if (preparedStatement != null) preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("Erreur de fermeture des ressources");
-            }
-        }
-    }
-
-    @Override
-    public Attraction findAttraction(int attractionID) {
-        Attraction attractionFound = null;
+    public Client findClient(int userID) {
+        Client clientFound = null;
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Attraction where ID = ?");
-            preparedStatement.setInt(1, attractionID);
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client where ID = ?");
+            preparedStatement.setInt(1, userID);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
-                String attractionName = resultSet.getString("nom");
-                int attractionCapacity = resultSet.getInt("max_capacity");
-                int attractionPrice = resultSet.getInt("base_price");
-                int attractionDuration = resultSet.getInt("duration");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                int age = resultSet.getInt("age");
 
-                if (attractionID == id) {
-                    attractionFound = new Attraction(id, attractionName, attractionCapacity, attractionPrice, attractionDuration);
+                if (userID == id) {
+                    clientFound = new Client(id, nom, prenom, age, email, password);
                     break;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Attraction introuvable");
+            System.out.println("Client introuvable");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -136,29 +135,28 @@ public class AttractionDao implements AttractionInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return attractionFound;
+        return clientFound;
     }
 
     @Override
-    public Attraction editAttraction(Attraction attraction) {
-
+    public Client editClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Attraction set nom=?, max_capacity=?, base_price=?, duration=? where ID=?");
-            preparedStatement.setString(1, attraction.getName());
-            preparedStatement.setInt(2, attraction.getCapacity());
-            preparedStatement.setInt(3, attraction.getPrice());
-            preparedStatement.setInt(4, attraction.getDuration());
-            preparedStatement.setInt(5, attraction.getAttractionID());
+            preparedStatement = connection.prepareStatement("UPDATE Client set nom=?, prenom=?, email=?, password=?, age=? where ID=?");
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setString(3, client.getEmail());
+            preparedStatement.setString(4, client.getPassword());
+            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.setInt(6, client.getUserID());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur de modification de Attraction");
+            System.out.println("Erreur de modification de Client");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -168,6 +166,6 @@ public class AttractionDao implements AttractionInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return attraction;
+        return client;
     }
 }

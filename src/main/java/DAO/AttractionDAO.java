@@ -1,17 +1,17 @@
 package DAO;
 
-import Modele.Administrator;
-import Modele.User;
+import Modele.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AdministratorDAO implements AdministratorInterface {
+public class AttractionDAO implements AttractionInterface {
+
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override
-    public ArrayList<Administrator> getAllAdministrators() {
-        ArrayList<Administrator> listAdmins = new ArrayList<>();
+    public ArrayList<Attraction> getAllAttractions() {
+        ArrayList<Attraction> listAttractions = new ArrayList<>();
         Connection connection;
         Statement preparedStatement = null;
         ResultSet resultSet = null;
@@ -19,22 +19,21 @@ public class AdministratorDAO implements AdministratorInterface {
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.createStatement();
-            resultSet = preparedStatement.executeQuery("SELECT * FROM Admin");
+            resultSet = preparedStatement.executeQuery("SELECT * FROM Attraction");
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String nom = resultSet.getString("nom");
-                String prenom = resultSet.getString("prenom");
-                String password = resultSet.getString("password");
-                String email = resultSet.getString("email");
+                int attractionID = resultSet.getInt("ID");
+                String attractionName = resultSet.getString("nom");
+                int attractionCapacity = resultSet.getInt("max_capacity");
+                int attractionPrice = resultSet.getInt("base_price");
+                int attractionDuration = resultSet.getInt("duration");
 
-                Administrator admin = new Administrator(id, nom, prenom, password, email);
-
-                listAdmins.add(admin);
+                Attraction attraction = new Attraction(attractionID, attractionName, attractionCapacity, attractionPrice, attractionDuration);
+                listAttractions.add(attraction);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Création de la liste d'administrateurs impossible");
+            System.out.println("Création de la liste d'attractions impossible");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -44,26 +43,28 @@ public class AdministratorDAO implements AdministratorInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return listAdmins;
+        return listAttractions;
     }
 
     @Override
-    public void addAdmin(Administrator admin) {
+    public void addAttraction(Attraction attraction) {
+
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("insert into Admin(nom, prenom, email, password) values(?,?,?,?)");
-            preparedStatement.setString(1, admin.getLastName());
-            preparedStatement.setString(2, admin.getFirstName());
-            preparedStatement.setString(3, admin.getEmail());
-            preparedStatement.setString(4, admin.getPassword());
+            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, max_capacity, base_price, duration) values(?,?,?,?,?)");
+            preparedStatement.setInt(1, attraction.getAttractionID());
+            preparedStatement.setString(2, attraction.getName());
+            preparedStatement.setInt(3, attraction.getCapacity());
+            preparedStatement.setDouble(4, attraction.getPrice());
+            preparedStatement.setInt(5, attraction.getDuration());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Ajout d'administrateur impossible");
+            System.out.println("Ajout du Attraction impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -75,19 +76,19 @@ public class AdministratorDAO implements AdministratorInterface {
     }
 
     @Override
-    public void deleteAdmin(Administrator admin) {
+    public void deleteAttraction(Attraction attraction) {
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("delete from Admin where ID = ?");
-            preparedStatement.setInt(1, admin.getUserID());
-            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("DELETE from Attraction where ID = ?");
+            preparedStatement.setInt(1, attraction.getAttractionID());
+            preparedStatement.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Suppression d'administrateur impossible");
+            System.out.println("Suppression de Attraction impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -99,34 +100,33 @@ public class AdministratorDAO implements AdministratorInterface {
     }
 
     @Override
-    public Administrator findAdmin(int adminID) {
-        Administrator adminFound = null;
+    public Attraction findAttraction(int attractionID) {
+        Attraction attractionFound = null;
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Admin where ID = ?");
-            preparedStatement.setInt(1, adminID);
+            preparedStatement = connection.prepareStatement("SELECT * FROM Attraction where ID = ?");
+            preparedStatement.setInt(1, attractionID);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
-                String nom = resultSet.getString("nom");
-                String prenom = resultSet.getString("prenom");
-                String password = resultSet.getString("password");
-                String email = resultSet.getString("email");
+                String attractionName = resultSet.getString("nom");
+                int attractionCapacity = resultSet.getInt("max_capacity");
+                int attractionPrice = resultSet.getInt("base_price");
+                int attractionDuration = resultSet.getInt("duration");
 
-                if (adminID == id) {
-                    adminFound = new Administrator(id, nom, prenom, password, email);
+                if (attractionID == id) {
+                    attractionFound = new Attraction(id, attractionName, attractionCapacity, attractionPrice, attractionDuration);
                     break;
                 }
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Administrateur introuvable");
+            System.out.println("Attraction introuvable");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -136,27 +136,29 @@ public class AdministratorDAO implements AdministratorInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return adminFound;
+        return attractionFound;
     }
 
     @Override
-    public Administrator editAdmin(Administrator admin) {
+    public Attraction editAttraction(Attraction attraction) {
+
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("update Admin set nom=?, prenom=?, email=?, password=? where ID=?");
-            preparedStatement.setString(1, admin.getLastName());
-            preparedStatement.setString(2, admin.getFirstName());
-            preparedStatement.setString(3, admin.getEmail());
-            preparedStatement.setString(4, admin.getPassword());
-            preparedStatement.setInt(5, admin.getUserID());
+            preparedStatement = connection.prepareStatement("UPDATE Attraction set nom=?, max_capacity=?, base_price=?, duration=? where ID=?");
+            preparedStatement.setString(1, attraction.getName());
+            preparedStatement.setInt(2, attraction.getCapacity());
+            preparedStatement.setInt(3, attraction.getPrice());
+            preparedStatement.setInt(4, attraction.getDuration());
+            preparedStatement.setInt(5, attraction.getAttractionID());
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur de modification de Administrateur");
+            System.out.println("Erreur de modification de Attraction");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -166,6 +168,6 @@ public class AdministratorDAO implements AdministratorInterface {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return admin;
+        return attraction;
     }
 }

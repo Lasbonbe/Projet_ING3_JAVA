@@ -54,7 +54,7 @@ public class AccesSQLDatabase {
     }
 
     public boolean LoginSuccess(String email, String password) {
-        String sql = "SELECT * FROM User WHERE email = ? AND password = ?";
+        String sql = "SELECT * FROM Client WHERE email = ? AND password = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setString(1, email);
             statement.setString(2, password);

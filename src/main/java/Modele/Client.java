@@ -1,11 +1,21 @@
 package Modele;
 
 public class Client extends User {
-    private int clientID;
+    private String email;
+    private String password;
+    private int age;
 
-    public Client(int userID, String lastName, String firstName, String email, String password, int age, int clientID) {
-        super(userID,lastName, firstName, email, password, age);
-        this.clientID = clientID;
+    public Client(int userID, String lastName, String firstName, int age, String email, String password) {
+        super(userID, lastName, firstName);
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String determinePersonType(){
+        if (age<12) { return "Mini Resa"; }
+        else if (age<60) { return "Maxi Resa"; }
+        else return "Senior Resa";
     }
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
@@ -16,39 +26,22 @@ public class Client extends User {
     //░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝░░░╚═╝░░░
 
     @Override
+    public int getUserID() { return super.userID; }
+
+    @Override
     public String getLastName() { return super.lastName; }
 
     public void setLastName(String lastName) { super.lastName = lastName; }
 
     @Override
-    public String getFirstName() {
-        return super.firstName;
-    }
+    public String getFirstName() { return super.firstName; }
 
+    public void setFirstName(String firstName) { super.firstName = firstName; }
 
-    @Override
-    public String getEmail() {
-        return super.email;
-    }
+    public int getAge() { return age; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getEmail() { return email; }
 
-    @Override
-    public String getPassword() {
-        return super.password;
-    }
+    public String getPassword() { return password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getId() {
-        return clientID;
-    }
-
-    public void setId(int clientID) {
-        this.clientID = clientID;
-    }
 }

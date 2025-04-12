@@ -1,11 +1,13 @@
 package Modele;
 
 public class Administrator extends User {
-    private int adminID;
+    private String email;
+    private String password;
 
-    public Administrator(String lastName, String firstName, String email, String password, int adminID) {
-        super(0,lastName, firstName, email, password, 0);
-        this.adminID = adminID;
+    public Administrator( int userID, String lastName, String firstName, String email, String password) {
+        super(userID,lastName, firstName);
+        this.email = email;
+        this.password = password;
     }
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
@@ -14,6 +16,10 @@ public class Administrator extends User {
     //██║░░╚██╗██╔══╝░░░░░██║░░░░██╔╝░░░╚═══██╗██╔══╝░░░░░██║░░░
     //╚██████╔╝███████╗░░░██║░░░██╔╝░░░██████╔╝███████╗░░░██║░░░
     //░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝░░░╚═╝░░░
+    @Override
+    public int getUserID() { return userID; }
+
+    public void setUserId(int userID) { this.userID = userID; }
 
     @Override
     public String getLastName() { return super.lastName; }
@@ -31,29 +37,21 @@ public class Administrator extends User {
         this.firstName = firstName;
     }
 
-    @Override
     public String getEmail() {
-        return super.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @Override
     public String getPassword() {
-        return super.password;
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public int getId() {
-        return adminID;
-    }
 
-    public void setId(int adminID) {
-        this.adminID = adminID;
-    }
 }

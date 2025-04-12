@@ -1,4 +1,4 @@
-package Vue;
+package Vue.Calendar;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -6,19 +6,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.controlsfx.control.spreadsheet.Grid;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.temporal.TemporalAdjusters;
 
 public class Calendar extends Application {
     private final String[] days = {"Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"};
@@ -36,11 +32,13 @@ public class Calendar extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        stage.setMaximized(true);
 
         this.currentYearMonth = YearMonth.now();
 
         HBox hBox = getHBox();
         BorderPane borderPane = new BorderPane();
+        borderPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         borderPane.setTop(hBox);
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         HBox calendarBox = new HBox(this.calendarGrid);
@@ -48,7 +46,7 @@ public class Calendar extends Application {
         calendarBox.setPadding(new Insets(30, 0, 0, 0)); /// Temporaire je pense
         borderPane.setCenter(calendarBox);
         updateCalendar();
-        Scene scene = new Scene(borderPane, 800, 600, Color.WHITE);
+        Scene scene = new Scene(borderPane, Color.WHITE);
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.show();
