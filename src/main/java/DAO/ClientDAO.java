@@ -25,9 +25,9 @@ public class ClientDAO implements ClientInterface {
                 String prenom = resultSet.getString("prenom");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                int age = resultSet.getInt("age");
+                Date birthDate = resultSet.getDate("birthDate");
 
-                Client client = new Client(id, nom, prenom, age, email, password);
+                Client client = new Client(id, nom, prenom, birthDate, email, password);
 
                 listClients.add(client);
             }
@@ -53,12 +53,12 @@ public class ClientDAO implements ClientInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Client(nom, prenom, email, password, age) VALUES (?,?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Client(nom, prenom, email, password, birthdate) VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, client.getLastName());
             preparedStatement.setString(2, client.getFirstName());
             preparedStatement.setString(3, client.getEmail());
             preparedStatement.setString(4, client.getPassword());
-            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.setDate(5, client.getBirthDate());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,10 +116,10 @@ public class ClientDAO implements ClientInterface {
                 String prenom = resultSet.getString("prenom");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                int age = resultSet.getInt("age");
+                Date birthDate = resultSet.getDate("birthDate");
 
                 if (userID == id) {
-                    clientFound = new Client(id, nom, prenom, age, email, password);
+                    clientFound = new Client(id, nom, prenom, birthDate, email, password);
                     break;
                 }
             }
@@ -146,12 +146,12 @@ public class ClientDAO implements ClientInterface {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Client set nom=?, prenom=?, email=?, password=?, age=? where ID=?");
+            preparedStatement = connection.prepareStatement("UPDATE Client set nom=?, prenom=?, email=?, password=?, birthDate=? where ID=?");
             preparedStatement.setString(1, client.getLastName());
             preparedStatement.setString(2, client.getFirstName());
             preparedStatement.setString(3, client.getEmail());
             preparedStatement.setString(4, client.getPassword());
-            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.setDate(5, client.getBirthDate());
             preparedStatement.setInt(6, client.getUserID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
