@@ -10,20 +10,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.HBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.LoginController" stylesheets="@css/loginstyle.css">
-    <ImageView fx:id="img">
-    </ImageView>
+    <ImageView fx:id="img" />
 
     <VBox alignment="CENTER" spacing="20.0">
         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
+        <!-- Champs et bouton de connexion -->
         <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200"/>
         <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200"/>
         <Button text="Login" onAction="#onLoginButtonClick"/>
 
+        <!-- Boutons en bas -->
+        <HBox alignment="BOTTOM_CENTER" spacing="10">
+            <Button text="S'enregistrer" onAction="#onRegisterButtonClick" styleClass="discrete-button"/>
+            <Button text="Se connecter avec un code" onAction="#onCodeLoginButtonClick" styleClass="discrete-button"/>
+        </HBox>
     </VBox>
-
-
 </StackPane>

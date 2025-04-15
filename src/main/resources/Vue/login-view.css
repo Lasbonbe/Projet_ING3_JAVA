@@ -1,9 +1,0 @@
-.root {
-    -fx-background-image: url("/imgs/img.png");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-}
-
-.emailField, .passwordField {
-    -fx-pref-width: 200px;
-}

@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.AccesSQLDatabase;
 import Vue.MainApp;
+import Vue.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,15 +40,12 @@ public class LoginController {
 
         if (db.LoginSuccess(email, password)) {
             try {
-                // Chargement de la vue "home-view.fxml"
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
                 Parent homeView = loader.load();
 
-                // Configuration de la transition
                 homeView.translateXProperty().set(MainApp.rootPane.getWidth());
                 MainApp.rootPane.getChildren().add(homeView);
 
-                // Utilisation d'un interpolateur SPLINE pour une accélération/décélération plus forte
                 TranslateTransition slideOut = new TranslateTransition(Duration.millis(1500), MainApp.rootPane.getChildren().get(0));
                 slideOut.setToX(-1920); // Slide vers la gauche
                 slideOut.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Courbe personnalisée
@@ -72,6 +70,34 @@ public class LoginController {
             showAlert(AlertType.ERROR, "Échec de connexion", "Email ou mot de passe incorrect.");
         }
     }
+
+    @FXML
+    protected void onRegisterButtonClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/register-view.fxml"));
+            Parent registerView = loader.load();
+
+            Transition.slideTransition(MainApp.rootPane, registerView, 1000, "DOWN");
+
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
+    }
+
+    @FXML
+    protected void onCodeLoginButtonClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/code-view.fxml"));
+            Parent codeView = loader.load();
+
+            Transition.slideTransition(MainApp.rootPane, codeView, 1000, "DOWN");
+
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
+    }
+
+
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

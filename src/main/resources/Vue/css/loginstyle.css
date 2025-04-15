@@ -25,10 +25,20 @@
     -fx-font-family: "JetBrains Mono ExtraBold";
     -fx-background-color: transparent;
     -fx-border-color: white;
-    -fx-border-width: 4;
+    -fx-border-width: 2;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 16;
+    -fx-padding: 16 32 16 32;
+}
+
+.discrete-button {
+    /* black button white test */
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0;
+    -fx-text-fill: white;
     -fx-padding: 16 32 16 32;
 }
 
@@ -36,5 +46,11 @@
 .button:hover {
     -fx-background-color: #fdfdfd; /* Couleur de fond au survol */
     -fx-border-color: #232323; /* Couleur de bordure au survol */
+    -fx-text-fill: #000000; /* Couleur du texte au survol */
+}
+
+.discrete-button:hover {
+    -fx-background-color: transparent; /* Couleur de fond au survol */
+    -fx-border-color: transparent; /* Couleur de bordure au survol */
     -fx-text-fill: #000000; /* Couleur du texte au survol */
 }

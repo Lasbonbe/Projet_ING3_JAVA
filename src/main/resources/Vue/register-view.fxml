@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.DatePicker?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.RegisterController" stylesheets="@css/registerstyle.css" styleClass="body">
+    <ImageView fx:id="img">
+    </ImageView>
+
+    <VBox alignment="CENTER" spacing="20.0">
+        <TextField fx:id="prenomField" styleClass="custom-text-field" promptText="Prénom" prefWidth="200" maxWidth="200"/>
+        <TextField fx:id="nomField" styleClass="custom-text-field" promptText="Nom" prefWidth="200" maxWidth="200"/>
+        <DatePicker fx:id="ageField" styleClass="custom-text-field" promptText="Age" prefWidth="200" maxWidth="200"/>
+
+        <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200">
+            <tooltip>
+                <Tooltip text="Votre e-mail doit contenir un '@'"/>
+            </tooltip>
+        </TextField>
+        <Label fx:id="emailErrorLabel" visible="false"/>
+        <Label fx:id="emailValidLabel" visible="false"/>
+
+        <TextField fx:id="confirmEmailField" styleClass="custom-text-field" promptText="Confirm Email" prefWidth="200" maxWidth="200"/>
+        <Label fx:id="confirmEmailErrorLabel" visible="false"/>
+
+        <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200">
+            <tooltip>
+                <Tooltip text="Votre mot de passe doit comporter au moins 8 caractères et contenir un symbole"/>
+            </tooltip>
+        </PasswordField>
+        <Label fx:id="passwordErrorLabel" visible="false"/>
+        <Label fx:id="passwordValidLabel" visible="false"/>
+
+        <PasswordField fx:id="confirmPasswordField" styleClass="custom-text-field" promptText="Confirm Password" prefWidth="200" maxWidth="200"/>
+        <Label fx:id="confirmPasswordErrorLabel" visible="false"/>
+
+        <Button text="S'inscrire" onAction="#onRegisterClick"/>
+        <Label fx:id="successLabel" visible="false"/>
+        <Label fx:id="errorLabel" visible="false"/>
+    </VBox>
+
+
+</StackPane>
