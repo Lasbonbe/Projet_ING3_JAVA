@@ -19,10 +19,15 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
 
-        <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200"/>
-        <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200"/>
+        <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200"  focusTraversable="true"/>
+        <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200"  focusTraversable="true"/>
         <Button text="Login" onAction="#onLoginButtonClick"/>
 
+    </VBox>
+
+    <VBox alignment="BOTTOM_CENTER">
+        <Button text="S'enregistrer" onAction="#onRegisterButtonClick" styleClass="discrete-button"/>
+        <Button text="Se connecter avec un code" onAction="#onCodeLoginButtonClick" styleClass="discrete-button"/>
     </VBox>
 
 
