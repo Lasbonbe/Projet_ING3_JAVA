@@ -14,26 +14,21 @@ public class ButtonOnDay extends ButtonFreeCalendar {
         this.root = new StackPane();
         this.button = new Button(value);
 
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/Vue/font/Bungee-Regular.ttf"), 12);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        button.setStyle("-fx-background-color: transparent; -fx-min-width: 80px; -fx-min-height: 80px;-fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #051039; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
+        this.button.getStyleClass().add("button-on-day");
 
         Circle mouseEffect = new Circle(0, 0, 0);
-        mouseEffect.setFill(Color.web("#ebf1fa"));
-        mouseEffect.setOpacity(0.6);
+        mouseEffect.getStyleClass().add("button-mouse-effect");
         mouseEffect.setVisible(false);
         mouseEffect.setMouseTransparent(true);
 
         Circle buttonBackground = new Circle(40);
-        buttonBackground.setFill(Color.web("#cdd5e4"));
+        buttonBackground.getStyleClass().add("button-on-day-background");
 
         this.root.getChildren().add(buttonBackground);
         this.root.getChildren().add(mouseEffect);
         this.root.getChildren().add(button);
+
+        this.root.getStyleClass().add("calendar.css");
 
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 

@@ -27,11 +27,6 @@ public class Calendar extends Application {
 
     @Override
     public void start(Stage stage) {
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/Vue/font/Bungee-Regular.ttf"), 12);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         stage.setMaximized(true);
 
         this.currentYearMonth = YearMonth.now();
@@ -40,13 +35,18 @@ public class Calendar extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         borderPane.setTop(hBox);
-        borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        this.calendarGrid.getStyleClass().add("calendar-grid");
+
         HBox calendarBox = new HBox(this.calendarGrid);
-        calendarBox.setAlignment(Pos.CENTER);
-        calendarBox.setPadding(new Insets(30, 0, 0, 0)); /// Temporaire je pense
+        calendarBox.getStyleClass().add("calendar-box");
+
         borderPane.setCenter(calendarBox);
         updateCalendar();
-        Scene scene = new Scene(borderPane, Color.WHITE);
+
+        Scene scene = new Scene(borderPane);
+
+        scene.getStylesheets().add("calendar.css");
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.show();
@@ -70,16 +70,17 @@ public class Calendar extends Application {
         });
 
         StackPane monthZone = new StackPane();
+        monthZone.getStyleClass().add("month-zone");
+
         Rectangle monthBackground = new Rectangle(175, 75);
-        monthBackground.setArcHeight(20);
-        monthBackground.setArcWidth(20);
-        monthBackground.setFill(Color.WHITE);
-        this.monthLabel.setFont(Font.font("Bungee", 24));
+        monthBackground.getStyleClass().add("month-background");
+
+        this.monthLabel.getStyleClass().add("month-label");
         monthZone.getChildren().addAll(monthBackground, this.monthLabel);
 
 
         HBox hBox = new HBox(10, prevButton.getRoot(), monthZone, nextButton.getRoot());
-        hBox.setAlignment(Pos.CENTER);
+        hBox.getStyleClass().add("navigation-hbox");
         return hBox;
     }
 
@@ -91,17 +92,17 @@ public class Calendar extends Application {
 
         if (this.currentYearMonth.minusMonths(1).isBefore(YearMonth.from(this.today))) {
             this.prevButton.setDisable(true);
-            this.prevButton.getRoot().setStyle("-fx-text-fill: #a6a8af;");
         } else {
             this.prevButton.setDisable(false);
         }
 
         for (int i = 0; i < 7; i++) {
             Label label = new Label(this.days[i]);
-            label.setFont(Font.font("Bungee", 24));
+            label.getStyleClass().add("day-label");
             this.calendarGrid.add(label, i, 0);
             GridPane.setHalignment(label, HPos.CENTER);
         }
+
         LocalDate firstOfMonth = this.currentYearMonth.atDay(1);
         int startDay = firstOfMonth.getDayOfWeek().getValue() - 1;
         int day = 1;

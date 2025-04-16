@@ -17,30 +17,20 @@ public class ButtonNavigation {
         this.root = new StackPane();
         this.button = new Button(value);
 
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/Vue/font/Bungee-Regular.ttf"), 12);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        this.button.setStyle("-fx-background-color: transparent; -fx-min-width: 175px; -fx-min-height: 75px; -fx-border-radius: 20; -fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #051039; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
+        this.button.getStyleClass().add("button-navigation");
 
         Rectangle mouseEffect = new Rectangle();
-        mouseEffect.setFill(Color.web("#ebf1fa"));
-        mouseEffect.setArcHeight(20);
-        mouseEffect.setArcWidth(20);
-        mouseEffect.setOpacity(0.6);
+        mouseEffect.getStyleClass().add("button-navigation-mouse-effect");
         mouseEffect.setVisible(false);
         mouseEffect.setMouseTransparent(true);
 
         Rectangle buttonBackground = new Rectangle(175, 75);
-        buttonBackground.setArcWidth(20);
-        buttonBackground.setArcHeight(20);
-        buttonBackground.setFill(Color.WHITE);
+        buttonBackground.getStyleClass().add("button-navigation-background");
 
-        root.getChildren().add(buttonBackground);
-        root.getChildren().add(mouseEffect);
-        root.getChildren().add(this.button);
+        this.root.getStyleClass().add("calendar.css");
+        this.root.getChildren().add(buttonBackground);
+        this.root.getChildren().add(mouseEffect);
+        this.root.getChildren().add(this.button);
 
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 

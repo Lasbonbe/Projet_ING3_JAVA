@@ -1,0 +1,127 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+/* STYLE GENERAL DU CALENDRIER */
+
+.root {
+    -fx-background-color: BLACK;
+}
+
+.day-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: WHITE;
+}
+
+.calendar-grid {
+    -fx-padding: 10px;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.calendar-box {
+    -fx-alignment: center;
+    -fx-padding: 30 0 0 0;
+}
+
+.month-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-size: 24px;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: bold;
+}
+
+.month-zone {
+    -fx-alignment: center;
+}
+
+.navigation-hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+}
+
+/* STYLES BOUTONS DU CALENDRIER*/
+
+.button-free-calendar {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.button-background {
+    -fx-fill: BLACK;
+}
+
+.button-mouse-effect {
+    -fx-fill: #ebf1fa;
+    -fx-opacity: 0.6;
+}
+
+.button-on-day {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.button-on-day-background {
+    -fx-fill: #242424;
+}
+
+.button-mouse-effect {
+    -fx-fill: #ebf1fa;
+    -fx-opacity: 0.6;
+}
+
+.button-navigation {
+    -fx-background-color: transparent;
+    -fx-min-width: 175px;
+    -fx-min-height: 75px;
+    -fx-border-radius: 20;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.button-navigation-background {
+    -fx-arc-width: 20;
+    -fx-arc-height: 20;
+    -fx-fill: BLACK;
+}
+
+.button-navigation-mouse-effect {
+    -fx-fill: #ebf1fa;
+    -fx-arc-height: 20;
+    -fx-arc-width: 20;
+    -fx-opacity: 0.6;
+}
+
+.button-navigation:disabled {
+    -fx-text-fill: #a6a8af;
+}
+
+.button-impossible-day {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: #a6a8af;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}

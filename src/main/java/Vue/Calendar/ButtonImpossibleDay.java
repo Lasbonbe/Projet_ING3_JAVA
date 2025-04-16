@@ -12,19 +12,13 @@ public class ButtonImpossibleDay extends ButtonFreeCalendar {
         this.root = new StackPane();
         this.button = new Button(value);
 
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/Vue/font/Bungee-Regular.ttf"), 12);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        this.button.setStyle("-fx-background-color: transparent; -fx-min-width: 80px; -fx-min-height: 80px;-fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #a6a8af; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
-
+        this.button.getStyleClass().add("button-impossible-day");
         this.button.setOnAction(null);
 
         Circle buttonBackground = new Circle(40);
-        buttonBackground.setFill(Color.WHITE);
+        buttonBackground.getStyleClass().add("button-background");
 
+        this.root.getStyleClass().add("calendar.css");
         this.root.getChildren().add(buttonBackground);
         this.root.getChildren().add(this.button);
     }
