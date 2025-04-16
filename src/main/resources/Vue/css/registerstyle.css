@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "JetBrains Mono ExtraBold";
+    src: url("../../fonts/JetBrainsMono-ExtraBold.ttf");
+}
+
+.body {
+    -fx-background-color: black;
+}
+
+.custom-text-field {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-background-color: black;
+    -fx-font-size: 17px;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #aaaaaa;
+    -fx-border-color: white;
+    -fx-border-width: 4px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.tooltip.no_margin {
+    -fx-padding: 0;
+}
+
+.button {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 16 32 16 32;
+}
+
+.button:hover {
+    -fx-background-color: #fdfdfd;
+    -fx-border-color: #232323;
+    -fx-text-fill: #000000;
+    }
+
+.error-label {
+    -fx-text-fill: #D8000C;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+    -fx-background-color: #FFBABA;
+    -fx-background-radius: 5;
+}
+
+.success-label {
+    -fx-text-fill: #4F8A10;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+    -fx-background-color: #DFF2BF;
+    -fx-background-radius: 5;
+}
+
+.text-field-error {
+    -fx-border-color: #D8000C;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}
+
+.text-field-success {
+    -fx-border-color: #4F8A10;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}

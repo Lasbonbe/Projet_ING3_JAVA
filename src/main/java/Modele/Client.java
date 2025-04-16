@@ -1,22 +1,26 @@
 package Modele;
 
+import java.sql.Date;
+
 public class Client extends User {
     private String email;
     private String password;
-    private int age;
+    private Date birthdate;
 
-    public Client(int userID, String lastName, String firstName, int age, String email, String password) {
+    public Client(int userID, String lastName, String firstName, Date birthdate, String email, String password) {
         super(userID, lastName, firstName);
-        this.age = age;
+        this.birthdate = birthdate;
         this.email = email;
         this.password = password;
     }
 
+    /*
     public String determinePersonType(){
-        if (age<12) { return "Mini Resa"; }
-        else if (age<60) { return "Maxi Resa"; }
+        if (birthdate<12) { return "Mini Resa"; }
+        else if (birthdate<60) { return "Maxi Resa"; }
         else return "Senior Resa";
     }
+    */
 
     //░██████╗░███████╗████████╗░░░░██╗░██████╗███████╗████████╗
     //██╔════╝░██╔════╝╚══██╔══╝░░░██╔╝██╔════╝██╔════╝╚══██╔══╝
@@ -38,7 +42,7 @@ public class Client extends User {
 
     public void setFirstName(String firstName) { super.firstName = firstName; }
 
-    public int getAge() { return age; }
+    public Date getBirthDate() { return birthdate; }
 
     public String getEmail() { return email; }
 

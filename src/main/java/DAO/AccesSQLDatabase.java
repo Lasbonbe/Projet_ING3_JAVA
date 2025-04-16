@@ -1,9 +1,6 @@
 package DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AccesSQLDatabase {
     private Connection sql_connexion = null;
@@ -22,6 +19,25 @@ public class AccesSQLDatabase {
         }
         return sql_connexion;
     }
+
+    public boolean registerClient(String prenom, String nom, Date b, String email, String password) {
+        String sql = "INSERT INTO Client (prenom, nom, birthdate, email, password) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+            stmt.setString(1, prenom);
+            stmt.setString(2, nom);
+            stmt.setDate(3, b);
+            stmt.setString(4, email);
+            stmt.setString(5, password);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("An error occurred. Could not register the client");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
     public void dropTable(String tableName) {
         String sql = "DROP TABLE IF EXISTS " + tableName;
