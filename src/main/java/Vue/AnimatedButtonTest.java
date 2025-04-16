@@ -28,7 +28,7 @@ public class AnimatedButtonTest extends Application {
     public void start(Stage primaryStage) {
         // Setup scene
         Pane root = new Pane();
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = new Scene(root, 800, 800);
         scene.getStylesheets().add("button.css");
 
         // Create button

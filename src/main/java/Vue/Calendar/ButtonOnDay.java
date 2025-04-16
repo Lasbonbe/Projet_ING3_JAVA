@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class ButtonOnDay extends ButtonFreeCalendar {
@@ -16,13 +17,13 @@ public class ButtonOnDay extends ButtonFreeCalendar {
 
         this.button.getStyleClass().add("button-on-day");
 
-        Circle mouseEffect = new Circle(0, 0, 0);
-        mouseEffect.getStyleClass().add("button-mouse-effect");
-        mouseEffect.setVisible(false);
-        mouseEffect.setMouseTransparent(true);
+        this.mouseEffect = new Rectangle(80, 80);
+        this.mouseEffect.getStyleClass().add("button-mouse-effect");
+        this.mouseEffect.setVisible(false);
+        this.mouseEffect.setMouseTransparent(true);
 
-        Circle buttonBackground = new Circle(40);
-        buttonBackground.getStyleClass().add("button-on-day-background");
+        this.buttonBackground = new Rectangle(80, 80);
+        this.buttonBackground.getStyleClass().add("button-on-day-background");
 
         this.root.getChildren().add(buttonBackground);
         this.root.getChildren().add(mouseEffect);
@@ -30,12 +31,16 @@ public class ButtonOnDay extends ButtonFreeCalendar {
 
         this.root.getStyleClass().add("calendar.css");
 
+        preparedAnimations();
+
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mouseEffect.setRadius(40);
                 mouseEffect.setVisible(true);
+
+                animationOut.stop();
+                animationIn.playFromStart();
             }
         });
 
@@ -43,6 +48,9 @@ public class ButtonOnDay extends ButtonFreeCalendar {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 mouseEffect.setVisible(false);
+
+                animationIn.stop();
+                animationOut.playFromStart();
             }
         });
     }

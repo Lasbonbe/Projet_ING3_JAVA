@@ -55,15 +55,18 @@
     -fx-text-fill: WHITE;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .button-background {
     -fx-fill: BLACK;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 2;
 }
 
 .button-mouse-effect {
-    -fx-fill: #ebf1fa;
-    -fx-opacity: 0.6;
+    -fx-fill: WHITE;
+    -fx-opacity: 0.5;
 }
 
 .button-on-day {
@@ -75,40 +78,41 @@
     -fx-text-fill: WHITE;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .button-on-day-background {
-    -fx-fill: #242424;
-}
-
-.button-mouse-effect {
-    -fx-fill: #ebf1fa;
-    -fx-opacity: 0.6;
+    -fx-fill: BLACK;
+    -fx-stroke: #9c2424;
+    -fx-stroke-width: 2;
 }
 
 .button-navigation {
     -fx-background-color: transparent;
     -fx-min-width: 175px;
     -fx-min-height: 75px;
-    -fx-border-radius: 20;
+    -fx-border-radius: 10;
     -fx-background-radius: 0;
     -fx-font-family: 'JetBrains Mono ExtraBold';
     -fx-text-fill: WHITE;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .button-navigation-background {
-    -fx-arc-width: 20;
-    -fx-arc-height: 20;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
     -fx-fill: BLACK;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 2;
 }
 
 .button-navigation-mouse-effect {
-    -fx-fill: #ebf1fa;
+    -fx-fill: WHITE;
     -fx-arc-height: 20;
     -fx-arc-width: 20;
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.5;
 }
 
 .button-navigation:disabled {
@@ -124,4 +128,10 @@
     -fx-text-fill: #a6a8af;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+}
+
+.button-impossible-day-background {
+    -fx-fill: BLACK;
+    -fx-stroke: #a6a8af;
+    -fx-stroke-width: 2;
 }
