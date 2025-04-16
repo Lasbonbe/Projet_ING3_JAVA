@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class ButtonImpossibleDay extends ButtonFreeCalendar {
@@ -15,8 +16,8 @@ public class ButtonImpossibleDay extends ButtonFreeCalendar {
         this.button.getStyleClass().add("button-impossible-day");
         this.button.setOnAction(null);
 
-        Circle buttonBackground = new Circle(40);
-        buttonBackground.getStyleClass().add("button-background");
+        Rectangle buttonBackground = new Rectangle(80, 80);
+        buttonBackground.getStyleClass().add("button-impossible-day-background");
 
         this.root.getStyleClass().add("calendar.css");
         this.root.getChildren().add(buttonBackground);

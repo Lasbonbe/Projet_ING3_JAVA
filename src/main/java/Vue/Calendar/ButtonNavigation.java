@@ -1,5 +1,8 @@
 package Vue.Calendar;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -8,10 +11,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 public class ButtonNavigation {
     private Button button;
     private StackPane root;
+    private Timeline animationIn;
+    private Timeline animationOut;
+    private Rectangle buttonBackground;
+    private Rectangle mouseEffect;
 
     public ButtonNavigation(String value) {
         this.root = new StackPane();
@@ -19,13 +27,15 @@ public class ButtonNavigation {
 
         this.button.getStyleClass().add("button-navigation");
 
-        Rectangle mouseEffect = new Rectangle();
-        mouseEffect.getStyleClass().add("button-navigation-mouse-effect");
-        mouseEffect.setVisible(false);
-        mouseEffect.setMouseTransparent(true);
+        this.mouseEffect = new Rectangle();
+        this.mouseEffect.getStyleClass().add("button-navigation-mouse-effect");
+        this.mouseEffect.setVisible(false);
+        this.mouseEffect.setMouseTransparent(true);
 
-        Rectangle buttonBackground = new Rectangle(175, 75);
-        buttonBackground.getStyleClass().add("button-navigation-background");
+        this.buttonBackground = new Rectangle(175, 75);
+        this.buttonBackground.getStyleClass().add("button-navigation-background");
+
+        preparedAnimations();
 
         this.root.getStyleClass().add("calendar.css");
         this.root.getChildren().add(buttonBackground);
@@ -39,6 +49,9 @@ public class ButtonNavigation {
                 mouseEffect.setHeight(75);
                 mouseEffect.setWidth(175);
                 mouseEffect.setVisible(true);
+
+                animationOut.stop();
+                animationIn.playFromStart();
             }
         });
 
@@ -46,8 +59,35 @@ public class ButtonNavigation {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 mouseEffect.setVisible(false);
+
+                animationIn.stop();
+                animationOut.playFromStart();
             }
         });
+    }
+
+    private void preparedAnimations() {
+        this.animationIn = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 10),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 10)
+                        ),
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 20),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 20)
+                )
+        );
+
+        this.animationOut = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 20),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 20)
+                ),
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(this.buttonBackground.arcWidthProperty(),10),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(),10)
+                        )
+        );
     }
 
     public void setOnAction(EventHandler<ActionEvent> handler) {
