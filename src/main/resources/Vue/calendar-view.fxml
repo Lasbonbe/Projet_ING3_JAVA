@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.CalendarController" stylesheets="@css/calendar.css">
+    <ImageView fx:id="img"/>
+
+    <BorderPane>
+        <top>
+            <HBox fx:id="navigationHBox" spacing="10" styleClass="navigation-hbox" BorderPane.alignment="CENTER">
+                <children>
+                    <StackPane fx:id="monthZone" styleClass="month-zone">
+                        <children>
+                            <Rectangle fx:id="monthBackground" width="175" height="75" styleClass="month-background"/>
+                            <Label fx:id="monthLabel" styleClass="month-label"/>
+                        </children>
+                    </StackPane>
+                </children>
+            </HBox>
+        </top>
+        <center>
+            <HBox fx:id="calendarBox" styleClass="calendar-box">
+                <GridPane fx:id="calendarGrid" styleClass="calendar-grid"/>
+            </HBox>
+        </center>
+    </BorderPane>
+</StackPane>

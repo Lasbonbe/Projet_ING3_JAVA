@@ -1,90 +1,66 @@
-package Vue.Calendar;
+package Controller;
 
-import javafx.application.Application;
+import Vue.Calendar.*;
+import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-public class Calendar extends Application {
+public class CalendarController {
+    @FXML public ImageView img;
+    //@FXML private Button prevButton;
+    //@FXML private Button nextButton;
+    @FXML private Label monthLabel;
+    @FXML private GridPane calendarGrid;
+    @FXML private HBox navigationHBox;
+
     private final String[] days = {"Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"};
     private YearMonth currentYearMonth;
     private final LocalDate today = LocalDate.now();
-    private final GridPane calendarGrid = new GridPane();
-    private final Label monthLabel = new Label();
     private ButtonNavigation prevButton;
     private ButtonNavigation nextButton;
 
-    @Override
-    public void start(Stage stage) {
-        stage.setMaximized(true);
+    @FXML public void initialize() {
+        // Chargement de l'image pour l'ImageView
+        Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
+        img.setImage(image);
 
-        this.currentYearMonth = YearMonth.now();
+        prevButton = new ButtonNavigation("Précédent");
+        nextButton = new ButtonNavigation("Suivant");
 
-        HBox hBox = getHBox();
-        BorderPane borderPane = new BorderPane();
-        borderPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        borderPane.setTop(hBox);
+        navigationHBox.getChildren().add(prevButton.getRoot());
+        navigationHBox.getChildren().add(nextButton.getRoot());
 
-        this.calendarGrid.getStyleClass().add("calendar-grid");
+        prevButton.setOnAction(e -> onPrevButtonClick());
+        nextButton.setOnAction(e -> onNextButtonClick());
 
-        HBox calendarBox = new HBox(this.calendarGrid);
-        calendarBox.getStyleClass().add("calendar-box");
-
-        borderPane.setCenter(calendarBox);
+        currentYearMonth = YearMonth.now();
         updateCalendar();
-
-        Scene scene = new Scene(borderPane);
-
-        scene.getStylesheets().add("calendar.css");
-        stage.setTitle("Calendar");
-        stage.setScene(scene);
-        stage.show();
     }
 
-    private HBox getHBox() {
-        this.prevButton = new ButtonNavigation("Précédent");
-        this.nextButton = new ButtonNavigation("Suivant");
-
-        prevButton.setOnAction(e -> {
-            YearMonth previous = this.currentYearMonth.minusMonths(1);
-            if (!previous.isBefore(YearMonth.from(this.today))) {
-                this.currentYearMonth = previous;
-                updateCalendar();
-            }
-        });
-
-        nextButton.setOnAction(e -> {
-            this.currentYearMonth = this.currentYearMonth.plusMonths(1);
+    private void onPrevButtonClick() {
+        YearMonth previous = currentYearMonth.minusMonths(1);
+        if (!previous.isBefore(YearMonth.from(this.today))) {
+            currentYearMonth = previous;
             updateCalendar();
-        });
-
-        StackPane monthZone = new StackPane();
-        monthZone.getStyleClass().add("month-zone");
-
-        Rectangle monthBackground = new Rectangle(175, 75);
-        monthBackground.getStyleClass().add("month-background");
-
-        this.monthLabel.getStyleClass().add("month-label");
-        monthZone.getChildren().addAll(monthBackground, this.monthLabel);
-
-
-        HBox hBox = new HBox(10, prevButton.getRoot(), monthZone, nextButton.getRoot());
-        hBox.getStyleClass().add("navigation-hbox");
-        return hBox;
+        }
     }
 
-    private void updateCalendar() {
+    private void onNextButtonClick() {
+        currentYearMonth = currentYearMonth.plusMonths(1);
+        updateCalendar();
+    }
+
+
+    public void updateCalendar() {
         this.calendarGrid.getChildren().clear();
         this.monthLabel.setText(this.currentYearMonth.getMonth() + " " + this.currentYearMonth.getYear());
         GridPane.setHalignment(this.monthLabel, HPos.CENTER);
@@ -137,7 +113,8 @@ public class Calendar extends Application {
 
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void setupCalendarDays() {
+
     }
+
 }

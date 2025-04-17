@@ -4,10 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 
 public class ButtonOnDay extends ButtonFreeCalendar {
     public ButtonOnDay(String value) {
@@ -29,7 +26,7 @@ public class ButtonOnDay extends ButtonFreeCalendar {
         this.root.getChildren().add(mouseEffect);
         this.root.getChildren().add(button);
 
-        this.root.getStyleClass().add("calendar.css");
+        this.root.getStyleClass().add("Vue/css/calendar.css");
 
         preparedAnimations();
 

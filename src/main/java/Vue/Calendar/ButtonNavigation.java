@@ -8,9 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class ButtonNavigation {
@@ -37,7 +35,7 @@ public class ButtonNavigation {
 
         preparedAnimations();
 
-        this.root.getStyleClass().add("calendar.css");
+        this.root.getStyleClass().add("Vue/css/calendar.css");
         this.root.getChildren().add(buttonBackground);
         this.root.getChildren().add(mouseEffect);
         this.root.getChildren().add(this.button);
