@@ -114,7 +114,7 @@ public class Calendar extends Application {
             if (this.currentYearMonth.equals(YearMonth.from(this.today)) && day < this.today.getDayOfMonth()) {
                 dayButton = new ButtonImpossibleDay(String.valueOf(day));
             } else {
-                if(day == this.today.getDayOfMonth()) {
+                if(this.currentYearMonth.equals(YearMonth.from(this.today)) && day == this.today.getDayOfMonth()) {
                     dayButton = new ButtonOnDay(String.valueOf(day));
                 } else {
                     dayButton = new ButtonFreeCalendar(String.valueOf(day));
