@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+.root {
+    -fx-background-color: BLACK;
+}
+
+.search-area-vbox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+}
+
+.typing-area-hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+}
+
+.typing-area-rectangle {
+    -fx-fill: BLACK;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 4;
+}
+
+.typing-area-text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+}
+
+.filter-area-hbox {
+    -fx-alignment: center;
+    -fx-spacing: 40;
+    -fx-padding: 10 0 0 0;
+}
+
+.checkbox-label {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 0 10;
+}
+
+.combo-box-price {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-pref-width: 250;
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+}
+
+.combo-box-duration {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-pref-width: 250;
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 14px;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+}
