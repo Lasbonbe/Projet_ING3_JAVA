@@ -36,6 +36,7 @@ public class ButtonNavigation {
         preparedAnimations();
 
         this.root.getStyleClass().add("Vue/css/calendar.css");
+        this.root.getStyleClass().add("grid-cell");
         this.root.getChildren().add(buttonBackground);
         this.root.getChildren().add(mouseEffect);
         this.root.getChildren().add(this.button);
