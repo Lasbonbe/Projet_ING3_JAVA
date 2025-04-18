@@ -27,7 +27,7 @@ public class SearchController {
     private final AttractionDAO attractionDAO = new AttractionDAO();
     private final VueAttraction vueAttraction = new VueAttraction();
 
-    @FXML public void initialiaze() {
+    @FXML public void initialize() {
         // Chargement de l'image pour l'ImageView
         Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
         img.setImage(image);
@@ -39,6 +39,8 @@ public class SearchController {
         searchField.setOnAction(e -> {
             performSearch();
         });
+
+
 
         checkBoxAvailable.selectedProperty().addListener((obs, oldVal, newVal) -> {
             performSearch();

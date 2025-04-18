@@ -30,7 +30,7 @@
                         <Label text="Places disponibles" styleClass="checkbox-label"/>
                     </HBox>
 
-                    <ComboBox fx:id="comboBoxPrice" styleClass="combo-box-price">
+                    <ComboBox fx:id="comboBoxPrice" value="Choisir un prix" styleClass="combo-box-price">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Choisir un prix"/>
@@ -41,7 +41,7 @@
                         </items>
                     </ComboBox>
 
-                    <ComboBox fx:id="comboBoxDuration" styleClass="combo-box-duration">
+                    <ComboBox fx:id="comboBoxDuration" value="Choisir une durée de manège" styleClass="combo-box-duration">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Choisir une durée de manège"/>
