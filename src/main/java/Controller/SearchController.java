@@ -23,6 +23,7 @@ public class SearchController {
     @FXML private ComboBox<String> comboBoxDuration;
     @FXML private Button searchButton;
     @FXML private VBox searchArea;
+    ArrayList<Attraction> searchResults = null;
 
     private final AttractionDAO attractionDAO = new AttractionDAO();
     private final VueAttraction vueAttraction = new VueAttraction();
@@ -34,37 +35,30 @@ public class SearchController {
         setupListeners();
     }
 
-
     public void setupListeners () {
         searchField.setOnAction(e -> {
             performSearch();
         });
 
-
-
-        checkBoxAvailable.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            performSearch();
-        });
-
-        comboBoxPrice.setOnAction(e -> {
-            performSearch();
-        });
-
-        comboBoxDuration.setOnAction(e -> {
+        searchButton.setOnAction(e -> {
             performSearch();
         });
     }
 
     private void performSearch () {
-        String searchText = searchField.getText();
-        boolean placesDispo = checkBoxAvailable.isSelected();
-        String prix = comboBoxPrice.getValue();
-        String duree = comboBoxDuration.getValue();
+        String searchPrompt = searchField.getText();
+        boolean placesAvailable = checkBoxAvailable.isSelected();
+        String filterPrice = comboBoxPrice.getValue();
+        String filterDuration = comboBoxDuration.getValue();
 
-        ArrayList<Attraction> resultats = attractionDAO.searchAttractions(searchText, placesDispo, prix, duree);
-        vueAttraction.displayAttractionList(resultats);
+        searchResults = attractionDAO.searchAttractions(searchPrompt, placesAvailable, filterPrice, filterDuration);
+        if ( searchResults.isEmpty()){
+            System.out.println("Aucune attraction correspond à votre recherche");
+        }
+        else {
+            vueAttraction.displayAttractionList(searchResults);
+        }
     }
-
 
 
 }
