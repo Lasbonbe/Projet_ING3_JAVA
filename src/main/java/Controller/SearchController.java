@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -20,6 +21,7 @@ public class SearchController {
     @FXML private CheckBox checkBoxAvailable;
     @FXML private ComboBox<String> comboBoxPrice;
     @FXML private ComboBox<String> comboBoxDuration;
+    @FXML private Button searchButton;
     @FXML private VBox searchArea;
 
     private final AttractionDAO attractionDAO = new AttractionDAO();

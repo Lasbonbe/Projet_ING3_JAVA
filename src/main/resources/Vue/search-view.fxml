@@ -20,6 +20,7 @@
                         <Rectangle width="400" height="50" styleClass="typing-area-rectangle"/>
                         <TextField fx:id="searchField" promptText="Rechercher une attraction" styleClass="typing-area-text-field"/>
                     </StackPane>
+                    <Button fx:id="searchButton" text="Rechercher"  styleClass="search-button"/>
                 </HBox>
 
                 <HBox styleClass="filter-area-hbox">
