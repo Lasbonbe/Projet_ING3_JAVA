@@ -1,6 +1,5 @@
 package DAO;
 
-import Modele.Attraction;
 import Modele.Client;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 import java.sql.Date;
 
 public class ClientDAO {
-    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
+    private static AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     public ArrayList<Client> getAllClient() {
         ArrayList<Client> listClients = new ArrayList<>();
@@ -137,6 +136,87 @@ public class ClientDAO {
         return clientFound;
     }
 
+    public static Client findClientByID(int userID) {
+        Client clientFound = null;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client where ID = ?");
+            preparedStatement.setInt(1, userID);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                Date birthDate = resultSet.getDate("birthDate");
+
+                if (userID == id) {
+                    clientFound = new Client(id, nom, prenom, birthDate, email, password);
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Client introuvable");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return clientFound;
+    }
+
+    public static Client findClientByEmail(String email) {
+        Client clientFound = null;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client where email = ?");
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                Date birthDate = resultSet.getDate("birthDate");
+
+                if (email.equals(resultSet.getString("email"))) {
+                    clientFound = new Client(id, nom, prenom, birthDate, email, password);
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Client introuvable");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return clientFound;
+    }
+
+
+
     public Client editClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -168,9 +248,6 @@ public class ClientDAO {
     }
 
 
-
-
-    @Override
     public ArrayList<Client> searchClient (String searchClients, String clientsAge, String clientsOrdersTime) {
         ArrayList<Client> listClients = new ArrayList<>();
         Connection connection;
