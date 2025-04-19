@@ -1,0 +1,73 @@
+@startuml
+
+' Main application
+class MainApp {
+  - rootPane : Pane
+}
+
+' Contrôleurs
+package Controller {
+    class LoginController {
+      - emailField : TextField
+      - passwordField : PasswordField
+      - img : ImageView
+      + onLoginButtonClick() : void
+      + onRegisterButtonClick() : void
+      + onCodeLoginButtonClick() : void
+    }
+
+    class RegisterController {
+      - emailField : TextField
+      - confirmEmailField : TextField
+      - passwordField : PasswordField
+      - confirmPasswordField : PasswordField
+      - emailErrorLabel : Label
+      - confirmEmailErrorLabel : Label
+      - passwordErrorLabel : Label
+      - confirmPasswordErrorLabel : Label
+      - emailValidLabel : Label
+      - passwordValidLabel : Label
+      + initialize() : void
+      + slideToLogin() : void
+      + validatePassword() : void
+      + validatePasswordMatch() : void
+      + validateEmail() : void
+      + validateEmailMatch() : void
+      + playFadeTransition(label : Label) : void
+    }
+}
+
+package Vue {
+    class LoginView {
+      - emailField : TextField
+      - passwordField : PasswordField
+      - loginButton : Button
+      - registerButton : Button
+      - codeLoginButton : Button
+    }
+
+    class RegisterView {
+      - emailField : TextField
+      - confirmEmailField : TextField
+      - passwordField : PasswordField
+      - confirmPasswordField : PasswordField
+      - registerButton : Button
+    }
+}
+
+' Composant de transition
+class Transition {
+  + slideTransition(pane : Pane, parent : Parent, duration : int, direction : String) : void
+}
+
+' Composant de base de données
+class Database {
+  + registerClient(prenom : String, nom : String, dateNaissance : Date, email : String, password : String) : boolean
+}
+
+' Relations
+RegisterController ..> Database : utilise
+RegisterController ..> Transition : appelle
+MainApp o-- LoginController : charge fxml
+
+@enduml
