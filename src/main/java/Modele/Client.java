@@ -3,15 +3,11 @@ package Modele;
 import java.sql.Date;
 
 public class Client extends User {
-    private String email;
-    private String password;
     private Date birthdate;
 
     public Client(int userID, String lastName, String firstName, Date birthdate, String email, String password) {
-        super(userID, lastName, firstName);
+        super(userID, lastName, firstName,email,password);
         this.birthdate = birthdate;
-        this.email = email;
-        this.password = password;
     }
 
     /*
@@ -44,8 +40,5 @@ public class Client extends User {
 
     public Date getBirthDate() { return birthdate; }
 
-    public String getEmail() { return email; }
-
-    public String getPassword() { return password; }
 
 }
