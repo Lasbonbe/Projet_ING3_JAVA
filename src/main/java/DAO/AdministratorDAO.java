@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class AdministratorDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
-    @Override
     public ArrayList<Administrator> getAllAdministrators() {
         ArrayList<Administrator> listAdmins = new ArrayList<>();
         Connection connection;
@@ -47,7 +46,6 @@ public class AdministratorDAO {
         return listAdmins;
     }
 
-    @Override
     public void addAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -74,7 +72,6 @@ public class AdministratorDAO {
         }
     }
 
-    @Override
     public void deleteAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -98,7 +95,6 @@ public class AdministratorDAO {
         }
     }
 
-    @Override
     public Administrator findAdmin(int adminID) {
         Administrator adminFound = null;
         Connection connection;

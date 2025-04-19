@@ -41,8 +41,6 @@ public class LoginController {
 
         if (db.LoginUserSucces(email, password)) {
 
-            User loggedInUser =
-
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
                 Parent homeView = loader.load();
