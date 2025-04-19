@@ -29,7 +29,7 @@ public class LoginController {
 
     public void initialize() {
         // Chargement de l'image pour l'ImageView
-        Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/imgs/MENU.png").toExternalForm());
         img.setImage(image);
     }
 
