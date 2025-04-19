@@ -19,18 +19,19 @@ public class ButtonNavigation {
     private Rectangle buttonBackground;
     private Rectangle mouseEffect;
 
-    public ButtonNavigation(String value) {
+    public ButtonNavigation(String value, int width, int height) {
         this.root = new StackPane();
         this.button = new Button(value);
 
         this.button.getStyleClass().add("button-navigation");
+        this.button.setStyle("-fx-min-width: " + width + "px; -fx-min-height: " + height + "px;");
 
         this.mouseEffect = new Rectangle();
         this.mouseEffect.getStyleClass().add("button-navigation-mouse-effect");
         this.mouseEffect.setVisible(false);
         this.mouseEffect.setMouseTransparent(true);
 
-        this.buttonBackground = new Rectangle(175, 75);
+        this.buttonBackground = new Rectangle(width, height);
         this.buttonBackground.getStyleClass().add("button-navigation-background");
 
         preparedAnimations();
@@ -45,8 +46,8 @@ public class ButtonNavigation {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mouseEffect.setHeight(75);
-                mouseEffect.setWidth(175);
+                mouseEffect.setHeight(height);
+                mouseEffect.setWidth(width);
                 mouseEffect.setVisible(true);
 
                 animationOut.stop();

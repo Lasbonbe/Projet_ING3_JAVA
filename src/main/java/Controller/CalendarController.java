@@ -42,8 +42,8 @@ public class CalendarController {
         Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
         img.setImage(image);
 
-        prevButton = new ButtonNavigation("Précédent");
-        nextButton = new ButtonNavigation("Suivant");
+        prevButton = new ButtonNavigation("Précédent", 175, 75);
+        nextButton = new ButtonNavigation("Suivant", 175, 75);
 
         navigationHBox.getChildren().add(prevButton.getRoot());
         navigationHBox.getChildren().add(nextButton.getRoot());

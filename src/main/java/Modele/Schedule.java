@@ -88,7 +88,7 @@ public class Schedule {
         this.totalPlaces = totalPlaces;
         this.placesDispos = this.totalPlaces - this.reservedPlaces;
         this.statut = statut;
-        this.btnNav = new ButtonNavigation("Réserver");
+        this.btnNav = new ButtonNavigation("Réserver", 175, 75);
         this.date = date;
     }
 }

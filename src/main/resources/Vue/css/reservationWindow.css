@@ -34,11 +34,15 @@
     -fx-text-fill: WHITE;
 }
 
+
 .VBox-reservation {
     -fx-border-radius: 5px;
     -fx-border-color: WHITE;
     -fx-border-width: 1;
     -fx-background-color: BLACK;
+    -fx-padding: 5;
+    -fx-label-padding: 5;
+    -fx-alignment: CENTER;
 }
 
 .ComboBox-personnes {
@@ -62,4 +66,13 @@
 .ComboBox-personnes .list-cell:selected {
     -fx-background-color: BLACK;
     -fx-text-fill: WHITE;
+}
+
+.scrollPane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scrollPane .viewport {
+    -fx-background-color: transparent;
 }
