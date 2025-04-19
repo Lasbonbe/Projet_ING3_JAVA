@@ -135,7 +135,6 @@ public class AdministratorDAO {
         return adminFound;
     }
 
-    @Override
     public Administrator editAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
