@@ -1,6 +1,8 @@
 package Controller;
 
 import DAO.AccesSQLDatabase;
+import DAO.ClientDAO;
+import Modele.Session;
 import Modele.User;
 import Vue.MainApp;
 import Vue.Transition;
@@ -41,28 +43,17 @@ public class LoginController {
 
         if (db.LoginUserSucces(email, password)) {
 
+            User loggedInUser = ClientDAO.findClientByEmail(email);
+            Session.setUser(loggedInUser);
+            System.out.println(Session.getUser());
+            System.out.println(Session.getUser().getEmail());
+
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
                 Parent homeView = loader.load();
 
-                homeView.translateXProperty().set(MainApp.rootPane.getWidth());
-                MainApp.rootPane.getChildren().add(homeView);
-
-                TranslateTransition slideOut = new TranslateTransition(Duration.millis(1500), MainApp.rootPane.getChildren().get(0));
-                slideOut.setToX(-1920); // Slide vers la gauche
-                slideOut.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Courbe personnalisée
-
-                TranslateTransition slideIn = new TranslateTransition(Duration.millis(1500), homeView);
-                slideIn.setToX(0);
-                slideIn.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Courbe personnalisée
-
-                // Suppression de l'ancienne vue après la transition
-                slideIn.setOnFinished(event -> MainApp.rootPane.getChildren().remove(0));
-
-                // Lancement des animations
-                slideOut.play();
-                slideIn.play();
-
+                Transition.slideTransition(MainApp.rootPane, homeView, 1000, "LEFT");
             } catch (IOException exception) {
                 System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
             }
