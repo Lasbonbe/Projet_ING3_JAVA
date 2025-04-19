@@ -94,7 +94,7 @@ public class ClientDAO {
         }
     }
 
-    public static Client findClient(int userID) {
+    public static Client findClientByID(int userID) {
         Client clientFound = null;
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -115,6 +115,45 @@ public class ClientDAO {
                 Date birthDate = resultSet.getDate("birthDate");
 
                 if (userID == id) {
+                    clientFound = new Client(id, nom, prenom, birthDate, email, password);
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Client introuvable");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return clientFound;
+    }
+
+    public static Client findClientByEmail(String email) {
+        Client clientFound = null;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client where email = ?");
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                Date birthDate = resultSet.getDate("birthDate");
+
+                if (email.equals(resultSet.getString("email"))) {
                     clientFound = new Client(id, nom, prenom, birthDate, email, password);
                     break;
                 }
@@ -163,4 +202,5 @@ public class ClientDAO {
         }
         return client;
     }
+
 }
