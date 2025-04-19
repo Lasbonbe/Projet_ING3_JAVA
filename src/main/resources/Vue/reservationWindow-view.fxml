@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/javafx" fx:controller="Controller.ReservationWindowController" stylesheets="@css/reservationWindow.css, @css/calendar.css" styleClass="root">
+    <top>
+        <VBox spacing="10.0" alignment="CENTER">
+            <Label fx:id="sessionDateLabel" alignment="CENTER"  styleClass="session-label"/>
+            <Label fx:id="attractionNameLabel" alignment="CENTER" styleClass="attraction-label"/>
+            <Label fx:id="heureLabel" alignment="CENTER" styleClass="info-label"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox spacing="10.0">
+                <VBox styleClass="VBox-reservation" alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <ComboBox fx:id="comboboxNbPers" styleClass="ComboBox-personnes" promptText="Nombre de personnes">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                    </ComboBox>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </VBox>
+                <VBox styleClass="VBox-reservation" HBox.hgrow="ALWAYS">
+                    <Label fx:id="placesDispos" styleClass="info-label">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                    </Label>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </VBox>
+            </HBox>
+            <VBox styleClass="VBox-reservation">
+                <padding>
+                    <Insets bottom="10.0" top="10.0" right="10.0" left="10.0"/>
+                </padding>
+                <Label text="Récapitulatif des promotions appliquées" styleClass="info-label"/>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="promoContainer" spacing="5.0"/>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox fx:id="hboxPanier" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" styleClass="VBox-reservation">
+                    <Label fx:id="prixLabel" styleClass="info-label"/>
+                    <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0"/>
+                    </padding>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="10.0"/>
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>
+

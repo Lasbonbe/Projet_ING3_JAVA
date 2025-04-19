@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+.root {
+    -fx-background-color: BLACK;
+    -fx-font-family: "JetBrains Mono ExtraBold";
+}
+
+.session-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+    -fx-text-fill: WHITE;
+}
+
+.grid-pane {
+    -fx-background-color: BLACK;
+    -fx-hgap: 10;
+}
+
+.info-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-text-fill: WHITE;
+}
+
+.attraction-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-text-fill: WHITE;
+}
+
+.VBox-reservation {
+    -fx-border-radius: 5px;
+    -fx-border-color: WHITE;
+    -fx-border-width: 1;
+    -fx-background-color: BLACK;
+}
+
+.ComboBox-personnes {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-pref-width: 500;
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+}
+
+.ComboBox-personnes .list-cell {
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 12px;
+}
+
+.ComboBox-personnes .list-cell:hover {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+}
+
+.ComboBox-personnes .list-cell:selected {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+}
