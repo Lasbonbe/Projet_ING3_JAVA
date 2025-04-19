@@ -24,7 +24,7 @@ public class MainApp extends Application {
 
         Scene scene = new Scene(rootPane, 1920, 1080);
         primaryStage.setScene(scene);
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imgs/mainmenu.png")));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imgs/LOGO.png")));
         primaryStage.getIcons().add(icon);
 
         primaryStage.setTitle("Parc Attractions - Connexion");
