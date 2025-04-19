@@ -9,7 +9,7 @@ public class VueClient {
         System.out.println("\nClient :");
         System.out.println("Nom : " + client.getLastName());
         System.out.println("Prenom : "+  client.getFirstName());
-        System.out.println("Age : " + client.getAge());
+        System.out.println("Date de naissance : " + client.getBirthDate());
         System.out.println("Email : " + client.getEmail());
     }
 

@@ -1,46 +1,45 @@
 package Vue.Calendar;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 public class ButtonNavigation {
     private Button button;
     private StackPane root;
+    private Timeline animationIn;
+    private Timeline animationOut;
+    private Rectangle buttonBackground;
+    private Rectangle mouseEffect;
 
     public ButtonNavigation(String value) {
         this.root = new StackPane();
         this.button = new Button(value);
 
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/Vue/font/Bungee-Regular.ttf"), 12);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.button.getStyleClass().add("button-navigation");
 
-        this.button.setStyle("-fx-background-color: transparent; -fx-min-width: 175px; -fx-min-height: 75px; -fx-border-radius: 20; -fx-background-radius: 0; -fx-font-family: 'Bungee' ;-fx-text-fill: #051039; -fx-font-size: 24px; font-weight: bold;"); /// Propriétés CSS du bouton
+        this.mouseEffect = new Rectangle();
+        this.mouseEffect.getStyleClass().add("button-navigation-mouse-effect");
+        this.mouseEffect.setVisible(false);
+        this.mouseEffect.setMouseTransparent(true);
 
-        Rectangle mouseEffect = new Rectangle();
-        mouseEffect.setFill(Color.web("#ebf1fa"));
-        mouseEffect.setArcHeight(20);
-        mouseEffect.setArcWidth(20);
-        mouseEffect.setOpacity(0.6);
-        mouseEffect.setVisible(false);
-        mouseEffect.setMouseTransparent(true);
+        this.buttonBackground = new Rectangle(175, 75);
+        this.buttonBackground.getStyleClass().add("button-navigation-background");
 
-        Rectangle buttonBackground = new Rectangle(175, 75);
-        buttonBackground.setArcWidth(20);
-        buttonBackground.setArcHeight(20);
-        buttonBackground.setFill(Color.WHITE);
+        preparedAnimations();
 
-        root.getChildren().add(buttonBackground);
-        root.getChildren().add(mouseEffect);
-        root.getChildren().add(this.button);
+        this.root.getStyleClass().add("Vue/css/calendar.css");
+        this.root.getStyleClass().add("grid-cell");
+        this.root.getChildren().add(buttonBackground);
+        this.root.getChildren().add(mouseEffect);
+        this.root.getChildren().add(this.button);
 
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -49,6 +48,9 @@ public class ButtonNavigation {
                 mouseEffect.setHeight(75);
                 mouseEffect.setWidth(175);
                 mouseEffect.setVisible(true);
+
+                animationOut.stop();
+                animationIn.playFromStart();
             }
         });
 
@@ -56,8 +58,35 @@ public class ButtonNavigation {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 mouseEffect.setVisible(false);
+
+                animationIn.stop();
+                animationOut.playFromStart();
             }
         });
+    }
+
+    private void preparedAnimations() {
+        this.animationIn = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 10),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 10)
+                        ),
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 20),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 20)
+                )
+        );
+
+        this.animationOut = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(this.buttonBackground.arcWidthProperty(), 20),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(), 20)
+                ),
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(this.buttonBackground.arcWidthProperty(),10),
+                        new KeyValue(this.buttonBackground.arcHeightProperty(),10)
+                        )
+        );
     }
 
     public void setOnAction(EventHandler<ActionEvent> handler) {

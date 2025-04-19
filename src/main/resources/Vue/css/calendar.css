@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+/* STYLE GENERAL DU CALENDRIER */
+
+.root {
+    -fx-background-color: BLACK;
+}
+
+.day-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: WHITE;
+}
+
+.calendar-grid {
+    -fx-padding: 10px;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.calendar-box {
+    -fx-alignment: center;
+    -fx-padding: 30 0 0 0;
+}
+
+.month-label {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-size: 24px;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: bold;
+}
+
+.month-zone {
+    -fx-alignment: center;
+}
+
+.navigation-hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+}
+
+/* STYLES BOUTONS DU CALENDRIER*/
+
+.button-free-calendar {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-background {
+    -fx-fill: BLACK;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 2;
+}
+
+.button-mouse-effect {
+    -fx-fill: WHITE;
+    -fx-opacity: 0.5;
+}
+
+.button-on-day {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-on-day-background {
+    -fx-fill: BLACK;
+    -fx-stroke: #9c2424;
+    -fx-stroke-width: 2;
+}
+
+.button-navigation {
+    -fx-background-color: transparent;
+    -fx-min-width: 175px;
+    -fx-min-height: 75px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-navigation-background {
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+    -fx-fill: BLACK;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 2;
+}
+
+.button-navigation-mouse-effect {
+    -fx-fill: WHITE;
+    -fx-arc-height: 20;
+    -fx-arc-width: 20;
+    -fx-opacity: 0.5;
+}
+
+.button-navigation:disabled {
+    -fx-text-fill: #a6a8af;
+}
+
+.button-impossible-day {
+    -fx-background-color: transparent;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-background-radius: 0;
+    -fx-font-family: 'JetBrains Mono ExtraBold';
+    -fx-text-fill: #a6a8af;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.button-impossible-day-background {
+    -fx-fill: BLACK;
+    -fx-stroke: #a6a8af;
+    -fx-stroke-width: 2;
+}
