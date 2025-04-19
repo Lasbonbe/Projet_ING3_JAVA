@@ -26,7 +26,7 @@ public class DEBUG_TestDAO {
         ArrayList<Client> clients = clientDao.getAllClient();
         vueClient.displayClientList(clients);
 
-        Client findClient = clientDao.findClient(1);
+        Client findClient = clientDao.findClientByID(1);
         vueClient.displayClient(findClient);
     }
 }
