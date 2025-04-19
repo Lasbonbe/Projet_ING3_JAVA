@@ -6,7 +6,7 @@ import Modele.User;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AdministratorDAO implements AdministratorInterface {
+public class AdministratorDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
     @Override

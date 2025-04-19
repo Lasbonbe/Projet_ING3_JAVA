@@ -5,11 +5,10 @@ import Modele.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AttractionDAO implements AttractionInterface {
+public class AttractionDAO {
 
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
-    @Override
     public ArrayList<Attraction> getAllAttractions() {
         ArrayList<Attraction> listAttractions = new ArrayList<>();
         Connection connection;
@@ -46,7 +45,6 @@ public class AttractionDAO implements AttractionInterface {
         return listAttractions;
     }
 
-    @Override
     public void addAttraction(Attraction attraction) {
 
         Connection connection;
@@ -75,7 +73,6 @@ public class AttractionDAO implements AttractionInterface {
         }
     }
 
-    @Override
     public void deleteAttraction(Attraction attraction) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -99,7 +96,6 @@ public class AttractionDAO implements AttractionInterface {
         }
     }
 
-    @Override
     public Attraction findAttraction(int attractionID) {
         Attraction attractionFound = null;
         Connection connection;
@@ -139,7 +135,6 @@ public class AttractionDAO implements AttractionInterface {
         return attractionFound;
     }
 
-    @Override
     public Attraction editAttraction(Attraction attraction) {
 
         Connection connection;
@@ -171,7 +166,6 @@ public class AttractionDAO implements AttractionInterface {
         return attraction;
     }
 
-    @Override
     public ArrayList<Attraction>searchAttractions(String searchAttractions, boolean placesAvailable, String chosenPrice, String chosenDuration) {
         ArrayList<Attraction> listAttractions = new ArrayList<>();
         Connection connection;

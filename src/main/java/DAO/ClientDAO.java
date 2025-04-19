@@ -4,10 +4,9 @@ import Modele.Client;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ClientDAO implements ClientInterface {
-    private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
+public class ClientDAO {
+    private static AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
-    @Override
     public ArrayList<Client> getAllClient() {
         ArrayList<Client> listClients = new ArrayList<>();
         Connection connection;
@@ -46,7 +45,6 @@ public class ClientDAO implements ClientInterface {
         return listClients;
     }
 
-    @Override
     public void addClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -73,7 +71,6 @@ public class ClientDAO implements ClientInterface {
         }
     }
 
-    @Override
     public void deleteClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -97,8 +94,7 @@ public class ClientDAO implements ClientInterface {
         }
     }
 
-    @Override
-    public Client findClient(int userID) {
+    public static Client findClient(int userID) {
         Client clientFound = null;
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -138,7 +134,6 @@ public class ClientDAO implements ClientInterface {
         return clientFound;
     }
 
-    @Override
     public Client editClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;

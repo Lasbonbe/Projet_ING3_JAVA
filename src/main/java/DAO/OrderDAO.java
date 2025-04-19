@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 
 
-public class OrderDAO implements OrderInterface {
+public class OrderDAO  {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
-    @Override
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> listOrders = new ArrayList<>();
         Connection connection;
@@ -51,7 +50,6 @@ public class OrderDAO implements OrderInterface {
         return listOrders;
     }
 
-    @Override
     public void addOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -79,7 +77,6 @@ public class OrderDAO implements OrderInterface {
         }
     }
 
-    @Override
     public void deleteOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -103,7 +100,6 @@ public class OrderDAO implements OrderInterface {
         }
     }
 
-    @Override
     public Order findOrder(int orderID) {
         Order orderFound = null;
         Connection connection;
@@ -145,7 +141,6 @@ public class OrderDAO implements OrderInterface {
         return orderFound;
     }
 
-    @Override
     public Order editOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;

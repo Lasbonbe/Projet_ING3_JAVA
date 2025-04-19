@@ -6,10 +6,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ScheduleDAO implements ScheduleInterface{
+public class ScheduleDAO{
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
-    @Override
     public ArrayList<Schedule> getSchedule() {
         ArrayList<Schedule> schedules = new ArrayList<>();
         Connection connection;
@@ -49,7 +48,6 @@ public class ScheduleDAO implements ScheduleInterface{
         return schedules;
     }
 
-    @Override
     public ArrayList<Schedule> getScheduleWithAttractionNamesByDate(LocalDate date) {
         ArrayList<Schedule> schedules = new ArrayList<>();
         Connection connection;
@@ -88,7 +86,6 @@ public class ScheduleDAO implements ScheduleInterface{
         return schedules;
     }
 
-    @Override
     public void addSchedule(Schedule schedule) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -118,7 +115,6 @@ public class ScheduleDAO implements ScheduleInterface{
         }
     }
 
-    @Override
     public void deleteSchedule(Schedule schedule) {
         Connection connection;
         PreparedStatement preparedStatement = null;

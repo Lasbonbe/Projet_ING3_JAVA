@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AccesSQLDatabase;
+import Modele.User;
 import Vue.MainApp;
 import Vue.Transition;
 import javafx.animation.TranslateTransition;
@@ -38,7 +39,10 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        if (db.LoginSuccess(email, password)) {
+        if (db.LoginUserSucces(email, password)) {
+
+            User loggedInUser =
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
                 Parent homeView = loader.load();
