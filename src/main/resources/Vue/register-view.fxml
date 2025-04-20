@@ -12,19 +12,16 @@
 
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.text.Text?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.RegisterController" stylesheets="@css/registerstyle.css" styleClass="body">
-    <ImageView fx:id="img">
-    </ImageView>
 
-    <VBox alignment="CENTER" spacing="20.0">
+    <VBox alignment="CENTER" spacing="5">
+        <Text text="Inscription" styleClass="text"/>
         <TextField fx:id="prenomField" styleClass="custom-text-field" promptText="Prénom" prefWidth="200" maxWidth="200"/>
         <TextField fx:id="nomField" styleClass="custom-text-field" promptText="Nom" prefWidth="200" maxWidth="200"/>
         <DatePicker fx:id="ageField" styleClass="custom-text-field" promptText="Age" prefWidth="200" maxWidth="200"/>
 
         <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200">
-            <tooltip>
-                <Tooltip text="Votre e-mail doit contenir un '@'"/>
-            </tooltip>
         </TextField>
         <Label fx:id="emailErrorLabel" visible="false"/>
         <Label fx:id="emailValidLabel" visible="false"/>
@@ -47,6 +44,12 @@
         <Label fx:id="successLabel" visible="false"/>
         <Label fx:id="errorLabel" visible="false"/>
     </VBox>
-
+    <Button onAction="#returnIconClick"
+            styleClass="button-invisible"
+            StackPane.alignment="TOP_LEFT">
+        <graphic>
+            <ImageView fx:id="return_icon"/>
+        </graphic>
+    </Button>
 
 </StackPane>

@@ -11,6 +11,10 @@ public class Session {
         return user;
     }
 
+    public static void clearSession() {
+        user = null;
+    }
+
     public static boolean isAdmin() {
         return user instanceof Administrator;
     }
