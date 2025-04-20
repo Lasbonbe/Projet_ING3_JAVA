@@ -4,23 +4,28 @@ import DAO.AccesSQLDatabase;
 import Vue.MainApp;
 import Vue.Transition;
 import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 
 public class RegisterController {
 
     private final AccesSQLDatabase db = new AccesSQLDatabase();
+
+    @FXML
+    ImageView return_icon;
 
     @FXML
     public TextField emailField;
@@ -115,6 +120,10 @@ public class RegisterController {
         confirmPasswordField.textProperty().addListener((obs, oldText, newText) -> validatePasswordMatch());
         emailField.textProperty().addListener((obs, oldText, newText) -> validateEmail());
         confirmEmailField.textProperty().addListener((obs, oldText, newText) -> validateEmailMatch());
+
+        // Chargement de l'image pour l'ImageView
+        Image image = new Image(getClass().getResource("/imgs/RETURN_BUTTON.png").toExternalForm());
+        return_icon.setImage(image);
     }
 
     private void validatePassword() {
@@ -193,5 +202,19 @@ public class RegisterController {
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
+    }
+
+    @FXML
+    private void returnIconClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginview = loader.load();
+            System.out.println("Slide to login");
+
+            Transition.slideTransition(MainApp.rootPane, loginview, 1000, "UP");
+
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
     }
 }
