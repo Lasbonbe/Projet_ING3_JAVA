@@ -4,8 +4,8 @@ public class User {
     protected int userID;
     protected String lastName;
     protected String firstName;
-    private String email;
-    private String password;
+    protected String email;
+    protected String password;
 
     //░█████╗░░█████╗░███╗░░██╗░██████╗████████╗██████╗░██╗░░░██╗░█████╗░████████╗░█████╗░██████╗░░██████╗
     //██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔════╝
