@@ -5,60 +5,66 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 
-<BorderPane fx:id="rootPane" xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.DayWindowController" stylesheets="@css/dayWindow.css, @css/calendar.css" styleClass="root">
-    <top>
-        <VBox>
-            <HBox alignment="CENTER" styleClass="title-container">
-                <Label fx:id="titleLabel" styleClass="header-label"/>
-            </HBox>
-            <GridPane fx:id="headerGridPane" styleClass="grid-pane" alignment="CENTER">
-                <columnConstraints>
-                    <ColumnConstraints percentWidth="35"/>
-                    <ColumnConstraints percentWidth="12"/>
-                    <ColumnConstraints percentWidth="12"/>
-                    <ColumnConstraints percentWidth="12"/>
-                    <ColumnConstraints percentWidth="15"/>
-                    <ColumnConstraints percentWidth="14"/>
-                </columnConstraints>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="Attraction" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <Label text="Début" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                    <Label text="Fin" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                    <Label text="Places disponibles" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="4" GridPane.rowIndex="0">
-                    <Label text="Statut" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-                <StackPane styleClass="grid-cell" GridPane.columnIndex="5" GridPane.rowIndex="0">
-                    <Label text="Réserver" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
-                </StackPane>
-            </GridPane>
-        </VBox>
-    </top>
-    <center>
-        <StackPane>
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
-                <content>
-                    <GridPane fx:id="gridPane" styleClass="grid-pane" alignment="CENTER">
-                        <columnConstraints>
-                            <ColumnConstraints percentWidth="35"/>
-                            <ColumnConstraints percentWidth="12"/>
-                            <ColumnConstraints percentWidth="12"/>
-                            <ColumnConstraints percentWidth="12"/>
-                            <ColumnConstraints percentWidth="15"/>
-                            <ColumnConstraints percentWidth="14"/>
-                        </columnConstraints>
-                    </GridPane>
-                </content>
-            </ScrollPane>
-            <Label fx:id="noDataLabel" text="Aucunes sessions disponibles" visible="false" styleClass="no-data-label"/>
-        </StackPane>
-    </center>
-</BorderPane>
+<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.DayWindowController" stylesheets="@css/dayWindow.css, @css/calendar.css" styleClass="root">
+    <ImageView fx:id="img"/>
+
+    <HBox alignment="CENTER" styleClass="title-container" fx:id="titleContainer">
+        <Label fx:id="titleLabel" styleClass="header-label"/>
+    </HBox>
+
+    <BorderPane fx:id="rootPane" maxWidth="1400" maxHeight="600">
+        <top>
+            <VBox>
+                <GridPane fx:id="headerGridPane" styleClass="grid-pane" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="35"/>
+                        <ColumnConstraints percentWidth="12"/>
+                        <ColumnConstraints percentWidth="12"/>
+                        <ColumnConstraints percentWidth="12"/>
+                        <ColumnConstraints percentWidth="15"/>
+                        <ColumnConstraints percentWidth="14"/>
+                    </columnConstraints>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Attraction" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Début" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label text="Fin" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                        <Label text="Places disponibles" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                        <Label text="Statut" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                    <StackPane styleClass="grid-cell" GridPane.columnIndex="5" GridPane.rowIndex="0">
+                        <Label text="Réserver" styleClass="grid-cell-text" alignment="CENTER" maxWidth="-Infinity"/>
+                    </StackPane>
+                </GridPane>
+            </VBox>
+        </top>
+        <center>
+            <StackPane>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                    <content>
+                        <GridPane fx:id="gridPane" styleClass="grid-pane" alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="35"/>
+                                <ColumnConstraints percentWidth="12"/>
+                                <ColumnConstraints percentWidth="12"/>
+                                <ColumnConstraints percentWidth="12"/>
+                                <ColumnConstraints percentWidth="15"/>
+                                <ColumnConstraints percentWidth="14"/>
+                            </columnConstraints>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+                <Label fx:id="noDataLabel" text="Aucunes sessions disponibles" visible="false" styleClass="no-data-label"/>
+            </StackPane>
+        </center>
+    </BorderPane>
+</StackPane>

@@ -3,6 +3,7 @@ package DAO;
 import Modele.Promotion;
 
 import java.sql.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class PromotionDAO {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT p.ID, p.nom, p.percentage, p.description FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin <= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYOFWEEK(?))");
+            preparedStatement = connection.prepareStatement("SELECT p.ID, p.nom, p.percentage, p.description FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin <= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))");
             preparedStatement.setInt(1, attractionID);
             preparedStatement.setDate(2, java.sql.Date.valueOf(sessionDate));
             System.out.println(java.sql.Date.valueOf(sessionDate));

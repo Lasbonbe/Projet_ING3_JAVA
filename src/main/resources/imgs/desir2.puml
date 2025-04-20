@@ -1,0 +1,293 @@
+@startuml
+
+'--------------------'
+' PACKAGE Controller '
+'--------------------'
+package Controller {
+  class CalendarController {
+    - currentYearMonth : YearMonth
+    - today : LocalDate
+    - days : String[]
+
+    + initialize() : void
+    + onPrevButtonClick() : void
+    + onNextButtonClick() : void
+    + updateCalendar( : void
+    + onDayButtonClick(int) : void
+  }
+
+  class ClientSearchController {
+    - searchResults : ArrayList<Client>
+
+    + initialize() : void
+    + setupListeners() : void
+    + performSearch() : void
+  }
+
+  class DayWindowController {
+    - scheduleData : ObservableList<Schedule>
+    - date: LocalDate
+
+    + setDate(LocalDate, Attraction) : void
+    + createCell(String, int, int) : void
+    + chargeDatas() : void
+    + resButtonOnClick(Schedule, Attraction) : void
+  }
+
+  class HelloController {
+    + onHelloButtonClick() : void
+  }
+
+  class HomeController {
+
+  }
+
+  class JavaFXPaneException {
+
+  }
+
+  class LoginController {
+
+    + initialize() : void
+    + onLoginButtonClick() : void
+    + onRegisterButtonClick() : void
+    + onCodeLoginButtonClick() : void
+    + showAlert(AlertType, String, String) : void
+  }
+
+  class RegisterCodeController {
+
+  }
+
+  class RegisterController {
+
+    + onRegisterClick() : void
+    + slideToLogin() : void
+    + initialize() : void
+    + validatePassword() : void
+    + validatePasswordMatch() : void
+    + validateEmail() : void
+    + validateEmailMatch() : void
+    + playFadeTransition(Label) : void
+  }
+
+  class ReservationWindowController {
+    - applicablePromotions : List<Promotion>
+    - PercentageReduc : int
+    - basePrice : double
+    - totalPrice : double
+
+    + setSchedule(Schedule, Attraction) : void
+    + chargeDatas() : void
+    + calculePercentageReduc() : void
+    + afficherPromos() : void
+  }
+
+  class SearchController {
+    - searchResults : ArrayList<Attraction>
+
+    + initialize() : void
+    + setupListeners() : void
+    + performSearch() : void
+  }
+
+  ' Liaisons internes '
+  CalendarController --> DayWindowController
+  CalendarController --> JavaFXPaneException
+  ClientSearchController --> SearchController
+  DayWindowController --> ReservationWindowController
+  LoginController --> RegisterController
+  RegisterController --> LoginController
+  LoginController --> HelloController
+  HelloController --> LoginController
+  ReservationWindowController --> CalendarController
+}
+
+'--------------------'
+' PACKAGE DAO        '
+'--------------------'
+package DAO {
+  class AccesSQLDatabase {
+    - sql_connexion : Connection
+    - url : String
+    - user : String
+    - pass : String
+    + registerClient(String, String, Date, String, String) : boolean
+    + LoginUserSucces(String, String) : boolean
+  }
+
+  class AdministratorDAO {
+    + getAllAdministrators() : ArrayList<Administrator>
+    + addAdmin(Administrator) : void
+    + deleteAdmin(Administrator) : void
+    + findAdmin(int) : Administrator
+    + editAdmin(Administrator) : Administrator
+  }
+
+  class OrderDAO {
+
+    + getAllOrder() : ArrayList<Order>
+    + addOrder(Order) : void
+    + deleteOrder(Order) : void
+    + findOrder(int): Order
+    + editOrder(Order) : Order
+  }
+
+  class AttractionDAO {
+    + getAllAttractions() : ArrayList<Attraction>
+    + addAttraction(Attraction) : void
+    + deleteAttraction(Attraction) : void
+    + findAttraction(int) : Attraction
+    + editAttraction(Attraction) : Attraction
+    + searchAttractions(String, boolean, String, String) : ArrayList<Attraction>
+    + getBasePrice(int) : int
+  }
+
+  class ClientDAO {
+    + getAllClient() : ArrayList<Client>
+    + addClient(Client) : void
+    + deleteClient(Client) : void
+    + findClientByID(int) : Client
+    + findClientByEmail(String) : Client
+    + editClient(Client) : Client
+    + searchClient(String, String, String) : ArrayList<Client>
+  }
+
+  class PromotionDAO {
+    + getApplicablePromotions(int, LocalDate) : List<Promotion>
+  }
+
+  class ScheduleDAO {
+    + getScheduleWithAttractionNamesByDate(LocalDate) : ArrayList<Schedule>
+  }
+
+  ' Liaisons internes '
+  AdministratorDAO --> AccesSQLDatabase
+  AttractionDAO --> AccesSQLDatabase
+  ClientDAO --> AccesSQLDatabase
+  PromotionDAO --> AccesSQLDatabase
+  ScheduleDAO --> AccesSQLDatabase
+  OrderDAO --> AccesSQLDatabase
+}
+
+'--------------------'
+' PACKAGE Modele     '
+'--------------------'
+package Modele {
+  class Invite {
+    - birthdate : Date
+  }
+
+  class User {
+    # userID : int
+    # lastName : String
+    # firstName : String
+    # email : String
+    # password : String
+  }
+
+  class Client
+  class Administrator
+  class Attraction {
+    - attractionID : int
+    - name : String
+    - capacity : int
+    - price : double
+    - duration :int
+  }
+
+  class Promotion {
+    - Id : int
+    - Name : String
+    - Description : String
+    - StartDate : LocalDate
+    - EndDate : LocalDate
+    - Permanent : boolean
+    - Percentage : int
+  }
+
+  class Schedule {
+    - idSchedule : int
+    - nameAttraction : String
+    - date : LocalDate
+    - hourDebut : Time
+    - hourEnd : Time
+    - totalPlaces : int
+    - reservedPlaces : int
+    - placesDispos : int
+    - statut : String
+  }
+
+  class Session {
+    + isAdmin() : boolean
+    + clear() : void
+    + isLoggedIn() : boolean
+    + isClient() : boolean
+  }
+
+  Client -|> User
+  Invite -|> User
+  Administrator -|> User
+
+  ' Liaisons internes '
+  Session --> User
+  Session --> Client
+  Session --> Administrator
+}
+
+'--------------------'
+' PACKAGE Vue        '
+'--------------------'
+package Vue {
+  class MainApp {
+    + start() : void
+    + main() : void
+  }
+
+  class Transition {
+    + slideTransition(Pane, Parent, double, String) : void
+  }
+}
+
+'---------------------------'
+' PACKAGE Vue.Calendar      '
+'---------------------------'
+package "Vue.Calendar" {
+  class ButtonFreeCalendar {
+    # button : Button
+    # root : StackPane
+    # mouseEffect : Rectangle
+    # buttonBackground : Rectangle
+    # animationIn : Timeline
+    # animationOut : Timeline
+
+    + setOnAction(EventHandler<ActionEvent>) : void
+    + preparedAnimations() : void
+  }
+
+  class ButtonImpossibleDay
+  class ButtonNavigation {
+    - button : Button
+    - root : StackPane
+    - animationIn : Timeline
+    - animationOut : Timeline
+    - buttonBackground : Rectangle
+    - mouseEffect : Rectangle
+
+    + setOnAction(EventHandler<ActionEvent>) : void
+    + setDisable(boolean) : void
+    + preparedAnimations() : void
+  }
+
+  class ButtonOnDay
+
+  ButtonImpossibleDay -|> ButtonFreeCalendar
+  ButtonOnDay -|> ButtonFreeCalendar
+
+  ' Liaisons internes '
+  ButtonNavigation --> ButtonFreeCalendar
+  ButtonOnDay --> ButtonNavigation
+  CalendarView --> ButtonNavigation
+}
+
+@enduml

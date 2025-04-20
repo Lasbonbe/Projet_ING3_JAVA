@@ -1,0 +1,78 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Orientation globale du diagramme
+left to right direction
+
+'--------------------'
+' PACKAGE DAO        '
+'--------------------'
+package DAO {
+
+  ' Zone des DAO métiers
+    class AdministratorDAO {
+      + getAllAdministrators() : ArrayList<Administrator>
+      + addAdmin(Administrator) : void
+      + deleteAdmin(Administrator) : void
+      + findAdmin(int) : Administrator
+      + editAdmin(Administrator) : Administrator
+    }
+
+    class AttractionDAO {
+      + getAllAttractions() : ArrayList<Attraction>
+      + addAttraction(Attraction) : void
+      + deleteAttraction(Attraction) : void
+      + findAttraction(int) : Attraction
+      + editAttraction(Attraction) : Attraction
+      + searchAttractions(String, boolean, String, String) : ArrayList<Attraction>
+      + getBasePrice(int) : int
+    }
+
+    class ClientDAO {
+      + getAllClient() : ArrayList<Client>
+      + addClient(Client) : void
+      + deleteClient(Client) : void
+      + findClientByID(int) : Client
+      + findClientByEmail(String) : Client
+      + editClient(Client) : Client
+      + searchClient(String, String, String) : ArrayList<Client>
+    }
+
+    class OrderDAO {
+      + getAllOrder() : ArrayList<Order>
+      + addOrder(Order) : void
+      + deleteOrder(Order) : void
+      + findOrder(int): Order
+      + editOrder(Order) : Order
+    }
+
+
+  ' Zone des DAO contextuels
+    class PromotionDAO {
+      + getApplicablePromotions(int, LocalDate) : List<Promotion>
+    }
+
+    class ScheduleDAO {
+      + getScheduleWithAttractionNamesByDate(LocalDate) : ArrayList<Schedule>
+    }
+
+  ' Classe d'accès SQL placée en bas
+  class AccesSQLDatabase {
+    - sql_connexion : Connection
+    - url : String
+    - user : String
+    - pass : String
+    + registerClient(String, String, Date, String, String) : boolean
+    + LoginUserSucces(String, String) : boolean
+  }
+
+  ' Liaisons internes
+  AdministratorDAO --> AccesSQLDatabase
+  AttractionDAO --> AccesSQLDatabase
+  ClientDAO --> AccesSQLDatabase
+  PromotionDAO --> AccesSQLDatabase
+  ScheduleDAO --> AccesSQLDatabase
+  OrderDAO --> AccesSQLDatabase
+}
+
+@enduml
