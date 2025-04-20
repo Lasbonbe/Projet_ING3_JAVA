@@ -247,6 +247,36 @@ public class AttractionDAO {
 
         return listAttractions;
     }
+
+    public int getBasePrice(int attractionID) {
+        int basePrice = 0;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT base_price FROM Attraction WHERE ID = ?");
+            preparedStatement.setInt(1, attractionID);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                basePrice = resultSet.getInt("base_price");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Récupération du prix de l'attraction impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return basePrice;
+    }
 }
 
 

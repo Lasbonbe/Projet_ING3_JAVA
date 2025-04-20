@@ -1,20 +1,26 @@
 package Controller;
 
 import DAO.ScheduleDAO;
+import Modele.Attraction;
 import Modele.Schedule;
 import Vue.Calendar.ButtonNavigation;
 import Vue.Calendar.ReservationWindow;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -28,9 +34,11 @@ public class DayWindowController {
 
     private final ObservableList<Schedule> scheduleData = FXCollections.observableArrayList();
     private LocalDate date;
+    private Attraction attraction;
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate date, Attraction attraction) {
         this.date = date;
+        this.attraction = attraction;
         this.titleLabel.setText("Horaires pour le " + this.date);
         chargeDatas();
     }
@@ -60,7 +68,7 @@ public class DayWindowController {
                 int rowIndex = i + 1;
 
                 ButtonNavigation button = schedule.getBtnNav();
-                button.setOnAction(e -> resButtonOnClick(schedule));
+                button.setOnAction(e -> resButtonOnClick(schedule, attraction));
 
                 createCell(schedule.getNameAttraction(), 0, rowIndex);
                 createCell(schedule.getHourDebut().toString(), 1, rowIndex);
@@ -77,9 +85,36 @@ public class DayWindowController {
         }
     }
 
-    private void resButtonOnClick(Schedule schedule) {
-        ReservationWindow resWindow = new ReservationWindow(schedule);
-        resWindow.show();
+    private void resButtonOnClick(Schedule schedule, Attraction attraction) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/reservationWindow-view.fxml"));
+            Parent reservationView = loader.load();
+
+            ReservationWindowController controller = loader.getController();
+            controller.setSchedule(schedule, attraction);
+
+            StackPane rootPane = (StackPane) this.rootPane.getScene().getRoot();
+            reservationView.translateXProperty().set(rootPane.getWidth());
+            rootPane.getChildren().add(reservationView);
+
+            TranslateTransition slideOut = new TranslateTransition(Duration.millis(1500), this.rootPane);
+            slideOut.setToX(-1920); // Slide vers la gauche
+            slideOut.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Custom curve
+
+            TranslateTransition slideIn = new TranslateTransition(Duration.millis(1500), reservationView);
+            slideIn.setToX(0);
+            slideIn.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Custom curve
+
+            // Suppression de l'ancienne vue après la transition
+            slideIn.setOnFinished(e -> rootPane.getChildren().remove(this.rootPane));
+
+            // Lancement des animations
+            slideOut.play();
+            slideIn.play();
+
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue de réservation : " + exception.getMessage());
+        }
     }
 
 }

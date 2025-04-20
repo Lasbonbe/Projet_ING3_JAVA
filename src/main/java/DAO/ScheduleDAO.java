@@ -4,10 +4,15 @@ import Modele.Schedule;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class ScheduleDAO{
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
+
+    public static Date localDateToDate(LocalDate localDate) {
+        return (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
 
     public ArrayList<Schedule> getSchedule() {
         ArrayList<Schedule> schedules = new ArrayList<>();
@@ -28,9 +33,10 @@ public class ScheduleDAO{
                 int totalPlaces = resultSet.getInt("total_places");
                 int reservedPlaces = resultSet.getInt("reserved_places");
                 Date date = resultSet.getDate("date");
+                LocalDate tempDate = date.toLocalDate();
                 String statut = resultSet.getString("statut");
 
-                Schedule schedule = new Schedule(id, attractionId, hourDebut, hourEnd, totalPlaces, reservedPlaces, date, statut);
+                Schedule schedule = new Schedule(id, attractionId, hourDebut, hourEnd, totalPlaces, reservedPlaces, tempDate, statut);
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -68,7 +74,7 @@ public class ScheduleDAO{
                 int reservedPlaces = resultSet.getInt("reserved_places");
                 String statut = resultSet.getString("statut");
 
-                Schedule schedule = new Schedule(nameAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, statut);
+                Schedule schedule = new Schedule(nameAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, statut, date);
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -98,7 +104,9 @@ public class ScheduleDAO{
             preparedStatement.setTime(4, schedule.getHourEnd());
             preparedStatement.setInt(5, schedule.getTotalPlaces());
             preparedStatement.setInt(6, schedule.getReservedPlaces());
-            preparedStatement.setDate(7, schedule.getDate());
+            Date tempDate = localDateToDate(schedule.getDate());
+            preparedStatement.setDate(7, tempDate);
+
             preparedStatement.setString(8, schedule.getStatut());
             preparedStatement.executeUpdate();
 

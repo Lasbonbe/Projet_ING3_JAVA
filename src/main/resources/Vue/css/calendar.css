@@ -89,8 +89,6 @@
 
 .button-navigation {
     -fx-background-color: transparent;
-    -fx-min-width: 175px;
-    -fx-min-height: 75px;
     -fx-border-radius: 10;
     -fx-background-radius: 0;
     -fx-font-family: 'JetBrains Mono ExtraBold';

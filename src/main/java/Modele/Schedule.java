@@ -15,7 +15,7 @@ public class Schedule {
     private int totalPlaces;
     private int reservedPlaces;
     private int placesDispos;
-    private Date date;
+    private LocalDate date;
     private String statut;
     private ButtonNavigation btnNav;
 
@@ -33,7 +33,7 @@ public class Schedule {
     public int getAttractionId() {
         return attractionId;
     }
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
     public int getReservedPlaces() {
@@ -68,7 +68,7 @@ public class Schedule {
     //╚█████╔╝╚█████╔╝██║░╚███║██████╔╝░░░██║░░░██║░░██║╚██████╔╝╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║██████╔╝
     //░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░╚═════╝░░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝╚═════╝░
 
-    public Schedule(int idSchedule, int idAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, Date date, String statut) {
+    public Schedule(int idSchedule, int idAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, LocalDate date, String statut) {
         this.idSchedule = idSchedule;
         this.attractionId = idAttraction;
         this.hourDebut = hourDebut;
@@ -80,7 +80,7 @@ public class Schedule {
         this.statut = statut;
     }
 
-    public Schedule(String nameAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, String statut) {
+    public Schedule(String nameAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, String statut, LocalDate date) {
         this.nameAttraction = nameAttraction;
         this.hourDebut = hourDebut;
         this.hourEnd = hourEnd;
@@ -88,6 +88,7 @@ public class Schedule {
         this.totalPlaces = totalPlaces;
         this.placesDispos = this.totalPlaces - this.reservedPlaces;
         this.statut = statut;
-        this.btnNav = new ButtonNavigation("Réserver");
+        this.btnNav = new ButtonNavigation("Réserver", 175, 75);
+        this.date = date;
     }
 }
