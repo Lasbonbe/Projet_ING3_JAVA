@@ -23,11 +23,12 @@ public class AttractionDAO {
             while (resultSet.next()) {
                 int attractionID = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
+                String attractionType = resultSet.getString("type");
                 int attractionCapacity = resultSet.getInt("max_capacity");
                 int attractionPrice = resultSet.getInt("base_price");
                 int attractionDuration = resultSet.getInt("duration");
 
-                Attraction attraction = new Attraction(attractionID, attractionName, attractionCapacity, attractionPrice, attractionDuration);
+                Attraction attraction = new Attraction(attractionID, attractionName, attractionType, attractionCapacity, attractionPrice, attractionDuration);
                 listAttractions.add(attraction);
             }
         } catch (SQLException e) {
@@ -111,12 +112,13 @@ public class AttractionDAO {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String attractionName = resultSet.getString("nom");
+                String attractionType = resultSet.getString("type");
                 int attractionCapacity = resultSet.getInt("max_capacity");
                 int attractionPrice = resultSet.getInt("base_price");
                 int attractionDuration = resultSet.getInt("duration");
 
                 if (attractionID == id) {
-                    attractionFound = new Attraction(id, attractionName, attractionCapacity, attractionPrice, attractionDuration);
+                    attractionFound = new Attraction(id, attractionName,attractionType, attractionCapacity, attractionPrice, attractionDuration);
                     break;
                 }
             }
@@ -225,11 +227,12 @@ public class AttractionDAO {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String nom = resultSet.getString("nom");
+                String type = resultSet.getString("type");
                 int capacite = resultSet.getInt("max_capacity");
                 int prix = resultSet.getInt("base_price");
                 int duree = resultSet.getInt("duration");
 
-                listAttractions.add(new Attraction(id, nom, capacite, prix, duree));
+                listAttractions.add(new Attraction(id, nom,type, capacite, prix, duree));
             }
 
         } catch (SQLException e) {
@@ -278,6 +281,7 @@ public class AttractionDAO {
         return basePrice;
     }
 }
+
 
 
 
