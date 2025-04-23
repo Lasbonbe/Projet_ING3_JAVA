@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.PromotionDAO;
 import Modele.Attraction;
 import Vue.Calendar.*;
 import Vue.MainApp;
@@ -36,6 +37,8 @@ public class CalendarController {
     private final LocalDate today = LocalDate.now();
     private ButtonNavigation prevButton;
     private ButtonNavigation nextButton;
+    private PromotionDAO promotionDAO = new PromotionDAO();
+    private Attraction attraction = new Attraction(1, "La roue tourne va tourner (Grande roue)", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
 
     @FXML public void initialize() {
         // Chargement de l'image pour l'ImageView
@@ -96,10 +99,22 @@ public class CalendarController {
         while (day <= this.currentYearMonth.lengthOfMonth()) {
             ButtonFreeCalendar dayButton;
             int cday = day;
+            LocalDate currentDate = this.currentYearMonth.atDay(day);
             if (this.currentYearMonth.equals(YearMonth.from(this.today)) && day < this.today.getDayOfMonth()) {
                 dayButton = new ButtonImpossibleDay(String.valueOf(day));
             } else {
-                if(this.currentYearMonth.equals(YearMonth.from(this.today)) && day == this.today.getDayOfMonth()) {
+                boolean hasPromo = false;
+                if (attraction != null) {
+                    hasPromo = promotionDAO.hasPromotion(attraction, currentDate);
+                }
+                if (hasPromo) {
+                    dayButton = new ButtonPromotionDay(String.valueOf(day));
+                    dayButton.preparedAnimations();
+                    if (this.currentYearMonth.equals(YearMonth.from(this.today)) && day == this.today.getDayOfMonth()) {
+                        dayButton.getButtonBackground().getStyleClass().remove("button-promotion-day-background");
+                        dayButton.getButtonBackground().getStyleClass().add("button-promotion-day-background-onDay");
+                    }
+                } else if (this.currentYearMonth.equals(YearMonth.from(this.today)) && day == this.today.getDayOfMonth()) {
                     dayButton = new ButtonOnDay(String.valueOf(day));
                     dayButton.preparedAnimations();
                 } else {
@@ -121,7 +136,6 @@ public class CalendarController {
     }
 
     private void onDayButtonClick(int cday) {
-        Attraction attraction = new Attraction(1, "La roue tourne va tourner (Grande roue)", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
         LocalDate selectedDate = this.currentYearMonth.atDay(cday);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/daywindow-view.fxml"));

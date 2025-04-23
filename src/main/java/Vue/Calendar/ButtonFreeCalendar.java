@@ -19,6 +19,10 @@ public class ButtonFreeCalendar {
     protected Timeline animationIn;
     protected Timeline animationOut;
 
+    public Rectangle getButtonBackground() {
+        return buttonBackground;
+    }
+
     public ButtonFreeCalendar(String value) {
         this.root = new StackPane();
         this.button = new Button(value);

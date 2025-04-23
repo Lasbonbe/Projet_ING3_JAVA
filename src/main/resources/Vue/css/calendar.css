@@ -75,6 +75,18 @@
     -fx-stroke-width: 2;
 }
 
+.button-promotion-day-background-onDay {
+    -fx-fill: BLUE;
+    -fx-stroke: #9c2424;
+    -fx-stroke-width: 2;
+}
+
+.button-promotion-day-background {
+    -fx-fill: BLUE;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 2;
+}
+
 .button-navigation {
     -fx-background-color: transparent;
     -fx-border-radius: 10;

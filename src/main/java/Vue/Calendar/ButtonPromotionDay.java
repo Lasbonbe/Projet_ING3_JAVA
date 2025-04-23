@@ -9,6 +9,6 @@ import javafx.scene.shape.Rectangle;
 public class ButtonPromotionDay extends ButtonFreeCalendar {
     public ButtonPromotionDay(String value) {
         super(value);
-        this.button.getStyleClass().add("button-promotion-day");
+        this.buttonBackground.getStyleClass().add("button-promotion-day-background");
     }
 }
