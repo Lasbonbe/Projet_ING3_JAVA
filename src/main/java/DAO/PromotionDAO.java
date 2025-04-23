@@ -1,5 +1,6 @@
 package DAO;
 
+import Modele.Attraction;
 import Modele.Promotion;
 
 import java.sql.*;
@@ -20,7 +21,7 @@ public class PromotionDAO {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT p.ID, p.nom, p.percentage, p.description FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin <= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))");
+            preparedStatement = connection.prepareStatement("SELECT p.ID, p.nom, p.percentage, p.description FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin >= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))");
             preparedStatement.setInt(1, attractionID);
             preparedStatement.setDate(2, java.sql.Date.valueOf(sessionDate));
             System.out.println(java.sql.Date.valueOf(sessionDate));
@@ -51,4 +52,24 @@ public class PromotionDAO {
         return applicablePromotions;
     }
 
+    public boolean hasPromotion(Attraction attraction, LocalDate sessionDate) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT p.nom FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin >= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))");
+            preparedStatement.setInt(1, attraction.getAttractionID());
+            preparedStatement.setDate(2, java.sql.Date.valueOf(sessionDate));
+            preparedStatement.setDate(3, java.sql.Date.valueOf(sessionDate));
+            preparedStatement.setDate(4, java.sql.Date.valueOf(sessionDate));
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur de vérification des promotions");
+            return false;
+        }
+    }
 }

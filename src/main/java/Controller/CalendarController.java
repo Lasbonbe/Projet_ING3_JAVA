@@ -101,8 +101,10 @@ public class CalendarController {
             } else {
                 if(this.currentYearMonth.equals(YearMonth.from(this.today)) && day == this.today.getDayOfMonth()) {
                     dayButton = new ButtonOnDay(String.valueOf(day));
+                    dayButton.preparedAnimations();
                 } else {
                     dayButton = new ButtonFreeCalendar(String.valueOf(day));
+                    dayButton.preparedAnimations();
                 }
 
                 dayButton.setOnAction(e -> onDayButtonClick(cday));
