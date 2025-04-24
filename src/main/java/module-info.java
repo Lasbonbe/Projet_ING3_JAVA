@@ -10,6 +10,7 @@ module com.example.ing3_projet_java {
     requires java.management;
     requires java.desktop;
     requires eu.iamgio.animated;
+    requires jsch;
 
 
     opens Vue to javafx.fxml;
