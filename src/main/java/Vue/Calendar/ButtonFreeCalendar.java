@@ -19,6 +19,10 @@ public class ButtonFreeCalendar {
     protected Timeline animationIn;
     protected Timeline animationOut;
 
+    public Rectangle getButtonBackground() {
+        return buttonBackground;
+    }
+
     public ButtonFreeCalendar(String value) {
         this.root = new StackPane();
         this.button = new Button(value);
@@ -38,31 +42,29 @@ public class ButtonFreeCalendar {
         this.root.getChildren().add(this.button);
         this.root.getStyleClass().add("Vue/css/calendar.css");
 
-        preparedAnimations();
-
-        this.button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mouseEffect.setVisible(true);
-
-                animationOut.stop();
-                animationIn.playFromStart();
-            }
-        });
-
-        this.button.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mouseEffect.setVisible(false);
-
-                animationIn.stop();
-                animationOut.playFromStart();
-            }
-        });
+        setupEventHandlers();
     }
 
-    protected void preparedAnimations() {
+    protected void handleMouseEntered(MouseEvent mouseEvent) {
+        mouseEffect.setVisible(true);
+
+        animationOut.stop();
+        animationIn.playFromStart();
+    }
+
+    protected void handleMouseExited(MouseEvent mouseEvent) {
+        mouseEffect.setVisible(false);
+
+        animationIn.stop();
+        animationOut.playFromStart();
+    }
+
+    protected void setupEventHandlers() {
+        this.button.setOnMouseEntered(this::handleMouseEntered);
+        this.button.setOnMouseExited(this::handleMouseExited);
+    }
+
+    public void preparedAnimations() {
         this.animationIn = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(this.buttonBackground.arcWidthProperty(), 0),

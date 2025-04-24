@@ -33,6 +33,7 @@ public class CalendarView extends Application {
 
         } catch (IOException e) {
             System.out.println("Erreur lors du chargement du calendrier : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

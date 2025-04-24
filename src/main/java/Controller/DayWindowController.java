@@ -14,14 +14,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DayWindowController {
@@ -31,15 +32,26 @@ public class DayWindowController {
     @FXML private GridPane gridPane;
     @FXML private ScrollPane scrollPane;
     @FXML private Label noDataLabel;
+    @FXML private ImageView img;
+    @FXML private HBox titleContainer;
 
     private final ObservableList<Schedule> scheduleData = FXCollections.observableArrayList();
     private LocalDate date;
     private Attraction attraction;
 
+    @FXML private void initialize() {
+        Image image = new Image(getClass().getResource("/imgs/dayWindow_background.png").toExternalForm());
+        img.setImage(image);
+
+        titleContainer.setTranslateX(-200);  // Position horizontale
+        titleContainer.setTranslateY(-469);  // Position verticale
+    }
+
     public void setDate(LocalDate date, Attraction attraction) {
         this.date = date;
         this.attraction = attraction;
-        this.titleLabel.setText("Horaires pour le " + this.date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.titleLabel.setText(" - " + date.format(formatter));
         chargeDatas();
     }
 

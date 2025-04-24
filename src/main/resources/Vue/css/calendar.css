@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'JetBrains Mono';
-    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    src: url('../../fonts/JetBrainsMono-ExtraBold.ttf') format('truetype');
 }
 
 /* STYLE GENERAL DU CALENDRIER */
@@ -69,21 +69,21 @@
     -fx-opacity: 0.5;
 }
 
-.button-on-day {
-    -fx-background-color: transparent;
-    -fx-min-width: 80px;
-    -fx-min-height: 80px;
-    -fx-background-radius: 0;
-    -fx-font-family: 'JetBrains Mono ExtraBold';
-    -fx-text-fill: WHITE;
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-
 .button-on-day-background {
     -fx-fill: BLACK;
     -fx-stroke: #9c2424;
+    -fx-stroke-width: 2;
+}
+
+.button-promotion-day-background-onDay {
+    -fx-fill: BLUE;
+    -fx-stroke: #9c2424;
+    -fx-stroke-width: 2;
+}
+
+.button-promotion-day-background {
+    -fx-fill: BLUE;
+    -fx-stroke: WHITE;
     -fx-stroke-width: 2;
 }
 
