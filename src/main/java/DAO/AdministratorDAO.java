@@ -1,6 +1,7 @@
 package DAO;
 
 import Modele.Administrator;
+import Modele.Session;
 import Modele.User;
 
 import java.sql.*;
@@ -8,6 +9,76 @@ import java.util.ArrayList;
 
 public class AdministratorDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
+
+    public static Administrator findAdminByEmail(String email) {
+        Administrator adminFound = null;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = new AccesSQLDatabase().getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Admin WHERE email = ?");
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+
+                adminFound = new Administrator(id, nom, prenom, password, email);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Administrateur introuvable");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return adminFound;
+
+    }
+
+
+    public boolean loginAdmin(String email, String password) {
+        boolean isValid = false;
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Admin WHERE email = ? AND password = ?");
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                isValid = true;
+                User user = new Administrator(resultSet.getInt("ID"), resultSet.getString("nom"), resultSet.getString("prenom"), resultSet.getString("password"), resultSet.getString("email"));
+                Session.setUser(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur de connexion administrateur");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return isValid;
+    }
 
     public ArrayList<Administrator> getAllAdministrators() {
         ArrayList<Administrator> listAdmins = new ArrayList<>();
