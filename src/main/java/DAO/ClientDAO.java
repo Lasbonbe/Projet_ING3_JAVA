@@ -96,34 +96,25 @@ public class ClientDAO {
         }
     }
 
-    public Client findClient(int userID) {
-        Client clientFound = null;
+    public boolean loginClient(String email, String password) {
+        boolean isValid = false;
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Client where ID = ?");
-            preparedStatement.setInt(1, userID);
+            preparedStatement = connection.prepareStatement("SELECT * FROM Client WHERE email = ? AND password = ?");
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String nom = resultSet.getString("nom");
-                String prenom = resultSet.getString("prenom");
-                String password = resultSet.getString("password");
-                String email = resultSet.getString("email");
-                Date birthDate = resultSet.getDate("birthDate");
-
-                if (userID == id) {
-                    clientFound = new Client(id, nom, prenom, birthDate, email, password);
-                    break;
-                }
+            if (resultSet.next()) {
+                isValid = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Client introuvable");
+            System.out.println("Erreur de connexion");
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -133,8 +124,9 @@ public class ClientDAO {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
-        return clientFound;
+        return isValid;
     }
+
 
     public static Client findClientByID(int userID) {
         Client clientFound = null;
