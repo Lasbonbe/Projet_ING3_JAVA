@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'JetBrains Mono SemiBold';
+    src: url('../../fonts/JetBrainsMono-SemiBold.ttf') format('truetype');
+}
+
+.button-invisible {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.button-invisible:hover {
+    -fx-opacity: 0.8;
+}
+
+.button-invisible:pressed {
+    -fx-opacity: 0.6;
+}
+
+.searchbox {
+    -fx-background-color: black;
+    -fx-border-color: WHITE;
+    -fx-border-width: 7;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10 5 10;
+
+    -fx-font-family: 'JetBrains Mono SemiBold';
+    -fx-font-size: 50px;
+    -fx-text-fill: WHITE;
+
+}
+
+.grid {
+    -fx-background: transparent; -fx-background-color: transparent;
+}
+
+.card {
+    -fx-font-family: 'JetBrains Mono SemiBold';
+    -fx-font-size: 20px;
+}
+
+.root {
+    -fx-background-image: url("/imgs/HOME_VIEW.png");
+    -fx-background-size: cover;
+}

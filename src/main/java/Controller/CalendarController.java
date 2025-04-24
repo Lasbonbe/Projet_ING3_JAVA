@@ -38,7 +38,7 @@ public class CalendarController {
     private ButtonNavigation prevButton;
     private ButtonNavigation nextButton;
     private PromotionDAO promotionDAO = new PromotionDAO();
-    private Attraction attraction = new Attraction(1, "La roue tourne va tourner (Grande roue)", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
+    private Attraction attraction = new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
 
     @FXML public void initialize() {
         // Chargement de l'image pour l'ImageView
@@ -136,6 +136,7 @@ public class CalendarController {
     }
 
     private void onDayButtonClick(int cday) {
+        Attraction attraction = new Attraction(1, "La roue tourne va tourner (Grande roue)","RollerCoaster", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
         LocalDate selectedDate = this.currentYearMonth.atDay(cday);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/daywindow-view.fxml"));

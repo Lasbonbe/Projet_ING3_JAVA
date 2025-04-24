@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.HomeController" stylesheets="@css/homestyle.css">
+    <ImageView fx:id="img" mouseTransparent="true"/>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.HomeController">
-    <Label text="Bienvenue dans HomeView!" layoutX="50" layoutY="50"/>
+
+        <!-- En-tête -->
+            <HBox spacing="10" alignment="CENTER">
+                <padding> <Insets top="25" right="10" left="600" /> </padding>
+                <TextField fx:id="searchField" promptText="Rechercher" prefWidth="700" prefHeight="90" styleClass="searchbox"/>
+                <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+
+    <BorderPane>
+        <padding> <Insets top="150" left="60" /> </padding>
+
+        <center>
+            <ScrollPane fitToWidth="true" pannable="true" styleClass="grid">
+                <GridPane fx:id="cardsGrid" hgap="30" vgap="30" alignment="TOP_CENTER"/>
+            </ScrollPane>
+        </center>
+    </BorderPane>
 </AnchorPane>

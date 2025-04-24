@@ -3,6 +3,7 @@ package Controller;
 import DAO.AccesSQLDatabase;
 import DAO.AdministratorDAO;
 import DAO.ClientDAO;
+import Modele.Administrator;
 import Modele.Session;
 import Modele.User;
 import Vue.MainApp;
@@ -42,9 +43,6 @@ public class LoginController {
 
             User loggedInUser = ClientDAO.findClientByEmail(email);
             Session.setUser(loggedInUser);
-            System.out.println(Session.getUser());
-            System.out.println(Session.getUser().getEmail());
-
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
@@ -57,6 +55,27 @@ public class LoginController {
                 //print stack trace
                 exception.printStackTrace();
             }
+
+        } else if (administratorDAO.loginAdmin(email, password)) {
+            User loggedInUser = AdministratorDAO.findAdminByEmail(email);
+            Session.setUser(loggedInUser);
+            System.out.println(Session.getUser());
+            System.out.println(Session.getUser().getEmail());
+            System.out.println("isInstanceof Admin : " + (Session.getUser() instanceof Administrator));
+
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/admin-page.fxml"));
+                Parent homeView = loader.load();
+
+                Transition.slideTransition(MainApp.rootPane, homeView, 1000, "LEFT");
+            } catch (IOException exception) {
+                System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+                System.out.println("Erreur lors du chargement de la vue : " + exception.getCause());
+                //print stack trace
+                exception.printStackTrace();
+            }
+
 
         } else {
             // Affichage d'une alerte en cas d'échec de connexion
