@@ -20,12 +20,10 @@
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
-        <!-- Champs et bouton de connexion -->
         <TextField fx:id="emailField" styleClass="custom-text-field" promptText="Email" prefWidth="200" maxWidth="200"/>
         <PasswordField fx:id="passwordField" styleClass="custom-text-field" promptText="Password" prefWidth="200" maxWidth="200"/>
         <Button text="Login" onAction="#onLoginButtonClick"/>
 
-        <!-- Boutons en bas -->
         <HBox alignment="BOTTOM_CENTER" spacing="10">
             <Button text="S'enregistrer" onAction="#onRegisterButtonClick" styleClass="discrete-button"/>
             <Button text="Se connecter avec un code" onAction="#onCodeLoginButtonClick" styleClass="discrete-button"/>
