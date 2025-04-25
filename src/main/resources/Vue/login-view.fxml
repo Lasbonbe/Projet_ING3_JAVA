@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.HBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.LoginController" stylesheets="@css/loginstyle.css">
-    <ImageView fx:id="img" />
+    <ImageView fx:id="img" mouseTransparent="true"></ImageView>
 
     <VBox alignment="CENTER" spacing="20.0">
         <padding>
