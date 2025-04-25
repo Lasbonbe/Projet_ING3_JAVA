@@ -1,23 +1,31 @@
 package Controller;
 
 import DAO.ClientDAO;
+import DAO.ReservationDAO;
+
 import Modele.User;
+
+import Vue.MainApp;
+import Vue.Transition;
 import com.jcraft.jsch.*;
+
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.TableColumn;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,15 +33,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.Properties;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AdminPageController implements Initializable {
-    // ⇒ Remplacé ListView par TableView
     @FXML private TableView<User> usersTable;
     @FXML private TableColumn<User, Integer>    colId;
     @FXML private TableColumn<User, String>     colNom;
     @FXML private TableColumn<User, String> colEmail;
+    @FXML private TableColumn<User, Integer> colReservations;
+
+    @FXML private ImageView quitButton;
+    @FXML private ImageView nextButton;
+    @FXML private ImageView previousButton;
 
     @FXML private TextArea consoleOutput;
     @FXML private ImageView backgroundImage;
@@ -51,27 +63,39 @@ public class AdminPageController implements Initializable {
             String firstName = cellData.getValue().getFirstName();
             String lastName = cellData.getValue().getLastName();
             return new SimpleStringProperty(firstName + " " + lastName.toUpperCase());
-
         });
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         usersTable.setItems(FXCollections.observableArrayList(new ClientDAO().getAllClient()));
+        ReservationDAO reservationDAO = new ReservationDAO();
+        colReservations.setCellValueFactory(cellData -> {
+            int userId = cellData.getValue().getUserID();
+            int count  = reservationDAO.countReservationsByClient(userId);
+            return new SimpleIntegerProperty(count).asObject();
+        });
 
         Image img = new Image(getClass().getResource("/imgs/ADMIN_PANEL.png").toExternalForm());
+        Image nextImg = new Image(getClass().getResource("/imgs/NEXT_BUTTON.png").toExternalForm());
+        Image quitImg = new Image(getClass().getResource("/imgs/QUIT_BUTTON.png").toExternalForm());
+
         Font.loadFont(getClass().getResourceAsStream("/fonts/JetBrainsMono-Medium.ttf"), 20);
         backgroundImage.setImage(img);
+        quitButton.setImage(quitImg);
+        nextButton.setImage(nextImg);
+        previousButton.setImage(new Image(getClass().getResource("/imgs/PREVIOUS_BUTTON.png").toExternalForm()));
+
         consoleOutput.setEditable(true);
         consoleOutput.requestFocus();
         consoleOutput.addEventFilter(KeyEvent.KEY_TYPED, this::handleTyped);
         consoleOutput.addEventFilter(KeyEvent.KEY_PRESSED, this::handleSpecialKeys);
-        consoleOutput.setStyle("-fx-font-family: 'JetBrains Mono Medium'; -fx-font-size: 12px; -fx-text-fill: #ffffff; -fx-border-color: white;-fx-border-radius: 5px;-fx-background-color: black; -fx-control-inner-background: black; -fx-font-weight: 15px");
+        consoleOutput.setStyle("-fx-font-family: 'JetBrains Mono Medium'; -fx-font-size: 12; -fx-text-fill: #ffffff; -fx-border-color: white;-fx-border-radius: 5;-fx-background-color: black; -fx-control-inner-background: black; -fx-font-weight: bold;");
         consoleOutput.setPrefHeight(350);
         consoleOutput.setMaxHeight(350);
         consoleOutput.setPrefWidth(1000);
 
-        usersTable.setPrefHeight(700);
-        usersTable.setMaxHeight(700);
-        usersTable.setPrefWidth(500);
-        usersTable.setMaxWidth(500);
+        usersTable.setPrefHeight(750);
+        usersTable.setMaxHeight(750);
+        usersTable.setPrefWidth(525);
+        usersTable.setMaxWidth(525);
 
         initSSH();
     }
@@ -107,6 +131,7 @@ public class AdminPageController implements Initializable {
     }
     /**
      * Thread pour lire la sortie du shell SSH.
+     * params :
      **/
     private Thread getThread(InputStream sshStdOut) {
         Thread reader = new Thread(() -> {
@@ -139,7 +164,6 @@ public class AdminPageController implements Initializable {
                 sshStdIn.flush();
             } catch (IOException ignored) {}
         }
-        // Empêche TextArea d’insérer le caractère localement
         evt.consume();
     }
 
@@ -186,5 +210,50 @@ public class AdminPageController implements Initializable {
             sshStdIn.flush();
 
         } catch (IOException ignored) {}
+    }
+
+    /**
+     * Bouton QUIT
+     **/
+    @FXML
+    void logoutClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "DOWN");
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Bouton NEXT, fait le lien ADMIN-VIEW -> ATTRACTIONS-VIEW.
+     *
+     * @param event Bah c'est l'event
+     */
+    @FXML
+    private void nextClick(ActionEvent event) {
+        try {
+            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-attraction-view.fxml"))
+            );
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "LEFT");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Bouton PREVIOUS, fait le lien ADMIN-VIEW -> USERS-VIEW.
+     *
+     * @param event Bah c'est l'event
+     */
+    @FXML private void previousClick(ActionEvent event) {
+        try {
+            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-user-view.fxml"))
+            );
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
