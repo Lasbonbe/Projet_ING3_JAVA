@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           stylesheets="@css/adminAttractionpage.css"
+           fx:controller="Controller.AdminUserPageController">
+
+    <ImageView fx:id="backgroundImage" mouseTransparent="true"/>
+    <BorderPane>
+
+        <top>
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <padding> <Insets top="25"/> </padding>
+                <Button onAction="#previousClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
+                <Button onAction="#nextClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="nextButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+
+            </HBox>
+        </top>
+
+        <center>
+            <HBox alignment="BOTTOM_CENTER">
+                <padding> <Insets bottom="50"/> </padding>
+
+                <TableView fx:id="usersTable" prefWidth="1000" prefHeight="500">
+
+                    <columns>
+                        <TableColumn fx:id="colID" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colNom" text="Nom" prefWidth="250"/>
+                        <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="250"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="400"/>
+                        <TableColumn fx:id="colDateNaissance" text="Date de naissance" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </HBox>
+        </center>
+
+        <bottom>
+            <HBox alignment="CENTER" spacing="20">
+                <padding> <Insets bottom="10"/> </padding>
+
+                <Button fx:id="editButton"
+                        text="MODIFIER"
+                        styleClass="modify-button"
+                        onAction="#editUserButtonOnClick"/>
+                <Button fx:id="deleteButton"
+                        text="SUPPRIMER"
+                        styleClass="delete-button"
+                        onAction="#deleteUserButtonOnClick"/>
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+
+</StackPane>
