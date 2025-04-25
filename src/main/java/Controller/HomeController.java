@@ -12,13 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.control.ScrollPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -160,6 +157,18 @@ public class HomeController implements Initializable {
 
     private void moreInfo(Attraction a) {
         System.out.println("Plus d'infos sur : " + a.getName());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/search-view.fxml"));
+            Parent informationView = loader.load();
+
+            SearchController controller = loader.getController();
+            controller.initialize();
+
+            Transition.slideTransition(MainApp.rootPane, informationView, 1500, "LEFT");
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue des informations : " + e.getMessage());
+        }
     }
 
     @FXML

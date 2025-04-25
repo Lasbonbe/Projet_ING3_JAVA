@@ -27,8 +27,10 @@ public class AttractionDAO {
                 int attractionCapacity = resultSet.getInt("max_capacity");
                 int attractionPrice = resultSet.getInt("base_price");
                 int attractionDuration = resultSet.getInt("duration");
+                String attractionDescription = resultSet.getString("description");
+                String attractionImage = resultSet.getString("image");
 
-                Attraction attraction = new Attraction(attractionID, attractionName, attractionType, attractionCapacity, attractionPrice, attractionDuration);
+                Attraction attraction = new Attraction(attractionID, attractionName, attractionType, attractionCapacity, attractionPrice, attractionDuration, attractionDescription, attractionImage);
                 listAttractions.add(attraction);
             }
         } catch (SQLException e) {
@@ -116,9 +118,11 @@ public class AttractionDAO {
                 int attractionCapacity = resultSet.getInt("max_capacity");
                 int attractionPrice = resultSet.getInt("base_price");
                 int attractionDuration = resultSet.getInt("duration");
+                String attractionDescription = resultSet.getString("description");
+                String attractionImage = resultSet.getString("image");
 
                 if (attractionID == id) {
-                    attractionFound = new Attraction(id, attractionName,attractionType, attractionCapacity, attractionPrice, attractionDuration);
+                    attractionFound = new Attraction(id, attractionName, attractionType, attractionCapacity, attractionPrice, attractionDuration, attractionDescription, attractionImage);
                     break;
                 }
             }
@@ -234,13 +238,15 @@ public class AttractionDAO {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
-                String nom = resultSet.getString("nom");
-                String type = resultSet.getString("type");
-                int capacite = resultSet.getInt("max_capacity");
-                int prix = resultSet.getInt("base_price");
-                int duree = resultSet.getInt("duration");
+                String attractionName = resultSet.getString("nom");
+                String attractionType = resultSet.getString("type");
+                int attractionCapacity = resultSet.getInt("max_capacity");
+                int attractionPrice = resultSet.getInt("base_price");
+                int attractionDuration = resultSet.getInt("duration");
+                String attractionDescription = resultSet.getString("description");
+                String attractionImage = resultSet.getString("image");
 
-                listAttractions.add(new Attraction(id, nom,type, capacite, prix, duree));
+                listAttractions.add(new Attraction(id, attractionName, attractionType, attractionCapacity, attractionPrice, attractionDuration, attractionDescription, attractionImage));
             }
 
         } catch (SQLException e) {

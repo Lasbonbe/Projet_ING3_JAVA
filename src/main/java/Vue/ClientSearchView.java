@@ -12,6 +12,7 @@ public class    ClientSearchView extends Application {
 
     public void showSearchArea(Stage stage) {
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/client-search-view.fxml"));
             Parent root = loader.load();
 
