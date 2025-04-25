@@ -73,19 +73,18 @@ public class ClientDAO {
         }
     }
 
-    public void deleteClient(Client client) {
+    public void deleteClientByID(int id ) {
         Connection connection;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM Client where ID = ?");
-            preparedStatement.setInt(1, client.getUserID());
+            preparedStatement = connection.prepareStatement("DELETE FROM Client WHERE ID = ?");
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Suppression de Client impossible");
+            System.out.println("Suppression du Client impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();

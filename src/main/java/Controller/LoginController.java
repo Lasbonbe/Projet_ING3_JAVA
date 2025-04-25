@@ -1,6 +1,5 @@
 package Controller;
 
-import DAO.AccesSQLDatabase;
 import DAO.AdministratorDAO;
 import DAO.ClientDAO;
 import Modele.Administrator;
@@ -8,7 +7,6 @@ import Modele.Session;
 import Modele.User;
 import Vue.MainApp;
 import Vue.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -58,6 +55,7 @@ public class LoginController {
 
         } else if (administratorDAO.loginAdmin(email, password)) {
             User loggedInUser = AdministratorDAO.findAdminByEmail(email);
+
             Session.setUser(loggedInUser);
             System.out.println(Session.getUser());
             System.out.println(Session.getUser().getEmail());
@@ -65,7 +63,7 @@ public class LoginController {
 
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/admin-page.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/admin-view.fxml"));
                 Parent homeView = loader.load();
 
                 Transition.slideTransition(MainApp.rootPane, homeView, 1000, "LEFT");

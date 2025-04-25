@@ -76,4 +76,68 @@ public class PromotionDAO {
             return false;
         }
     }
+
+    public List<Promotion> getAllPromotions() {
+        List<Promotion> promotions = new ArrayList<>();
+        String sql = "SELECT * FROM Promotion";
+        try (Connection conn = sqlDatabase.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int id          = rs.getInt("ID");
+                String nom      = rs.getString("nom");
+                String desc     = rs.getString("description");
+                int pourcentage = rs.getInt("percentage");
+
+                // date_debut peut être NULL
+                java.sql.Date debutSql = rs.getDate("date_debut");
+                LocalDate dateDebut    = (debutSql != null)
+                        ? debutSql.toLocalDate()
+                        : null;
+
+                // date_fin peut être NULL
+                java.sql.Date finSql   = rs.getDate("date_fin");
+                LocalDate dateFin      = (finSql != null)
+                        ? finSql.toLocalDate()
+                        : null;
+
+                // le flag permanente (tinyint 0/1)
+                boolean permanente     = rs.getBoolean("permanente");
+
+                // Créez votre constructeur qui prend ces champs
+                Promotion p = new Promotion(id, nom, pourcentage, desc, dateDebut, dateFin);
+                promotions.add(p);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Erreur de récupération des promotions");
+        }
+        return promotions;
+    }
+
+    public void deletePromotionByID(int id ) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            String sql = "DELETE FROM Promotion WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur de suppression de la promotion");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
 }

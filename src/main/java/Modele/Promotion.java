@@ -39,4 +39,13 @@ public class Promotion {
         this.Percentage = percentage;
         this.Description = description;
     }
+
+    public Promotion(int promotionId, String promotionName, int percentage, String description, LocalDate startDate, LocalDate endDate) {
+        this.Id = promotionId;
+        this.Name = promotionName;
+        this.Percentage = percentage;
+        this.Description = description;
+        this.StartDate = startDate;
+        this.EndDate = endDate;
+    }
 }
