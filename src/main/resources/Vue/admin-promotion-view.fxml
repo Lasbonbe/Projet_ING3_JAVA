@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Controller.AdminPromotionPageController"
+           stylesheets="@css/adminAttractionpage.css">
+
+    <ImageView fx:id="backgroundImage" mouseTransparent="true"/>
+    <BorderPane>
+
+        <top>
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <padding> <Insets top="25"/> </padding>
+                <Button onAction="#previousClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
+                <Button onAction="#nextClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="nextButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+
+            </HBox>
+        </top>
+
+        <center>
+            <HBox alignment="BOTTOM_CENTER">
+                <padding> <Insets bottom="50"/> </padding>
+
+                <TableView fx:id="promotionsTable" prefWidth="1000" prefHeight="500">
+
+                <columns>
+                    <TableColumn fx:id="colID"          text="ID"           prefWidth="50"/>
+                    <TableColumn fx:id="colNom"         text="Nom"          prefWidth="200"/>
+                    <TableColumn fx:id="colDescription" text="Description"  prefWidth="250"/>
+                    <TableColumn fx:id="colDebut"       text="Date début"   prefWidth="120"/>
+                    <TableColumn fx:id="colFin"         text="Date fin"     prefWidth="120"/>
+                    <TableColumn fx:id="colPermanente"  text="Permanente"   prefWidth="100"/>
+                </columns>
+            </TableView>
+            </HBox>
+        </center>
+
+        <bottom>
+            <HBox alignment="CENTER" spacing="20">
+                <padding> <Insets bottom="10"/> </padding>
+
+                <Button fx:id="editButton"
+                        text="MODIFIER"
+                        styleClass="modify-button"
+                        onAction="#editPromotion"/>
+                <Button fx:id="deleteButton"
+                        text="SUPPRIMER"
+                        styleClass="delete-button"
+                        onAction="#deletePromotion"/>
+                <Button fx:id="addButton"
+                        text="ADD"
+                        styleClass="add-button"
+                        onAction="#addPromotion"/>
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+</StackPane>
