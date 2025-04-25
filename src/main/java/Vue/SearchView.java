@@ -1,3 +1,4 @@
+/*
 package Vue;
 
 import Controller.SearchController;
@@ -45,3 +46,4 @@ public class SearchView extends Application {
         launch(args);
     }
 }
+*/

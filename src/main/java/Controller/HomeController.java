@@ -158,11 +158,11 @@ public class HomeController implements Initializable {
     private void moreInfo(Attraction a) {
         System.out.println("Plus d'infos sur : " + a.getName());
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/search-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/information-view.fxml"));
             Parent informationView = loader.load();
 
-            SearchController controller = loader.getController();
-            controller.initialize();
+            InformationController controller = loader.getController();
+            controller.initialize(a);
 
             Transition.slideTransition(MainApp.rootPane, informationView, 1500, "LEFT");
 
