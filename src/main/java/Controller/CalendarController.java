@@ -4,6 +4,7 @@ import DAO.PromotionDAO;
 import Modele.Attraction;
 import Vue.Calendar.*;
 import Vue.MainApp;
+import Vue.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,9 +39,10 @@ public class CalendarController {
     private ButtonNavigation prevButton;
     private ButtonNavigation nextButton;
     private PromotionDAO promotionDAO = new PromotionDAO();
-    private Attraction attraction = new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
+    private Attraction attraction;
 
-    @FXML public void initialize() {
+    @FXML public void initialize(Attraction attraction) {
+        this.attraction = attraction;
         // Chargement de l'image pour l'ImageView
         Image image = new Image(getClass().getResource("/imgs/CALENDAR.png").toExternalForm());
         img.setImage(image);
@@ -136,7 +138,6 @@ public class CalendarController {
     }
 
     private void onDayButtonClick(int cday) {
-        Attraction attraction = new Attraction(1, "La roue tourne va tourner (Grande roue)","RollerCoaster", 50, 3, 15); /// TEMPORAIRE A MODIFIER QUAND ON REUNIRA TOUT
         LocalDate selectedDate = this.currentYearMonth.atDay(cday);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/daywindow-view.fxml"));
@@ -145,27 +146,10 @@ public class CalendarController {
             DayWindowController controller = loader.getController();
             controller.setDate(selectedDate, attraction);
 
-            StackPane rootPane = CalendarView.getRootPane();
-            dayWindowView.translateXProperty().set(rootPane.getWidth());
-            rootPane.getChildren().add(dayWindowView);
+            Transition.slideTransition(MainApp.rootPane, dayWindowView, 1500, "LEFT");
 
-            TranslateTransition slideOut = new TranslateTransition(Duration.millis(1500), rootPane.getChildren().getFirst());
-            slideOut.setToX(-1920); // Slide vers la gauche
-            slideOut.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Custom curve
-
-            TranslateTransition slideIn = new TranslateTransition(Duration.millis(1500), dayWindowView);
-            slideIn.setToX(0);
-            slideIn.setInterpolator(javafx.animation.Interpolator.SPLINE(0.7, 0.0, 0.3, 1.0)); // Custom curve
-
-            // Suppression de l'ancienne vue après la transition
-            slideIn.setOnFinished(e -> rootPane.getChildren().removeFirst());
-
-            // Lancement des animations
-            slideOut.play();
-            slideIn.play();
-
-        } catch (IOException exception) {
-            System.out.println("Erreur lors du chargement de la vue du jour : " + exception.getMessage());
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue du jour : " + e.getMessage());
         }
     }
 

@@ -7,8 +7,10 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PromotionDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
@@ -59,10 +61,12 @@ public class PromotionDAO {
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT p.nom FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin >= ?) OR p.permanente = TRUE) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))");
+            String sql = "SELECT * FROM Promotion p JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id WHERE pa.attraction_id = ? AND ((p.date_debut <= ? AND p.date_fin >= ?) OR (p.permanente = TRUE AND pj.promotion_id = p.ID) AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?)))";
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setDate(2, java.sql.Date.valueOf(sessionDate));
             preparedStatement.setDate(3, java.sql.Date.valueOf(sessionDate));
+            //preparedStatement.setString(4, "age");
             preparedStatement.setDate(4, java.sql.Date.valueOf(sessionDate));
             resultSet = preparedStatement.executeQuery();
             return resultSet.next();

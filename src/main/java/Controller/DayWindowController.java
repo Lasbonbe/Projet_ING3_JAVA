@@ -67,7 +67,7 @@ public class DayWindowController {
 
     private void chargeDatas() {
         ScheduleDAO dao = new ScheduleDAO();
-        ArrayList<Schedule> listSchedule = dao.getScheduleWithAttractionNamesByDate(this.date);
+        ArrayList<Schedule> listSchedule = dao.getScheduleWithAttractionNamesByDate(this.date, this.attraction);
 
         if (listSchedule != null && !listSchedule.isEmpty()) {
             this.noDataLabel.setVisible(false);

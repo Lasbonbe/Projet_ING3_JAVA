@@ -1,5 +1,6 @@
 package DAO;
 
+import Modele.Attraction;
 import Modele.Schedule;
 
 import java.sql.*;
@@ -54,7 +55,7 @@ public class ScheduleDAO{
         return schedules;
     }
 
-    public ArrayList<Schedule> getScheduleWithAttractionNamesByDate(LocalDate date) {
+    public ArrayList<Schedule> getScheduleWithAttractionNamesByDate(LocalDate date, Attraction attraction) {
         ArrayList<Schedule> schedules = new ArrayList<>();
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -63,8 +64,9 @@ public class ScheduleDAO{
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("SELECT nom, hour_debut, hour_end, total_places, reserved_places, statut " +
-                    "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = Attraction.ID WHERE date = ? ORDER BY hour_debut");
-            preparedStatement.setDate(1, java.sql.Date.valueOf(date));
+                    "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = ? WHERE date = ? ORDER BY hour_debut");
+            preparedStatement.setInt(1, attraction.getAttractionID());
+            preparedStatement.setDate(2, java.sql.Date.valueOf(date));
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String nameAttraction = resultSet.getString("nom");

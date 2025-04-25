@@ -1,5 +1,7 @@
 package Vue.Calendar;
 
+import Controller.CalendarController;
+import Modele.Attraction;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +25,9 @@ public class CalendarView extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/calendar-view.fxml"));
             Parent root = loader.load();
 
+            CalendarController controller = loader.getController();
+            /// Pour des tests
+            controller.initialize(new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15));
             rootPane.getChildren().add(root);
 
             Scene scene = new Scene(rootPane);

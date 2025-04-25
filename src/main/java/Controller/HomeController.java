@@ -3,8 +3,10 @@ package Controller;
 import DAO.AttractionDAO;
 import Modele.Attraction;
 import Modele.Session;
+import Vue.Calendar.CalendarView;
 import Vue.MainApp;
 import Vue.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -145,6 +144,18 @@ public class HomeController implements Initializable {
 
     private void reserve(Attraction a) {
         System.out.println("Réservation pour : " + a.getName());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/calendar-view.fxml"));
+            Parent calendarView = loader.load();
+
+            CalendarController controller = loader.getController();
+            controller.initialize(a);
+
+            Transition.slideTransition(MainApp.rootPane, calendarView, 1500, "LEFT");
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue du calendrier : " + e.getMessage());
+        }
     }
 
     private void moreInfo(Attraction a) {
