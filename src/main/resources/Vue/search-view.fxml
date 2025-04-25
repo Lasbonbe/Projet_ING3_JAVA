@@ -34,9 +34,9 @@
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Choisir un prix"/>
-                                <String fx:value="1€-5€, parfait pour les creuvards"/>
-                                <String fx:value="6€-10€, Ah ouai t'es aisé"/>
-                                <String fx:value="+10€, Excuse nous Elon"/>
+                                <String fx:value="1€-5€"/>
+                                <String fx:value="6€-10€"/>
+                                <String fx:value="+10€"/>
                             </FXCollections>
                         </items>
                     </ComboBox>
