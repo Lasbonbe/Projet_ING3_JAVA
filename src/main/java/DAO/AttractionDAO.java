@@ -168,7 +168,55 @@ public class AttractionDAO {
         return attraction;
     }
 
-    public ArrayList<Attraction>searchAttractions(String searchAttractions, boolean placesAvailable, String chosenPrice, String chosenDuration) {
+
+    public Search searchAttractionsPrompt(String searchAttractions, boolean placesAvailable, String chosenPrice, String chosenDuration){
+        StringBuilder searchPrompt = new StringBuilder("SELECT * FROM Attraction WHERE 1=1");
+        ArrayList<Object> searchParameter = new ArrayList<>();
+
+        if (searchAttractions != null && !searchAttractions.trim().isEmpty()) {
+            searchPrompt.append(" AND nom LIKE ?");
+            searchParameter.add("%" + searchAttractions + "%");
+        }
+
+        if (placesAvailable) {
+            searchPrompt.append(" AND max_capacity > 0");
+        }
+
+        if (chosenPrice != null && !chosenPrice.startsWith("Choisir")) {
+            if (chosenPrice.contains("1€-5€")) {
+                searchPrompt.append(" AND base_price BETWEEN ? AND ?");
+                searchParameter.add(1);
+                searchParameter.add(5);
+            } else if (chosenPrice.contains("6€-10€")) {
+                searchPrompt.append(" AND base_price BETWEEN ? AND ?");
+                searchParameter.add(6);
+                searchParameter.add(10);
+            } else if (chosenPrice.contains("+10€")) {
+                searchPrompt.append(" AND base_price > ?");
+                searchParameter.add(10);
+            }
+        }
+
+        if (chosenDuration != null && !chosenDuration.startsWith("Choisir")) {
+            if (chosenDuration.contains("1-5")) {
+                searchPrompt.append(" AND duration BETWEEN ? AND ?");
+                searchParameter.add(1);
+                searchParameter.add(5);
+            } else if (chosenDuration.contains("6-10")) {
+                searchPrompt.append(" AND duration BETWEEN ? AND ?");
+                searchParameter.add(6);
+                searchParameter.add(10);
+            } else if (chosenDuration.contains("+10")) {
+                searchPrompt.append(" AND duration > ?");
+                searchParameter.add(10);
+            }
+        }
+        Search mySearch = new Search(searchPrompt.toString(), searchParameter);
+
+        return mySearch;
+    }
+
+    public ArrayList<Attraction>searchAttractions(Search searchQuery) {
         ArrayList<Attraction> listAttractions = new ArrayList<>();
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -176,53 +224,13 @@ public class AttractionDAO {
 
         try {
             connection = sqlDatabase.getConnection();
-            StringBuilder dynamicSQL = new StringBuilder("SELECT * FROM Attraction WHERE 1=1");
-            ArrayList<Object> params = new ArrayList<>();
 
-            if (searchAttractions != null && !searchAttractions.trim().isEmpty()) {
-                dynamicSQL.append(" AND nom LIKE ?");
-                params.add("%" + searchAttractions + "%");
+            preparedStatement = connection.prepareStatement(searchQuery.getSearchPrompt());
+
+            for (int i = 0; i < searchQuery.getSearchParameters().size(); i++) {
+                preparedStatement.setObject(i + 1, searchQuery.getSearchParameters().get(i));
             }
 
-            if (placesAvailable) {
-                dynamicSQL.append(" AND max_capacity > 0");
-            }
-
-            if (chosenPrice != null && !chosenPrice.startsWith("Choisir")) {
-                if (chosenPrice.contains("1€-5€")) {
-                    dynamicSQL.append(" AND base_price BETWEEN ? AND ?");
-                    params.add(1);
-                    params.add(5);
-                } else if (chosenPrice.contains("6€-10€")) {
-                    dynamicSQL.append(" AND base_price BETWEEN ? AND ?");
-                    params.add(6);
-                    params.add(10);
-                } else if (chosenPrice.contains("+10€")) {
-                    dynamicSQL.append(" AND base_price > ?");
-                    params.add(10);
-                }
-            }
-
-            if (chosenDuration != null && !chosenDuration.startsWith("Choisir")) {
-                if (chosenDuration.contains("1-5")) {
-                    dynamicSQL.append(" AND duration BETWEEN ? AND ?");
-                    params.add(1);
-                    params.add(5);
-                } else if (chosenDuration.contains("6-10")) {
-                    dynamicSQL.append(" AND duration BETWEEN ? AND ?");
-                    params.add(6);
-                    params.add(10);
-                } else if (chosenDuration.contains("+10")) {
-                    dynamicSQL.append(" AND duration > ?");
-                    params.add(10);
-                }
-            }
-
-            preparedStatement = connection.prepareStatement(dynamicSQL.toString());
-
-            for (int i = 0; i < params.size(); i++) {
-                preparedStatement.setObject(i + 1, params.get(i));
-            }
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");

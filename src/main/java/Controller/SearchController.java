@@ -2,6 +2,7 @@ package Controller;
 
 import Modele.Attraction;
 import DAO.AttractionDAO;
+import Modele.Search;
 import Vue.VueAttraction;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -51,8 +52,10 @@ public class SearchController {
         String filterPrice = comboBoxPrice.getValue();
         String filterDuration = comboBoxDuration.getValue();
 
-        searchResults = attractionDAO.searchAttractions(searchPrompt, placesAvailable, filterPrice, filterDuration);
-        if ( searchResults.isEmpty()){
+        Search attractionSearch = attractionDAO.searchAttractionsPrompt(searchPrompt, placesAvailable, filterPrice, filterDuration);
+        searchResults = attractionDAO.searchAttractions(attractionSearch);
+
+        if (searchResults.isEmpty()){
             System.out.println("Aucune attraction correspond à votre recherche");
         }
         else {
