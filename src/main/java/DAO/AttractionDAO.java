@@ -3,6 +3,7 @@ package DAO;
 import Modele.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AttractionDAO {
@@ -97,6 +98,30 @@ public class AttractionDAO {
         }
     }
 
+    public void deleteAttractionByID(int id) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE from Attraction where ID = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();  // Changé de executeQuery() à executeUpdate()
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Suppression de Attraction impossible");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
+
+
     public Attraction findAttraction(int attractionID) {
         Attraction attractionFound = null;
         Connection connection;
@@ -167,6 +192,8 @@ public class AttractionDAO {
         }
         return attraction;
     }
+
+
 
     public ArrayList<Attraction>searchAttractions(String searchAttractions, boolean placesAvailable, String chosenPrice, String chosenDuration) {
         ArrayList<Attraction> listAttractions = new ArrayList<>();
