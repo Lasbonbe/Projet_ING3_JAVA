@@ -13,14 +13,13 @@
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.InformationController" stylesheets="@css/informationstyle.css">
 
 
-    <!-- En-tête -->
-    <HBox spacing="10" alignment="TOP_CENTER" >
-        <padding> <Insets top="25" right="10" left="600"/> </padding>
-        <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
-        <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
-    </HBox>
-
     <BorderPane style="-fx-background-color: black">
+    <top>
+        <HBox spacing="10">
+            <padding> <Insets top="25" right="20" bottom="25" left="50"/> </padding>
+            <Button onAction="#backClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
+        </HBox>
+    </top>
     <left>
         <VBox styleClass="information-vbox" alignment="CENTER_LEFT" spacing="20.0">
             <Label fx:id="attractionName" styleClass="name-label"/>

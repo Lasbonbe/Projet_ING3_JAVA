@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class InformationController {
     @FXML public ImageView img;
-    @FXML private ImageView searchButton;
+    @FXML private ImageView previousButton;
     @FXML private ImageView quitButton;
 
     @FXML public Label attractionName;
@@ -35,11 +35,8 @@ public class InformationController {
 
     @FXML public void initialize(Attraction attraction) {
         try {
-            searchButton.setImage(new Image(
-                    Objects.requireNonNull(getClass().getResource("/imgs/ACCOUNT_BUTTON.png")).toExternalForm()
-            ));
-            quitButton.setImage(new Image(
-                    Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()
+            previousButton.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()
             ));
         } catch (JavaFXImageException e) {
             System.err.println("Erreur au chargement des images : " + e.getMessage());
@@ -80,15 +77,15 @@ public class InformationController {
     }
 
     @FXML
-    private void logoutClick() {
-        Session.setUser(null);
-        System.out.println("Session utilisateur réinitialisée.");
+    private void backClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
-            Parent loginView = loader.load();
-            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "RIGHT");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
+            Parent homeView = loader.load();
+
+
+            Transition.slideTransition(MainApp.rootPane, homeView, 1000, "RIGHT");
         } catch (IOException e) {
-            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
+            System.err.println("Erreur lors du chargement de la page des différentes attractions : " + e.getMessage());
         }
     }
 
