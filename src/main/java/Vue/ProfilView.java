@@ -1,7 +1,9 @@
 package Vue;
 
 import Controller.InformationController;
+import Controller.ProfilController;
 import Modele.Attraction;
+import Modele.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,40 +12,43 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.sql.Date;
 
-public class InformationView extends Application {
+public class ProfilView extends Application {
     private static StackPane rootPane;
 
     public static StackPane getRootPane() {
         return rootPane;
     }
 
-    public void showInformation(Stage stage) {
+    public void showProfil(Stage stage) {
         try {
             rootPane = new StackPane();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/information-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
             Parent root = loader.load();
 
             // Pour des tests
-            InformationController controller = loader.getController();
-            controller.initialize(new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15, "La roue tourne hyper vite", "/imgs/Attractions/attraction_GrandeRoue.png"));
+            ProfilController controller = loader.getController();
+            Date specificDate = Date.valueOf("2001-09-11");
+            controller.initialize(new Client(14, "NGNGNGNGNGNGNG", "GAGAGAGAGAGA",specificDate, "a", "a"));
 
             rootPane.getChildren().add(root);
             Scene scene = new Scene(rootPane);
 
-            stage.setTitle("Informations de l'attraction");
+            stage.setTitle("Votre Profil");
             stage.setScene(scene);
             stage.show();
 
         } catch (IOException e) {
-            System.out.println("Erreur lors du chargement de la page d'information : " + e.getMessage());
+            System.out.println("Erreur lors du chargement de la page du profil : " + e.getMessage());
         }
     }
 
     @Override
     public void start(Stage stage) {
-        showInformation(stage);
+        showProfil(stage);
     }
 
     public static void main(String[] args) {

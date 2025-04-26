@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextArea?>
+
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.ProfilController" stylesheets="@css/informationstyle.css">
+
+
+    <BorderPane style="-fx-background-color: black">
+        <left>
+            <VBox styleClass="information-vbox" alignment="CENTER_LEFT" spacing="20.0">
+                <Label fx:id="attractionName" styleClass="name-label"/>
+                <ImageView fx:id="attractionImg" styleClass="attraction-img" fitWidth="800" fitHeight="400" />
+                <TextArea fx:id="attractionDescription" styleClass="attraction-desc" wrapText="true" editable="false" focusTraversable="false"/>
+            </VBox>
+        </left>
+
+        <right>
+            <VBox styleClass="details-vbox" BorderPane.alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
+
+                <VBox spacing="5">
+                    <Label fx:id="attractionType" styleClass="detail-label"/>
+                    <Label fx:id="attractionPrice" styleClass="detail-label" />
+                    <Label fx:id="attractionDuration" styleClass="detail-label"/>
+                </VBox>
+
+                <Pane VBox.vgrow="ALWAYS"/>
+
+                <Button fx:id="bookingButton" text="Allez réserver ->" styleClass="res-button" prefWidth="100"/>
+            </VBox>
+        </right>
+
+    </BorderPane>
+
+</StackPane>
