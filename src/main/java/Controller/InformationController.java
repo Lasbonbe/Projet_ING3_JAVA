@@ -51,7 +51,7 @@ public class InformationController {
     public void setupInformation (Attraction attraction) {
         attractionName.setText(attraction.getName());
 
-        if (attraction.getImagePath()!=null) {
+        if (attraction.getImagePath()!=null && attraction.getImagePath().startsWith("/imgs/Attractions/")) {
             Image imageAttraction = new Image(getClass().getResource(attraction.getImagePath()).toExternalForm());
             attractionImg.setImage(imageAttraction);
         }
