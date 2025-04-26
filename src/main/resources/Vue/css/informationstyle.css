@@ -22,8 +22,8 @@
 }
 
 .information-vbox{
-    -fx-alignment: center;
-    -fx-padding: 0 0 0 350;
+    -fx-alignment: left;
+    -fx-padding: 0 0 0 200;
 }
 
 .attraction-img {
@@ -38,16 +38,17 @@
     -fx-font-size: 24px;
     -fx-text-fill: WHITE;
     -fx-border-color: BLACK;
+    -fx-background-color: BLACK;
 }
 
 .attraction-desc .content {
     -fx-background-color: BLACK;
+    -fx-border-color: BLACK;
 }
 
 .name-label{
     -fx-alignment: center;
     -fx-font-family: 'JetBrains Mono';
-    font-weight: bold;
     -fx-background-color: WHITE;
     -fx-text-fill: BLACK;
     -fx-font-size: 36px;
@@ -56,14 +57,44 @@
 }
 
 .details-vbox{
+    -fx-padding: 40 0 20 0;
     -fx-alignment: center;
-    -fx-padding: 0 400 0 0;
+    -fx-background-color: BLACK;
+    -fx-pref-width: 375;
+    -fx-max-width: 375;
+    -fx-max-height: 700;
+    -fx-border-color: WHITE;
+    -fx-border-width: 4;
+    -fx-spacing: 100;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
 }
 
 .detail-label{
+    -fx-font-family: 'JetBrains Mono';
     -fx-text-fill: WHITE;
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 25 30;
 }
 
-.res-button{
+.res-button {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-border-color: DARKGREY;
+    -fx-font-size: 18px;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 0 10;
+    -fx-pref-width: 200;
+    -fx-pref-height: 50;
+    -fx-border-width: 2;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
 
+.res-button:hover {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+    -fx-border-color: LIGHTGREY;
 }
