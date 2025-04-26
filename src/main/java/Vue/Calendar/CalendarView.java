@@ -27,7 +27,7 @@ public class CalendarView extends Application {
 
             CalendarController controller = loader.getController();
             /// Pour des tests
-            controller.initialize(new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15, "La roue tourne hyper vite", "/imgs/attraction_GrandeRoue.png"));
+            controller.initialize(new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15, "La roue tourne hyper vite", "/imgs/Attractions/attraction_GrandeRoue.png"));
             rootPane.getChildren().add(root);
 
             Scene scene = new Scene(rootPane);

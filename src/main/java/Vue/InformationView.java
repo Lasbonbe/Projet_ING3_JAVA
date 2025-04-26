@@ -1,6 +1,5 @@
 package Vue;
 
-import Controller.CalendarController;
 import Controller.InformationController;
 import Modele.Attraction;
 import javafx.application.Application;
@@ -15,6 +14,10 @@ import java.io.IOException;
 public class InformationView extends Application {
     private static StackPane rootPane;
 
+    public static StackPane getRootPane() {
+        return rootPane;
+    }
+
     public void showInformation(Stage stage) {
         try {
             rootPane = new StackPane();
@@ -22,12 +25,8 @@ public class InformationView extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/information-view.fxml"));
             Parent root = loader.load();
 
-            InformationController controller = loader.getController();
-            //Attraction de test
-            Attraction attractionTest = new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15, "La roue tourne hyper viteeeeeeeeeeeee !!! (personnes aux couleurs basanées non accéptées)", "/imgs/attraction_GrandeRoue.png");
-            controller.initialize(attractionTest);
-
-            Scene scene = new Scene(root);
+            rootPane.getChildren().add(root);
+            Scene scene = new Scene(rootPane);
 
             stage.setTitle("Informations de l'attraction");
             stage.setScene(scene);

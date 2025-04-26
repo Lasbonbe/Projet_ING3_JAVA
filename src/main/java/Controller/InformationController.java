@@ -37,8 +37,8 @@ public class InformationController {
 
         attractionDescription.setText(attraction.getDescription());
         attractionType.setText("Type de manège : " + attraction.getType());
-        attractionPrice.setText("Prix d'un tour/personne : " + String.valueOf(attraction.getPrice()) + "€");
-        attractionDuration.setText("Durée d'un tour : " + String.valueOf(attraction.getDuration()) + " minutes");
+        attractionPrice.setText("Prix d'un tour/personne : " + attraction.getPrice() + "€");
+        attractionDuration.setText("Durée d'un tour : " + attraction.getDuration() + " minutes");
     }
 
 }
