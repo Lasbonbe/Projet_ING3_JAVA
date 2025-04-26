@@ -35,8 +35,6 @@ public class InformationController {
 
     @FXML public void initialize(Attraction attraction) {
         try {
-            Image image = new Image(getClass().getResource("/imgs/CALENDAR.png").toExternalForm());
-            img.setImage(image);
             searchButton.setImage(new Image(
                     Objects.requireNonNull(getClass().getResource("/imgs/ACCOUNT_BUTTON.png")).toExternalForm()
             ));
@@ -53,8 +51,10 @@ public class InformationController {
     public void setupInformation (Attraction attraction) {
         attractionName.setText(attraction.getName());
 
-        Image imageAttraction = new Image(getClass().getResource(attraction.getImagePath()).toExternalForm());
-        attractionImg.setImage(imageAttraction);
+        if (attraction.getImagePath()!=null) {
+            Image imageAttraction = new Image(getClass().getResource(attraction.getImagePath()).toExternalForm());
+            attractionImg.setImage(imageAttraction);
+        }
 
         attractionDescription.setText(attraction.getDescription());
         attractionType.setText("Type de manège : " + attraction.getType());
