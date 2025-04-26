@@ -66,7 +66,7 @@ public class ProfilController {
             Parent homeView = loader.load();
 
 
-            Transition.slideTransition(MainApp.rootPane, homeView, 1000, "UP");
+            Transition.slideTransition(MainApp.rootPane, homeView, 1000, "DOWN");
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la page des différentes attractions : " + e.getMessage());
         }

@@ -226,7 +226,7 @@ public class HomeController implements Initializable {
             ProfilController controller = loader.getController();
             controller.initialize(Session.getUser());
 
-            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "DOWN");
+            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "UP");
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
