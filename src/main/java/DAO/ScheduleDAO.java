@@ -64,7 +64,7 @@ public class ScheduleDAO{
         try {
             connection = sqlDatabase.getConnection();
             preparedStatement = connection.prepareStatement("SELECT nom, hour_debut, hour_end, total_places, reserved_places, statut " +
-                    "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = ? WHERE date = ? ORDER BY hour_debut");
+                    "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = Attraction.ID WHERE Attraction.ID = ? AND date = ? ORDER BY Schedule.hour_debut");
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setDate(2, java.sql.Date.valueOf(date));
             resultSet = preparedStatement.executeQuery();
