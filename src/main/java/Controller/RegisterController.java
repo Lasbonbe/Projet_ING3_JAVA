@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.Serial;
 import java.time.LocalDate;
 
+/**
+ * Controller de la page d'enregistrement.
+ * Permet de gérer l'enregistrement d'un nouvel utilisateur.
+ */
 public class RegisterController {
 
     private final AccesSQLDatabase db = new AccesSQLDatabase();
@@ -60,6 +64,9 @@ public class RegisterController {
     @FXML
     public Label passwordValidLabel;
 
+    /**
+     * Méthode pour gérer le clic sur le bouton d'enregistrement.
+     */
     @FXML
     protected void onRegisterClick() {
         String prenom = prenomField.getText();
@@ -93,6 +100,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode pour l'afficage et la transition vers la vue de connexion.
+     */
     private void slideToLogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
@@ -105,6 +115,10 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode d'initialisation de la vue.
+     * Applique les styles et initialise les listeners pour la validation des champs.
+     */
     @FXML
     public void initialize() {
         // Appliquer les classes de style sur les labels
@@ -126,6 +140,9 @@ public class RegisterController {
         return_icon.setImage(image);
     }
 
+    /**
+     * Méthode de vérification du mot de passe (8 caractères minimum et au moins un symbole).
+     */
     private void validatePassword() {
         String password = passwordField.getText();
         if (password.length() < 8 || !password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
@@ -150,6 +167,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode de vérification de la correspondance des mots de passe.
+     */
     private void validatePasswordMatch() {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
@@ -162,6 +182,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode de vérification de l'email (doit contenir un '@').
+     */
     private void validateEmail() {
         String email = emailField.getText();
         if (!email.contains("@")) {
@@ -185,6 +208,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode de vérification de la correspondance des emails.
+     */
     private void validateEmailMatch() {
         String email = emailField.getText();
         String confirmEmail = confirmEmailField.getText();
@@ -197,6 +223,10 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Méthode de transition de fondu pour les labels.
+     * @param label Le label à animer
+     */
     private void playFadeTransition(Label label) {
         FadeTransition ft = new FadeTransition(Duration.millis(500), label);
         ft.setFromValue(0.0);
@@ -204,6 +234,10 @@ public class RegisterController {
         ft.play();
     }
 
+    /**
+     * Méthode pour gérer le clic sur l'icône de retour.
+     * Charge la vue de connexion.
+     */
     @FXML
     private void returnIconClick() {
         try {

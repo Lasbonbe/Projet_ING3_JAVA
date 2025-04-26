@@ -27,6 +27,10 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Objects;
 
+/**
+ * Controller de la page de calendrier.
+ * Permet d'afficher le calendrier et de sélectionner une date.
+ */
 public class CalendarController {
     @FXML public ImageView img;
     //@FXML private Button prevButton;
@@ -45,6 +49,10 @@ public class CalendarController {
     private PromotionDAO promotionDAO = new PromotionDAO();
     private Attraction attraction;
 
+    /**
+     * Initialisation de la page de calendrier.
+     * @param attraction Attraction associée au calendrier.
+     */
     @FXML public void initialize(Attraction attraction) {
         this.attraction = attraction;
 
@@ -75,6 +83,12 @@ public class CalendarController {
         updateCalendar();
     }
 
+    /**
+     * BOUTON PREVIOUS
+     * Appelé lorsque le bouton "Précédent" est cliqué.
+        * Vérifie si le mois précédent est avant le mois actuel
+     * et met à jour le calendrier.
+     */
     private void onPrevButtonClick() {
         YearMonth previous = currentYearMonth.minusMonths(1);
         if (!previous.isBefore(YearMonth.from(this.today))) {
@@ -83,12 +97,22 @@ public class CalendarController {
         }
     }
 
+    /**
+     * BOUTON NEXT
+     * Appelé lorsque le bouton "Suivant" est cliqué.
+     * Met à jour le mois actuel et le calendrier.
+     */
     private void onNextButtonClick() {
         currentYearMonth = currentYearMonth.plusMonths(1);
         updateCalendar();
     }
 
 
+    /**
+     * Met à jour le calendrier en fonction du mois actuel.
+     * Affiche les jours de la semaine et les jours du mois.
+     * @hidden WARNING 160% COMPLEXITY
+     */
     public void updateCalendar() {
         this.calendarGrid.getChildren().clear();
         this.monthLabel.setText(this.currentYearMonth.getMonth() + " " + this.currentYearMonth.getYear());
@@ -152,6 +176,11 @@ public class CalendarController {
 
     }
 
+    /**
+     * Appelé lorsque le bouton d'un jour est cliqué.
+     * Ouvre la fenêtre du jour correspondant.
+     * @param cday Le jour du mois sélectionné.
+     */
     private void onDayButtonClick(int cday) {
         LocalDate selectedDate = this.currentYearMonth.atDay(cday);
         try {
@@ -168,6 +197,10 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Appelé lorsque le bouton "Quitter" est cliqué.
+     * Réinitialise la session utilisateur et charge la vue de connexion.
+     */
     @FXML
     private void logoutClick() {
         Session.setUser(null);
@@ -181,6 +214,10 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Appelé lorsque le bouton "Retour" est cliqué.
+     * Charge la vue de code.
+     */
     @FXML
     private void backClick() {
         try {

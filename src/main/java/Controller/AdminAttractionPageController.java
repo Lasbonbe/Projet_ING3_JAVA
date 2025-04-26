@@ -23,6 +23,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'administration des attractions.
+ * Permet de gérer les attractions (ajout, modification, suppression).
+ */
 public class AdminAttractionPageController implements Initializable {
 
     @FXML private TableView<Attraction> attractionsTable;

@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.util.Objects;
 
 
+/**
+ * Controller de la page d'information d'une attraction.
+ * Permet d'afficher les informations détaillées sur une attraction.
+ */
 public class InformationController {
     @FXML public ImageView img;
     @FXML private ImageView previousButton;
@@ -33,6 +37,10 @@ public class InformationController {
     @FXML public Label attractionDuration;
     @FXML public Button bookingButton;
 
+    /**
+     * Initialise la vue d'information d'une attraction.
+     * @param attraction Attraction à afficher.
+     */
     @FXML public void initialize(Attraction attraction) {
         try {
             previousButton.setImage(new Image(
@@ -45,6 +53,10 @@ public class InformationController {
         bookingButton.setOnAction(e -> reserve(attraction));
     }
 
+    /**
+     * Configure les informations de l'attraction à afficher.
+     * @param attraction Attraction à afficher.
+     */
     public void setupInformation (Attraction attraction) {
         attractionName.setText(attraction.getName());
 
@@ -60,6 +72,10 @@ public class InformationController {
 
     }
 
+    /**
+     * Gère le clic sur le bouton de réservation.
+     * @param a Attraction à réserver.
+     */
     private void reserve(Attraction a) {
         System.out.println("Réservation pour : " + a.getName());
         try {
@@ -76,6 +92,10 @@ public class InformationController {
         }
     }
 
+    /**
+     * Gère le clic sur le bouton de retour.
+     * Charge la vue d'accueil.
+     */
     @FXML
     private void backClick() {
         try {
@@ -89,6 +109,9 @@ public class InformationController {
         }
     }
 
+    /**
+     * Gère le clic sur le bouton UserInfo.
+     */
     @FXML
     public void userIconClick(ActionEvent actionEvent) {
         // à implémenter si besoin

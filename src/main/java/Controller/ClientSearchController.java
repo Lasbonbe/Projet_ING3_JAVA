@@ -14,6 +14,10 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 
 
+/**
+ * Controller de la page de recherche de clients.
+ * Permet de rechercher des clients dans la base de données.
+ */
 public class ClientSearchController {
     @FXML public ImageView img;
     @FXML private TextField searchField;
@@ -28,6 +32,10 @@ public class ClientSearchController {
     private final VueClient vueClient = new VueClient();
 
 
+    /**
+     * Initialise la page de recherche de clients.
+     * Charge l'image d'arrière-plan et configure les listeners pour les champs de recherche.
+     */
     @FXML public void initialize() {
         // Chargement de l'image pour l'ImageView
         Image image = new Image(getClass().getResource("/imgs/main.png").toExternalForm());
@@ -35,6 +43,9 @@ public class ClientSearchController {
         setupListeners();
     }
 
+    /**
+     * Configure les listeners pour les champs de recherche et le bouton de recherche.
+     */
     public void setupListeners() {
         searchField.setOnAction(e -> {
             performSearch();
@@ -45,6 +56,10 @@ public class ClientSearchController {
         });
     }
 
+    /**
+     * Effectue la recherche de clients en fonction des critères spécifiés.
+     * Affiche les résultats de la recherche dans la vue client.
+     */
     private void performSearch() {
         String searchPrompt = searchField.getText();
         String filterAge = comboBoxAge.getValue();

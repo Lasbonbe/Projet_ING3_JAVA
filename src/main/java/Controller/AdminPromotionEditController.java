@@ -30,9 +30,12 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+/**
+ * Controller de la page d'édition d'une promotion.
+ * Permet de modifier une promotion existante.
+ */
 public class AdminPromotionEditController implements Initializable {
 
-    // Champs de base
     @FXML private TextField nameField;
     @FXML private TextField percentageField;
     @FXML private TextArea descriptionArea;
@@ -40,7 +43,6 @@ public class AdminPromotionEditController implements Initializable {
     @FXML private DatePicker endDatePicker;
     @FXML private CheckBox permanentCheckBox;
 
-    // Jours de la semaine
     @FXML private CheckBox mondayCB;
     @FXML private CheckBox tuesdayCB;
     @FXML private CheckBox wednesdayCB;
@@ -49,10 +51,8 @@ public class AdminPromotionEditController implements Initializable {
     @FXML private CheckBox saturdayCB;
     @FXML private CheckBox sundayCB;
 
-    // Liste des attractions affichées par leur nom
     @FXML private ListView<String> attractionsList;
 
-    // Navigation
     @FXML private ImageView previousButton;
     @FXML private ImageView quitButton;
 
@@ -60,20 +60,22 @@ public class AdminPromotionEditController implements Initializable {
     private final AttractionDAO attractionDAO = new AttractionDAO();
     private Promotion current;
 
-    // Contient toutes les attractions
     private ObservableList<Attraction> allAttractions;
 
+    /**
+     * Initialise la vue d'édition d'une promotion.
+     *
+     * @param url  URL de la ressource
+     * @param resources   ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
-        // Filtrer le champ percentage pour n'accepter que des chiffres
         UnaryOperator<Change> filter = change -> change.getControlNewText().matches("\\d*") ? change : null;
         percentageField.setTextFormatter(new TextFormatter<>(filter));
 
-        // Charger les boutons d'images
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
 
-        // Récupérer toutes les attractions et afficher leurs noms
         allAttractions = FXCollections.observableArrayList(attractionDAO.getAllAttractions());
         ObservableList<String> attractionNames = FXCollections.observableArrayList();
         for (Attraction attraction : allAttractions) {
@@ -82,7 +84,6 @@ public class AdminPromotionEditController implements Initializable {
         attractionsList.setItems(attractionNames);
         attractionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        // Charger la promotion sélectionnée dans la session et pré-remplir les champs
         current = Session.getSelectedPromotion();
         if (current != null) {
             nameField.setText(current.getName());
@@ -96,7 +97,6 @@ public class AdminPromotionEditController implements Initializable {
             }
             permanentCheckBox.setSelected(current.isPermanent());
 
-            // Cocher les jours de la semaine associés à la promotion
             List<String> days = promotionDAO.getPromotionDays(current.getId());
             mondayCB.setSelected(days.contains("Monday"));
             tuesdayCB.setSelected(days.contains("Tuesday"));
@@ -105,7 +105,7 @@ public class AdminPromotionEditController implements Initializable {
             fridayCB.setSelected(days.contains("Friday"));
             saturdayCB.setSelected(days.contains("Saturday"));
             sundayCB.setSelected(days.contains("Sunday"));
-            // Cocher les attractions associées à la promotion
+
             List<Integer> attIds = promotionDAO.getPromotionAttractions(current.getId());
             for (Attraction attraction : allAttractions) {
                 if (attIds.contains(attraction.getAttractionID())) {
@@ -115,6 +115,11 @@ public class AdminPromotionEditController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour enregistrer la promotion modifiée et revenir à la liste
+     *
+        * @param event ActionEvent - l'événement de clic
+        */
     @FXML
     private void savePromotion(ActionEvent event) {
         try {
@@ -130,6 +135,11 @@ public class AdminPromotionEditController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour valider les champs de texte et les cases à cocher.
+     *
+     * @throws IllegalArgumentException si un champ est invalide
+     */
     private void validatePromotionInput() {
         if (nameField.getText().trim().isEmpty())
             throw new IllegalArgumentException("Le nom de la promotion est requis");
@@ -152,6 +162,9 @@ public class AdminPromotionEditController implements Initializable {
             throw new IllegalArgumentException("Au moins une attraction doit être sélectionnée");
     }
 
+    /**
+     * Méthode pour mettre à jour la promotion avec les valeurs des champs.
+     */
     private void updatePromotionFromInput() {
         current.setName(nameField.getText().trim());
         current.setPercentage(Integer.parseInt(percentageField.getText().trim()));
@@ -162,6 +175,9 @@ public class AdminPromotionEditController implements Initializable {
         promotionDAO.editPromotion(current);
     }
 
+    /**
+     * Méthode pour mettre à jour les associations de la promotion avec les jours et les attractions.
+     */
     private void updatePromotionAssociations() {
         // Mettre à jour les jours
         List<String> days = new ArrayList<>();
@@ -192,11 +208,26 @@ public class AdminPromotionEditController implements Initializable {
         promotionDAO.addPromotionAttractions(current.getId(), attIds);
     }
 
+    /**
+     * Méthode pour naviguer vers une autre vue avec une transition.
+     *
+     * @param fxmlPath le chemin du fichier FXML
+     * @param duration la durée de la transition
+     * @param direction la direction de la transition
+     * @throws IOException si le fichier FXML n'est pas trouvé
+     */
     private void navigateToView(String fxmlPath, int duration, String direction) throws IOException {
         Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
         Transition.slideTransition(MainApp.rootPane, view, duration, direction);
     }
 
+    /**
+     * Méthode pour afficher une alerte.
+     *
+     * @param type le type de l'alerte
+     * @param header le titre de l'alerte
+     * @param content le contenu de l'alerte
+     */
     private void showAlert(Alert.AlertType type, String header, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(header);
@@ -205,6 +236,11 @@ public class AdminPromotionEditController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Méthode pour quitter l'application.
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     @FXML
     private void previousClick(ActionEvent event) {
         try {
@@ -214,6 +250,11 @@ public class AdminPromotionEditController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour revenir à la page de connexion.
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     @FXML
     private void logoutClick(ActionEvent event) {
         try {

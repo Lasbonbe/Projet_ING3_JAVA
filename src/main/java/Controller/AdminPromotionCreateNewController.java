@@ -27,9 +27,12 @@ import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+/**
+ * Controller de la page d'ajout d'une nouvelle promotion.
+ * Permet de créer une nouvelle promotion.
+ */
 public class AdminPromotionCreateNewController implements Initializable {
 
-    // Champs de base
     @FXML private TextField nameField;
     @FXML private TextField percentageField;
     @FXML private TextArea descriptionArea;
@@ -37,7 +40,6 @@ public class AdminPromotionCreateNewController implements Initializable {
     @FXML private DatePicker endDatePicker;
     @FXML private CheckBox permanentCheckBox;
 
-    // Jours de la semaine
     @FXML private CheckBox mondayCB;
     @FXML private CheckBox tuesdayCB;
     @FXML private CheckBox wednesdayCB;
@@ -46,19 +48,22 @@ public class AdminPromotionCreateNewController implements Initializable {
     @FXML private CheckBox saturdayCB;
     @FXML private CheckBox sundayCB;
 
-    // Liste des attractions
     @FXML private ListView<String> attractionsList;
 
-    // Navigation
     @FXML private ImageView previousButton;
     @FXML private ImageView quitButton;
 
     private final PromotionDAO promotionDAO   = new PromotionDAO();
     private final AttractionDAO attractionDAO = new AttractionDAO();
 
-    // Stocker toutes les attractions
     private ObservableList<Attraction> allAttractions;
 
+    /**
+     * Initialise la vue d'ajout d'une nouvelle promotion.
+     *
+     * @param url  URL de la ressource
+     * @param resources ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         // Filtrage du champ pour n'accepter que des chiffres
@@ -78,6 +83,10 @@ public class AdminPromotionCreateNewController implements Initializable {
         attractionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    /** Méthode pour enregistrer la nouvelle promotion et revenir à la liste
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     @FXML
     private void savePromotion(ActionEvent event) {
         try {
@@ -94,6 +103,8 @@ public class AdminPromotionCreateNewController implements Initializable {
         }
     }
 
+    /** Méthode de vérification des champs de texte pour n'accepter que les chiffres
+     */
     private void validateInputs() {
         if (nameField.getText().trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom de la promotion est requis");
@@ -109,6 +120,8 @@ public class AdminPromotionCreateNewController implements Initializable {
         }
     }
 
+    /** Méthode pour mettre à jour la promotion avec les valeurs des champs
+     */
     private void updatePromotionAssociations(int promoId) {
         List<String> days = new ArrayList<>();
         if (mondayCB.isSelected())    days.add("Monday");
@@ -137,6 +150,10 @@ public class AdminPromotionCreateNewController implements Initializable {
         promotionDAO.addPromotionAttractions(promoId, attIds);
     }
 
+    /** Méthode pour obtenir la promotion à partir des champs de texte
+     *
+     * @return Promotion - la promotion créée
+     */
     private Promotion getPromotion() {
         String name = nameField.getText().trim();
         String desc = descriptionArea.getText().trim();
@@ -156,11 +173,20 @@ public class AdminPromotionCreateNewController implements Initializable {
         return new Promotion(0, name, percentage, desc, dtStart, dtEnd, permanent);
     }
 
+    /** Méthode pour la transition vers la vue précédente
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     private void navigateToView(String fxmlPath, int duration, String direction) throws IOException {
         Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
         Transition.slideTransition(MainApp.rootPane, view, duration, direction);
     }
 
+    /** Méthode pour afficher une alerte
+     *
+     * @param header  le titre de l'alerte
+     * @param content le contenu de l'alerte
+     */
     private void showAlert(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(header);
@@ -169,6 +195,11 @@ public class AdminPromotionCreateNewController implements Initializable {
         alert.showAndWait();
     }
 
+    /** PREVIOUS BUTTON
+     * Retourne à la page d'administration des promotions
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     @FXML
     private void previousClick(ActionEvent event) {
         try {
@@ -178,6 +209,11 @@ public class AdminPromotionCreateNewController implements Initializable {
         }
     }
 
+    /** QUIT BUTTON
+     * Quitte l'application
+     *
+     * @param event ActionEvent - l'événement de clic
+     */
     @FXML
     private void logoutClick(ActionEvent event) {
         try {

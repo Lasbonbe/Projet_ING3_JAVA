@@ -18,19 +18,32 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'édition d'une attraction.
+ * Permet de modifier une attraction existante.
+ */
 public class AdminAttractionEditController implements Initializable {
 
     @FXML private ImageView quitButton, previousButton;
-    @FXML private TextField nameField, typeField, maxCapacityField,
-            basePriceField, durationField, imageNameField;
+    @FXML private TextField nameField;
+    @FXML private TextField typeField;
+    @FXML private TextField maxCapacityField;
+    @FXML private TextField basePriceField;
+    @FXML private TextField durationField;
+    @FXML private TextField imageNameField;
     @FXML private TextArea descriptionField;
 
     private final AttractionDAO attractionDAO = new AttractionDAO();
     private Attraction current;
 
+    /**
+     * Initialise la vue d'édition d'une attraction.
+     *
+     * @param url  URL de la ressource
+     * @param rb   ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // 1) Charge l’attraction sélectionnée
         current = Session.getSelectedAttraction();
         if (current != null) {
             nameField.setText(current.getName());
@@ -42,23 +55,17 @@ public class AdminAttractionEditController implements Initializable {
             imageNameField.setText(current.getImagePath());
         }
 
-        // 2) Images des boutons (facultatif)
-        quitButton.setImage(new javafx.scene.image.Image(
-                Objects.requireNonNull(
-                        getClass().getResource("/imgs/QUIT_BUTTON.png")
-                ).toExternalForm()
-        ));
-        previousButton.setImage(new javafx.scene.image.Image(
-                Objects.requireNonNull(
-                        getClass().getResource("/imgs/PREVIOUS_BUTTON.png")
-                ).toExternalForm()
-        ));
+        quitButton.setImage(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
+        previousButton.setImage(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
     }
 
-    /** Enregistre les modifications et revient à la liste */
+    /**
+     * Enregistre les modifications de l'attraction et revient à la liste des attractions.
+     *
+     * @param e ActionEvent - bah c'est l'event
+     */
     @FXML
     private void saveAttraction(ActionEvent e) {
-        // récupère et met à jour l’objet
         current.setName(         nameField.getText().trim());
         current.setType(        typeField.getText().trim());
         current.setCapacity(Integer.parseInt(maxCapacityField.getText().trim()));
@@ -67,10 +74,8 @@ public class AdminAttractionEditController implements Initializable {
         current.setDescription( descriptionField.getText().trim());
         current.setImagePath(   imageNameField.getText().trim());
 
-        // persiste
         attractionDAO.editAttraction(current);
 
-        // retour à la page d’admin des attractions
         try {
             Parent view = FXMLLoader.load(
                     Objects.requireNonNull(
