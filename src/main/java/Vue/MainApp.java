@@ -18,6 +18,10 @@ import java.util.Objects;
 //██║░╚═╝░██║██║░░██║██║██║░╚███║       ██║░░██║██║░░░░░██║░░░░░
 //╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝       ╚═╝░░╚═╝╚═╝░░░░░╚═╝░░░░░
 
+/**
+ * Classe principale de l'application JavaFX.
+ * Elle initialise la scène et charge la vue de connexion.
+ */
 public class MainApp extends Application {
 
     public static StackPane rootPane; // accessible globalement

@@ -4,7 +4,17 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Classe représentant un bouton pour un jour impossible dans le calendrier.
+ * Hérite de la classe ButtonFreeCalendar.
+ */
 public class ButtonImpossibleDay extends ButtonFreeCalendar {
+
+    /**
+     * Méthode constructeur de la classe ButtonImpossibleDay.
+     *
+     * @param value La valeur du bouton.
+     */
     public ButtonImpossibleDay(String value) {
         super(value);
         this.root = new StackPane();

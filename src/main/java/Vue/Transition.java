@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+/**
+ * Classe Transition qui gère les transitions entre les vues dans une application JavaFX.
+ * Elle permet d'effectuer des transitions de glissement (slide) entre les vues.
+ */
 public class Transition {
 
     /**

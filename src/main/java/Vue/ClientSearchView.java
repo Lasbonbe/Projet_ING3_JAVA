@@ -8,8 +8,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe représentant la vue de recherche de client.
+ * Elle permet d'afficher une interface de recherche pour les clients.
+ */
 public class    ClientSearchView extends Application {
 
+    /**
+     * Méthode pour afficher la barre de recherche.
+     * @param stage La scène à afficher.
+     */
     public void showSearchArea(Stage stage) {
         try {
 
@@ -27,11 +35,19 @@ public class    ClientSearchView extends Application {
         }
     }
 
+    /**
+     * Méthode pour afficher la vue de recherche de client.
+     * @param stage La scène à afficher.
+     */
     @Override
     public void start(Stage stage) {
         showSearchArea(stage);
     }
 
+    /**
+     * Méthode principale pour lancer l'application.
+     * @param args Les arguments de la ligne de commande.
+     */
     public static void main(String[] args) {
         launch(args);
     }

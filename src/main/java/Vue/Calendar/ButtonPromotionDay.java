@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
+
 public class ButtonPromotionDay extends ButtonFreeCalendar {
     public ButtonPromotionDay(String value) {
         super(value);

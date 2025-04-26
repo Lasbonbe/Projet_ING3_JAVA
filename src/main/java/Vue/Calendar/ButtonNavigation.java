@@ -11,6 +11,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+/**
+ * ButtonNavigation est un bouton personnalisé qui change d'apparence
+ * lorsqu'on passe la souris dessus.
+ * Il est utilisé dans la vue du calendrier.
+ */
+
 public class ButtonNavigation {
     private Button button;
     private StackPane root;
@@ -19,6 +25,14 @@ public class ButtonNavigation {
     private Rectangle buttonBackground;
     private Rectangle mouseEffect;
 
+    /**
+     * Constructeur de la classe ButtonNavigation.
+     * Initialise le bouton avec un texte, une largeur et une hauteur spécifiés.
+     *
+     * @param value  Le texte à afficher sur le bouton.
+     * @param width  La largeur du bouton.
+     * @param height La hauteur du bouton.
+     */
     public ButtonNavigation(String value, int width, int height) {
         this.root = new StackPane();
         this.button = new Button(value);
@@ -66,6 +80,10 @@ public class ButtonNavigation {
         });
     }
 
+    /**
+     * Méthode pour préparer les animations d'entrée et de sortie du bouton.
+     * Définit les animations pour l'arcWidth et l'arcHeight du bouton.
+     */
     private void preparedAnimations() {
         this.animationIn = new Timeline(
                 new KeyFrame(Duration.ZERO,
@@ -90,13 +108,24 @@ public class ButtonNavigation {
         );
     }
 
+    /**
+     * Méthode pour set l'action à effectuer lorsque le bouton est cliqué.
+     *
+     * @param handler L'action à effectuer lors du clic sur le bouton.
+     */
     public void setOnAction(EventHandler<ActionEvent> handler) {
         this.button.setOnAction(handler);
     }
 
+    /**
+     * Méthode pour obtenir le bouton.
+     *
+     * @return Le bouton.
+     */
     public StackPane getRoot() {
         return this.root;
     }
+
 
     public void setDisable(boolean b) {
         this.button.setDisable(b);
