@@ -39,7 +39,6 @@ public class AttractionDAO {
             System.out.println("Création de la liste d'attractions impossible");
         } finally {
             try {
-                if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -160,7 +159,6 @@ public class AttractionDAO {
             System.out.println("Attraction introuvable");
         } finally {
             try {
-                if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -224,7 +222,6 @@ public class AttractionDAO {
             System.out.println("Récupération du prix de l'attraction impossible");
         } finally {
             try {
-                if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -233,7 +230,10 @@ public class AttractionDAO {
         }
         return basePrice;
     }
+
+
 }
+
 
 
 
