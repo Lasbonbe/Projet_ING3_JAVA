@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.TextArea?>
@@ -11,6 +12,13 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.InformationController" stylesheets="@css/informationstyle.css">
     <ImageView fx:id="img"/>
+
+    <!-- En-tête -->
+    <HBox spacing="10" alignment="CENTER">
+        <padding> <Insets top="25" right="10" left="600" /> </padding>
+        <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
+        <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+    </HBox>
 
     <BorderPane>
     <left>
@@ -30,7 +38,7 @@
                 <Label fx:id="attractionDuration" styleClass="detail-label"/>
             </VBox>
 
-            <Button text="Allez réserver ->" styleClass="res-button" prefWidth="100"/>
+            <Button fx:id="bookingButton" text="Allez réserver ->" styleClass="res-button" prefWidth="100"/>
         </VBox>
     </right>
 

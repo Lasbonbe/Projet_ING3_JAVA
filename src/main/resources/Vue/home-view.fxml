@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.HomeController" stylesheets="@css/homestyle.css">
-    <ImageView fx:id="img" mouseTransparent="true"></ImageView>
-
+    <ImageView fx:id="img" mouseTransparent="true"/>
 
         <!-- En-tête -->
             <HBox spacing="10" alignment="CENTER">

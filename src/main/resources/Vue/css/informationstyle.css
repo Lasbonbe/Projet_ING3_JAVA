@@ -7,6 +7,20 @@
     -fx-background-color: BLACK;
 }
 
+.button-invisible {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.button-invisible:hover {
+    -fx-opacity: 0.8;
+}
+
+.button-invisible:pressed {
+    -fx-opacity: 0.6;
+}
+
 .information-vbox{
     -fx-alignment: center;
     -fx-padding: 0 0 0 350;
