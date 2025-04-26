@@ -10,33 +10,34 @@
 <?import javafx.scene.control.TextArea?>
 
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.ProfilController" stylesheets="@css/informationstyle.css">
-
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.ProfilController" stylesheets="@css/profilstyle.css">
 
     <BorderPane style="-fx-background-color: black">
-        <left>
-            <VBox styleClass="information-vbox" alignment="CENTER_LEFT" spacing="20.0">
-                <Label fx:id="attractionName" styleClass="name-label"/>
-                <ImageView fx:id="attractionImg" styleClass="attraction-img" fitWidth="800" fitHeight="400" />
-                <TextArea fx:id="attractionDescription" styleClass="attraction-desc" wrapText="true" editable="false" focusTraversable="false"/>
+        <top>
+            <HBox spacing="10" alignment="TOP_RIGHT">
+                <padding> <Insets top="25" right="50" left="20"/> </padding>
+                <Button onAction="#backClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="INFORMATIONS PERSONELLES" alignment="CENTER" styleClass="grid-title"/>
+                <GridPane alignment="CENTER" styleClass="grid-info">
+                    <Label text="Nom : " GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Prénom : " GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Date de naissance : " GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Email : " GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Mot de passe : " GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="grid-value"/>
+
+                    <Label fx:id="clientLName" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="grid-value"/>
+                    <Label fx:id="clientFName" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="grid-value"/>
+                    <Label fx:id="clientBDate" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="grid-value"/>
+                    <Label fx:id="clientEmail" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="grid-value"/>
+                    <PasswordField fx:id="clientPassword" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="password-info" editable="false" focusTraversable="false"/>
+                </GridPane>
+                <Button fx:id="ordersButton" text="Accéder à votre panier" styleClass="order-button"/>
             </VBox>
-        </left>
-
-        <right>
-            <VBox styleClass="details-vbox" BorderPane.alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
-
-                <VBox spacing="5">
-                    <Label fx:id="attractionType" styleClass="detail-label"/>
-                    <Label fx:id="attractionPrice" styleClass="detail-label" />
-                    <Label fx:id="attractionDuration" styleClass="detail-label"/>
-                </VBox>
-
-                <Pane VBox.vgrow="ALWAYS"/>
-
-                <Button fx:id="bookingButton" text="Allez réserver ->" styleClass="res-button" prefWidth="100"/>
-            </VBox>
-        </right>
-
+        </center>
     </BorderPane>
-
 </StackPane>

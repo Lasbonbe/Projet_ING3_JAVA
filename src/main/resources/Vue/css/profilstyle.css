@@ -1,0 +1,83 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+.root {
+    -fx-background-color: BLACK;
+}
+
+.button-invisible {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.button-invisible:hover {
+    -fx-opacity: 0.8;
+}
+
+.button-invisible:pressed {
+    -fx-opacity: 0.6;
+}
+
+.grid-info {
+    -fx-background-color: BLACK;
+    -fx-max-height: 400;
+    -fx-max-width: 1000;
+    -fx-hgap: 50;
+    -fx-vgap: 30;
+    -fx-alignment: center;
+    -fx-border-color: WHITE;
+    -fx-border-width: 4px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.grid-value {
+    -fx-text-fill: WHITE;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-font-size: 28px;
+}
+
+.password-info{
+    -fx-text-fill: WHITE;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-font-size: 24px;
+    -fx-background-color: BLACK;
+    -fx-border-color: BLACK;
+}
+
+.grid-title {
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-text-alignment: center;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-font-size: 36px;
+    -fx-max-height: 50;
+    -fx-max-width: 1000;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.order-button {
+    -fx-font-family: 'JetBrains Mono';
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-border-color: DARKGREY;
+    -fx-font-size: 24px;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 0 10;
+    -fx-pref-width: 400;
+    -fx-pref-height: 50;
+    -fx-border-width: 2;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.order-button:hover {
+    -fx-background-color: BLACK;
+    -fx-text-fill: WHITE;
+    -fx-border-color: LIGHTGREY;
+}

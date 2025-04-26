@@ -217,22 +217,19 @@ public class HomeController implements Initializable {
      */
 
     @FXML
-    public void userIconClick(ActionEvent actionEvent) {
-        /*
-        System.out.println("Profil de : " + c.getLastName() + " " + c.getFirstName());
+    public void userIconClick() {
+        System.out.println("Ouverture du profil");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
             Parent profilView = loader.load();
 
             ProfilController controller = loader.getController();
-            controller.initialize(c);
+            controller.initialize(Session.getUser());
 
-            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "LEFT");
+            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "DOWN");
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
         }
-
-         */
     }
 }
