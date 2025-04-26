@@ -30,6 +30,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Controller de la fenêtre de sélection de la date.
+ * Permet d'afficher les horaires disponibles pour une attraction à une date donnée.
+ */
 public class DayWindowController {
     @FXML private GridPane headerGridPane;
     @FXML private BorderPane rootPane;
@@ -46,6 +50,9 @@ public class DayWindowController {
     private LocalDate date;
     private Attraction attraction;
 
+    /**
+     * Initialisation de la vue
+     */
     @FXML private void initialize() {
         try {
             img.setImage(new Image(
@@ -64,6 +71,11 @@ public class DayWindowController {
         titleContainer.setTranslateX(-200);
     }
 
+    /**
+     * Initialise la fenêtre de sélection de la date.
+     * @param date Date sélectionnée
+     * @param attraction Attraction associée
+     */
     public void setDate(LocalDate date, Attraction attraction) {
         this.date = date;
         this.attraction = attraction;
@@ -72,6 +84,12 @@ public class DayWindowController {
         chargeDatas();
     }
 
+    /**
+     * Crée une cellule dans la grille avec le texte spécifié.
+     * @param text Le texte à afficher dans la cellule
+     * @param colIndex L'index de la colonne
+     * @param rowIndex L'index de la ligne
+     */
     private void createCell(String text, int colIndex, int rowIndex) {
         Label label = new Label(text);
         label.getStyleClass().add("grid-cell-text");
@@ -82,6 +100,9 @@ public class DayWindowController {
         this.gridPane.add(cell, colIndex, rowIndex);
     }
 
+    /**
+     * Charge les données de la grille en fonction de la date et de l'attraction sélectionnées.
+     */
     private void chargeDatas() {
         ScheduleDAO dao = new ScheduleDAO();
         ArrayList<Schedule> listSchedule = dao.getScheduleWithAttractionNamesByDate(this.date, this.attraction);
@@ -118,6 +139,11 @@ public class DayWindowController {
         }
     }
 
+    /**
+     * Gère le clic sur le bouton de réservation.
+     * @param schedule Horaire sélectionné
+     * @param attraction Attraction associée
+     */
     private void resButtonOnClick(Schedule schedule, Attraction attraction) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/reservationWindow-view.fxml"));
@@ -150,6 +176,10 @@ public class DayWindowController {
         }
     }
 
+    /**
+     * Gère le clic sur le bouton de retour.
+     * Retourne à la vue du calendrier.
+     */
     @FXML
     private void logoutClick() {
         Session.setUser(null);
@@ -163,6 +193,10 @@ public class DayWindowController {
         }
     }
 
+    /**
+     * Gère le clic sur le bouton de retour.
+     * Retourne à la vue du calendrier.
+     */
     @FXML
     private void backClick() {
         try {

@@ -22,6 +22,10 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'ajout d'une nouvelle attraction.
+ * Permet de créer une nouvelle attraction.
+ */
 public class AdminAttractionCreateNewController implements Initializable {
     @FXML private ImageView quitButton;
     @FXML private ImageView previousButton;
@@ -36,6 +40,10 @@ public class AdminAttractionCreateNewController implements Initializable {
 
     private final AttractionDAO attractionDAO = new AttractionDAO();
 
+    /** Initialisation de la vue
+     * @param location  URL
+     * @param resources ResourceBundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
@@ -45,7 +53,10 @@ public class AdminAttractionCreateNewController implements Initializable {
         setNumericOnly(maxCapacityField);
     }
 
-    /** Enregistre la nouvelle attraction et revient à la liste */
+    /** Enregistre la nouvelle attraction et revient à la liste
+     *
+     * @param e ActionEvent - bah c'est l'event
+     */
     @FXML
     private void saveAttraction(ActionEvent e) {
         Attraction a = getAttraction();
@@ -64,6 +75,9 @@ public class AdminAttractionCreateNewController implements Initializable {
         }
     }
 
+    /** Crée une nouvelle attraction à partir des champs du FXML
+     * @return Attraction
+     */
     private Attraction getAttraction() {
         String nom  = nameField.getText().trim();
         String type = typeField.getText().trim();
@@ -78,6 +92,9 @@ public class AdminAttractionCreateNewController implements Initializable {
         return a;
     }
 
+    /** Méthode pour filtrer les champs de texte afin d'accepter uniquement les chiffres
+     * @param textField Champ de texte à filtrer
+     */
     private void setNumericOnly(TextField textField) {
         textField.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();

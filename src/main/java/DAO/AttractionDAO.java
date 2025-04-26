@@ -6,6 +6,10 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO d'accès aux données pour les attractions.
+ * Permet de gérer les opérations CRUD sur la table Attraction de la base de données.
+ */
 public class AttractionDAO {
 
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
@@ -48,6 +52,11 @@ public class AttractionDAO {
         return listAttractions;
     }
 
+    /**
+     * Ajoute une attraction à la base de données.
+     *
+     * @param attraction Attraction à ajouter.
+     */
     public void addAttraction(Attraction attraction) {
 
         Connection connection;
@@ -80,6 +89,11 @@ public class AttractionDAO {
         }
     }
 
+    /**
+     * Supprime une attraction de la base de données.
+     *
+     * @param attraction Attraction à supprimer.
+     */
     public void deleteAttraction(Attraction attraction) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -103,6 +117,11 @@ public class AttractionDAO {
         }
     }
 
+    /**
+     * Supprime une attraction de la base de données par son ID.
+     *
+     * @param id ID de l'attraction à supprimer.
+     */
     public void deleteAttractionByID(int id) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -127,6 +146,12 @@ public class AttractionDAO {
     }
 
 
+    /**
+     * Trouve une attraction par son ID.
+     *
+     * @param attractionID ID de l'attraction à trouver.
+     * @return Attraction trouvée ou null si non trouvée.
+     */
     public Attraction findAttraction(int attractionID) {
         Attraction attractionFound = null;
         Connection connection;
@@ -168,6 +193,12 @@ public class AttractionDAO {
         return attractionFound;
     }
 
+    /**
+     * Modifie une attraction dans la base de données.
+     *
+     * @param attraction Attraction à modifier.
+     * @return Attraction modifiée.
+     */
     public Attraction editAttraction(Attraction attraction) {
 
         Connection connection;
@@ -202,6 +233,12 @@ public class AttractionDAO {
     }
 
 
+    /**
+     * Méthode pour récupérer le prix de base d'une attraction par son ID.
+     *
+     * @param attractionID ID de l'attraction.
+     * @return Prix de base de l'attraction.
+     */
     public int getBasePrice(int attractionID) {
         int basePrice = 0;
         Connection connection;

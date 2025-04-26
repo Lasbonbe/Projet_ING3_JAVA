@@ -8,13 +8,27 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
+/**
+ * Classe ScheduleDAO
+ * Permet d'accéder à la base de données pour les opérations liées aux horaires.
+ */
 public class ScheduleDAO{
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
+    /**
+     * Convertit un LocalDate en Date
+     * @param localDate le LocalDate à convertir
+     * @return la date convertie
+     */
     public static Date localDateToDate(LocalDate localDate) {
         return (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
+
+    /**
+     * Méthode pour récupérer tous les horaires de la base de données
+     * @return
+     */
     public ArrayList<Schedule> getSchedule() {
         ArrayList<Schedule> schedules = new ArrayList<>();
         Connection connection;
@@ -55,6 +69,12 @@ public class ScheduleDAO{
         return schedules;
     }
 
+    /**
+     * Méthode pour récupérer les horaires d'une attraction par date
+     * @param date la date de l'horaire
+     * @param attraction l'attraction associée
+     * @return une liste d'horaires
+     */
     public ArrayList<Schedule> getScheduleWithAttractionNamesByDate(LocalDate date, Attraction attraction) {
         ArrayList<Schedule> schedules = new ArrayList<>();
         Connection connection;
@@ -94,6 +114,10 @@ public class ScheduleDAO{
         return schedules;
     }
 
+    /**
+     * Méthode pour ajouter un horaire à la base de données*
+     * @param schedule l'horaire à ajouter
+     */
     public void addSchedule(Schedule schedule) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -125,6 +149,10 @@ public class ScheduleDAO{
         }
     }
 
+    /**
+     * Méthode pour mettre à jour un horaire dans la base de données
+     * @param schedule l'horaire à mettre à jour
+     */
     public void deleteSchedule(Schedule schedule) {
         Connection connection;
         PreparedStatement preparedStatement = null;

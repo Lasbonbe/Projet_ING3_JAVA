@@ -19,6 +19,10 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
+/**
+ * Controller de la page de connexion.
+ * Permet de se connecter à l'application.
+ */
 public class LoginController {
     @FXML public ImageView img;
     @FXML private TextField emailField;
@@ -32,6 +36,10 @@ public class LoginController {
         img.setImage(image);
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton de connexion.
+     * Vérifie les identifiants et redirige vers la page d'accueil ou d'administration.
+     */
     @FXML protected void onLoginButtonClick() {
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -81,6 +89,10 @@ public class LoginController {
         }
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton "Mot de passe oublié ?".
+     * Redirige vers la page de récupération de mot de passe.
+     */
     @FXML protected void onRegisterButtonClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/register-view.fxml"));
@@ -93,6 +105,10 @@ public class LoginController {
         }
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton "Code ?".
+     * Redirige vers la page de code.
+     */
     @FXML protected void onCodeLoginButtonClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/code-view.fxml"));
@@ -105,8 +121,13 @@ public class LoginController {
         }
     }
 
-
-
+    /**
+     * Méthode pour afficher une alerte.
+     *
+     * @param alertType Type de l'alerte (INFO, ERROR, etc.)
+     * @param title     Titre de l'alerte
+     * @param message   Message de l'alerte
+     */
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

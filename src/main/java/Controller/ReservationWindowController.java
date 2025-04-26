@@ -31,6 +31,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller de la fenêtre de réservation.
+ * Permet de gérer la réservation d'une attraction.
+ */
 public class ReservationWindowController {
     @FXML private Label sessionDateLabel;
     @FXML private Label heureLabel;
@@ -52,6 +56,9 @@ public class ReservationWindowController {
     private double basePrice;
     private double totalPrice;
 
+    /**
+     * Initialisation de la vue
+     */
     @FXML private void initialize() {
         try {
             img.setImage(new Image(
@@ -68,12 +75,20 @@ public class ReservationWindowController {
         }
     }
 
+    /**
+     * Méthode pour set la date et l'attraction
+     * @param schedule Schedule - Horaire de la réservation
+     * @param attraction Attraction - Attraction à réserver
+     */
     public void setSchedule(Schedule schedule, Attraction attraction) {
         this.schedule = schedule;
         this.attraction = attraction;
         chargeDatas();
     }
 
+    /**
+     * Méthode pour le chargement des données
+     */
     private void chargeDatas() {
         AttractionDAO attractionDAO = new AttractionDAO();
         basePrice = attractionDAO.getBasePrice(attraction.getAttractionID());
@@ -119,6 +134,9 @@ public class ReservationWindowController {
         comboboxNbPers.setItems(personnesOptions);
     }
 
+    /**
+     * Méthode pour le calcul de la réduction
+     */
     private void calculePercentageReduc() {
         for (Promotion promotion : applicablePromotions) {
             PercentageReduc = promotion.getPercentage();
@@ -129,6 +147,9 @@ public class ReservationWindowController {
         }
     }
 
+    /**
+     * Méthode pour l'affichage des promotions
+     */
     private void afficherPromos() {
         promoContainer.getChildren().clear();
         if (applicablePromotions.isEmpty()) {
@@ -145,6 +166,9 @@ public class ReservationWindowController {
         }
     }
 
+    /**
+     * QUIT BUTTON
+     */
     @FXML
     private void logoutClick() {
         Session.setUser(null);
@@ -158,6 +182,9 @@ public class ReservationWindowController {
         }
     }
 
+    /**
+     * BACK BUTTON
+     */
     @FXML
     private void backClick() {
         try {

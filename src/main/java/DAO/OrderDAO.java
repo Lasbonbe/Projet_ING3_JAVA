@@ -8,9 +8,17 @@ import java.util.ArrayList;
 
 
 
+/**
+ * Classe DAO qui gère les opérations de base de données pour les commandes.
+ * Elle permet d'ajouter, supprimer, modifier et récupérer des commandes dans la base de données.
+ */
 public class OrderDAO  {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
+    /**
+     * Méthode pour récupérer toutes les commandes de la base de données.
+     *
+     */
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> listOrders = new ArrayList<>();
         Connection connection;
@@ -50,6 +58,11 @@ public class OrderDAO  {
         return listOrders;
     }
 
+    /**
+     * Méthode pour ajouter une commande dans la base de données.
+     *
+     * @param order La commande à ajouter
+     */
     public void addOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -77,6 +90,11 @@ public class OrderDAO  {
         }
     }
 
+    /**
+     * Méthode pour supprimer une commande de la base de données.
+     *
+     * @param order La commande à supprimer
+     */
     public void deleteOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -100,6 +118,12 @@ public class OrderDAO  {
         }
     }
 
+    /**
+     * Méthode pour trouver une commande dans la base de données par son ID.
+     *
+     * @param orderID L'ID de la commande à rechercher
+     * @return La commande trouvée ou null si elle n'existe pas
+     */
     public Order findOrder(int orderID) {
         Order orderFound = null;
         Connection connection;
@@ -141,6 +165,12 @@ public class OrderDAO  {
         return orderFound;
     }
 
+    /**
+     * Méthode pour modifier une commande dans la base de données.
+     *
+     * @param order La commande à modifier
+     * @return La commande modifiée
+     */
     public Order editOrder(Order order) {
         Connection connection;
         PreparedStatement preparedStatement = null;

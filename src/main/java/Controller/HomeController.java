@@ -26,6 +26,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'accueil de l'application.
+ * Permet d'afficher les attractions et de gérer la recherche.
+ */
 public class HomeController implements Initializable {
     @FXML private ImageView img;
     @FXML private ImageView searchButton;
@@ -41,6 +45,13 @@ public class HomeController implements Initializable {
     // Map pour stocker la couleur associée à chaque type d'attraction
     private final Map<String, String> typeColorMap = new HashMap<>();
 
+    /**
+     * Méthode d'initialisation de la vue.
+     * Charge les images et initialise la liste des attractions.
+     *
+     * @param location  URL
+     * @param resources ResourceBundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -84,6 +95,10 @@ public class HomeController implements Initializable {
         searchButton.toFront();
     }
 
+    /**
+     * Méthode pour l'affichage de la grille des attractions.
+     * @param list List<Attraction> - liste des attractions à afficher
+     */
     private void updateGrid(List<Attraction> list) {
         cardsGrid.getChildren().clear();
         for (int i = 0; i < list.size(); i++) {
@@ -141,6 +156,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour gérer le clic sur le bouton de réservation.
+     * @param a Attraction - attraction sélectionnée
+     */
     private void reserve(Attraction a) {
         System.out.println("Réservation pour : " + a.getName());
         try {
@@ -157,6 +176,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour gérer le clic sur le bouton de plus d'infos.
+     * @param a Attraction - attraction sélectionnée
+     */
     private void moreInfo(Attraction a) {
         System.out.println("Plus d'infos sur : " + a.getName());
         try {
@@ -173,6 +196,9 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour gérer le clic sur le bouton de recherche.
+     */
     @FXML
     private void logoutClick() {
         Session.setUser(null);
@@ -186,6 +212,9 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Méthode pour gérer le clic sur le bouton de déconnexion.
+     */
     @FXML
     public void userIconClick(Client c) {
         System.out.println("Profil de : " + c.getLastName() + " " + c.getFirstName());

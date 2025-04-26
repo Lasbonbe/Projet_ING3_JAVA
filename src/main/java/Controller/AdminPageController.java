@@ -36,6 +36,10 @@ import java.nio.file.Files;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'administration.
+ * Permet de gérer les utilisateurs et les réservations.
+ */
 public class AdminPageController implements Initializable {
     @FXML private TableView<User> usersTable;
     @FXML private TableColumn<User, Integer>    colId;

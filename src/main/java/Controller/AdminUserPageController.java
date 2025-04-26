@@ -22,6 +22,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'administration des utilisateurs.
+ * Permet de gérer les utilisateurs (ajout, modification, suppression).
+ */
 public class AdminUserPageController implements Initializable {
     @FXML
     private TableView<Client> usersTable;

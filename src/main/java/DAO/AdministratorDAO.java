@@ -7,9 +7,19 @@ import Modele.User;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe d'accès aux données des administrateurs.
+ * Permet de gérer les opérations CRUD sur les administrateurs dans la base de données.
+ */
 public class AdministratorDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
+    /**
+     * Trouve un administrateur par son adresse e-mail.
+     *
+     * @param email l'adresse e-mail de l'administrateur à rechercher
+     * @return l'administrateur trouvé ou null si aucun administrateur n'est trouvé
+     */
     public static Administrator findAdminByEmail(String email) {
         Administrator adminFound = null;
         Connection connection;
@@ -47,6 +57,13 @@ public class AdministratorDAO {
     }
 
 
+    /**
+     * Méthode qui Vérifie les identifiants de connexion d'un administrateur.
+     *
+     * @param email    l'adresse e-mail de l'administrateur
+     * @param password le mot de passe de l'administrateur
+     * @return true si les identifiants sont valides, false sinon
+     */
     public boolean loginAdmin(String email, String password) {
         boolean isValid = false;
         Connection connection;
@@ -80,6 +97,11 @@ public class AdministratorDAO {
         return isValid;
     }
 
+    /**
+     * Méthode qui récupère tous les administrateurs de l'application.
+     *
+     * @return une liste d'administrateurs
+     */
     public ArrayList<Administrator> getAllAdministrators() {
         ArrayList<Administrator> listAdmins = new ArrayList<>();
         Connection connection;
@@ -117,6 +139,11 @@ public class AdministratorDAO {
         return listAdmins;
     }
 
+    /**
+     * Méthode qui ajoute un administrateur à la base de données.
+     *
+     * @param admin l'administrateur à ajouter
+     */
     public void addAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -143,6 +170,11 @@ public class AdministratorDAO {
         }
     }
 
+    /**
+     * Méthode qui supprime un administrateur de la base de données.
+     *
+     * @param admin l'administrateur à supprimer
+     */
     public void deleteAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -167,6 +199,12 @@ public class AdministratorDAO {
     }
 
 
+    /**
+     * Méthode qui trouve un administrateur par son ID.
+     *
+     * @param adminID l'ID de l'administrateur à rechercher
+     * @return l'administrateur trouvé ou null si aucun administrateur n'est trouvé
+     */
     public Administrator findAdmin(int adminID) {
         Administrator adminFound = null;
         Connection connection;
@@ -207,6 +245,12 @@ public class AdministratorDAO {
         return adminFound;
     }
 
+    /**
+     * Méthode qui modifie les informations d'un administrateur dans la base de données.
+     *
+     * @param admin l'administrateur à modifier
+     * @return l'administrateur modifié
+     */
     public Administrator editAdmin(Administrator admin) {
         Connection connection;
         PreparedStatement preparedStatement = null;
