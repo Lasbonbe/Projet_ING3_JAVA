@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'JetBrains Mono';
-    src: url('../../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    src: url('../../fonts/JetBrainsMono-SemiBold.ttf') format('truetype');
 }
 
 .root {
@@ -9,10 +9,9 @@
 }
 
 .session-label {
-    -fx-font-family: "JetBrains Mono ExtraBold";
-    -fx-font-weight: bold;
-    -fx-font-size: 24;
-    -fx-text-fill: WHITE;
+    -fx-font-family: 'JetBrains Mono SemiBold';
+    -fx-font-size: 50;
+    -fx-text-fill: BLACK;
 }
 
 .grid-pane {
@@ -23,8 +22,14 @@
 .info-label {
     -fx-font-family: "JetBrains Mono ExtraBold";
     -fx-font-weight: bold;
-    -fx-font-size: 16;
+    -fx-font-size: 24;
     -fx-text-fill: WHITE;
+}
+
+.VBox-promo {
+    -fx-background-color: BLACK;
+    -fx-padding: 5;
+    -fx-label-padding: 5;
 }
 
 .attraction-label {
@@ -47,15 +52,18 @@
 
 .ComboBox-personnes {
     -fx-font-family: 'JetBrains Mono';
-    -fx-pref-width: 500;
+    -fx-pref-width: 950;
+    -fx-pref-height: 75;
     -fx-background-color: WHITE;
-    -fx-text-fill: BLACK;
+    -fx-fill: WHITE;
+    -fx-font-size: 24;
+
 }
 
 .ComboBox-personnes .list-cell {
     -fx-background-color: WHITE;
     -fx-text-fill: BLACK;
-    -fx-font-size: 12px;
+    -fx-font-size: 24px;
 }
 
 .ComboBox-personnes .list-cell:hover {
@@ -68,6 +76,22 @@
     -fx-text-fill: WHITE;
 }
 
+.ComboBox-personnes .scroll-bar {
+    -fx-background-color: #333333;
+}
+
+.ComboBox-personnes .scroll-bar .thumb {
+    -fx-background-color: #666666;
+}
+
+.ComboBox-personnes .arrow-button {
+    -fx-background-color: #333333;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #666666;
+}
+
 .scrollPane {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -76,3 +100,13 @@
 .scrollPane .viewport {
     -fx-background-color: transparent;
 }
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #333333;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #666666;
+}
+
+

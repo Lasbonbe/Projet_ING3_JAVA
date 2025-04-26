@@ -3,11 +3,15 @@ package Controller;
 import DAO.ScheduleDAO;
 import Modele.Attraction;
 import Modele.Schedule;
+import Modele.Session;
 import Vue.Calendar.ButtonNavigation;
 import Vue.Calendar.ReservationWindow;
+import Vue.MainApp;
+import Vue.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -24,6 +28,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DayWindowController {
     @FXML private GridPane headerGridPane;
@@ -34,17 +39,29 @@ public class DayWindowController {
     @FXML private Label noDataLabel;
     @FXML private ImageView img;
     @FXML private HBox titleContainer;
+    @FXML private ImageView quitButton;
+    @FXML private ImageView backButton;
 
     private final ObservableList<Schedule> scheduleData = FXCollections.observableArrayList();
     private LocalDate date;
     private Attraction attraction;
 
     @FXML private void initialize() {
-        Image image = new Image(getClass().getResource("/imgs/dayWindow_background.png").toExternalForm());
-        img.setImage(image);
-
-        titleContainer.setTranslateX(-200);  // Position horizontale
-        titleContainer.setTranslateY(-469);  // Position verticale
+        try {
+            img.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/dayWindow_background.png")).toExternalForm()
+            ));
+            backButton.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()
+            ));
+            quitButton.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()
+            ));
+        } catch (JavaFXImageException e) {
+            System.err.println("Erreur au chargement des images : " + e.getMessage());
+        }
+        titleContainer.setTranslateY(-469);
+        titleContainer.setTranslateX(-200);
     }
 
     public void setDate(LocalDate date, Attraction attraction) {
@@ -81,6 +98,10 @@ public class DayWindowController {
 
                 ButtonNavigation button = schedule.getBtnNav();
                 button.setOnAction(e -> resButtonOnClick(schedule, attraction));
+                if (!Objects.equals(schedule.getStatut(), "Ouvert")) {
+                    button.setDisable(true);
+                    schedule.setPlacesDispos(0);
+                }
 
                 createCell(schedule.getNameAttraction(), 0, rowIndex);
                 createCell(schedule.getHourDebut().toString(), 1, rowIndex);
@@ -126,6 +147,34 @@ public class DayWindowController {
 
         } catch (IOException exception) {
             System.out.println("Erreur lors du chargement de la vue de réservation : " + exception.getMessage());
+        }
+    }
+
+    @FXML
+    private void logoutClick() {
+        Session.setUser(null);
+        System.out.println("Session utilisateur réinitialisée.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "RIGHT");
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void backClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/calendar-view.fxml"));
+            Parent calendarView = loader.load();
+
+            CalendarController controller = loader.getController();
+            controller.initialize(this.attraction);
+
+            Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "RIGHT");
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
         }
     }
 

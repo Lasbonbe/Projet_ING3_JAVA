@@ -7,66 +7,74 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<BorderPane xmlns:fx="http://javafx.com/javafx" fx:controller="Controller.ReservationWindowController" stylesheets="@css/reservationWindow.css, @css/calendar.css" styleClass="root">
-    <top>
-        <VBox spacing="10.0" alignment="CENTER">
-            <Label fx:id="sessionDateLabel" alignment="CENTER"  styleClass="session-label"/>
-            <Label fx:id="attractionNameLabel" alignment="CENTER" styleClass="attraction-label"/>
-            <Label fx:id="heureLabel" alignment="CENTER" styleClass="info-label"/>
-        </VBox>
-    </top>
-    <center>
-        <VBox spacing="10.0" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets top="100"/>
-            </padding>
-            <HBox spacing="10.0">
-                <VBox styleClass="VBox-reservation" alignment="CENTER" HBox.hgrow="ALWAYS">
-                    <ComboBox fx:id="comboboxNbPers" styleClass="ComboBox-personnes" promptText="Nombre de personnes">
-                        <VBox.margin>
-                            <Insets top="5.0"/>
-                        </VBox.margin>
-                    </ComboBox>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
-                </VBox>
-                <VBox styleClass="VBox-reservation" HBox.hgrow="ALWAYS">
-                    <Label fx:id="placesDispos" styleClass="info-label">
-                        <VBox.margin>
-                            <Insets top="5.0"/>
-                        </VBox.margin>
-                    </Label>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
-                </VBox>
-            </HBox>
-            <VBox styleClass="VBox-reservation" prefHeight="500">
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns:fx="http://javafx.com/javafx" fx:controller="Controller.ReservationWindowController" stylesheets="@css/reservationWindow.css, @css/calendar.css, @css/homestyle.css" styleClass="root">
+    <ImageView fx:id="img"/>
+
+    <Label fx:id="sessionDateLabel" translateX="-200" translateY="-487" styleClass="session-label"/>
+    <Label fx:id="heureLabel" translateX="-200" translateY="-445" styleClass="session-label"/>
+
+    <BorderPane>
+        <top>
+            <HBox alignment="CENTER" spacing="10">
                 <padding>
-                    <Insets bottom="10.0" top="10.0" right="10.0" left="10.0"/>
+                    <Insets left="1500" top="25"/>
                 </padding>
-                <Label text="Récapitulatif des promotions appliquées" alignment="CENTER" styleClass="info-label"/>
-                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scrollPane">
-                    <VBox fx:id="promoContainer" spacing="10.0" styleClass="VBox-reservation"/>
-                </ScrollPane>
-            </VBox>
-        </VBox>
-    </center>
-    <bottom>
-        <HBox fx:id="hboxPanier" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
-            <children>
-                <VBox fx:id="vboxPrice" alignment="CENTER" styleClass="VBox-reservation">
-                    <Label fx:id="prixLabel" styleClass="info-label"/>
+                <Button onAction="#backClick" styleClass="button-invisible" > <graphic> <ImageView fx:id="backButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+        </top>
+        <center>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="100"/>
+                </padding>
+                <HBox spacing="10.0">
+                    <VBox styleClass="VBox-reservation" alignment="CENTER" HBox.hgrow="NEVER" prefWidth="960">
+                        <ComboBox fx:id="comboboxNbPers" styleClass="ComboBox-personnes" promptText="Nombre de personnes"/>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </VBox>
+                    <VBox styleClass="VBox-reservation" HBox.hgrow="NEVER" prefWidth="960">
+                        <Label fx:id="placesDispos" styleClass="info-label">
+                            <VBox.margin>
+                                <Insets top="5.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </VBox>
+                </HBox>
+                <VBox styleClass="VBox-reservation" prefHeight="700">
                     <padding>
-                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0"/>
+                        <Insets bottom="10.0" top="10.0" right="10.0" left="10.0"/>
                     </padding>
+                    <Label text="Récapitulatif des promotions appliquées" alignment="CENTER" styleClass="info-label"/>
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scrollPane">
+                        <VBox fx:id="promoContainer" spacing="10.0" styleClass="VBox-promo"/>
+                    </ScrollPane>
                 </VBox>
-            </children>
-            <padding>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="10.0"/>
-            </padding>
-        </HBox>
-    </bottom>
-</BorderPane>
+            </VBox>
+        </center>
+        <bottom>
+            <HBox fx:id="hboxPanier" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+                <children>
+                    <VBox fx:id="vboxPrice" alignment="CENTER" styleClass="VBox-reservation">
+                        <Label fx:id="prixLabel" styleClass="info-label"/>
+                        <padding>
+                            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0"/>
+                        </padding>
+                    </VBox>
+                </children>
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="10.0"/>
+                </padding>
+            </HBox>
+        </bottom>
+    </BorderPane>
+</StackPane>
+
 
