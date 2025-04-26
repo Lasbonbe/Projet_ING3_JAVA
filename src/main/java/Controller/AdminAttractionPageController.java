@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.AttractionDAO;
 import Modele.Attraction;
+import Modele.Session;
 import Vue.MainApp;
 import Vue.Transition;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -31,6 +32,7 @@ public class AdminAttractionPageController implements Initializable {
     @FXML private TableColumn<Attraction, Integer> colmax_capacity;
     @FXML private TableColumn<Attraction, Integer> colbase_price;
     @FXML private TableColumn<Attraction, Integer> colduration;
+    @FXML private TableColumn<Attraction, String>  coldescription;
 
     @FXML private ImageView backgroundImage;
     @FXML private ImageView quitButton;
@@ -65,6 +67,9 @@ public class AdminAttractionPageController implements Initializable {
         colduration.setCellValueFactory(c ->
                 new SimpleIntegerProperty(c.getValue().getDuration()).asObject()
         );
+        coldescription.setCellValueFactory(c ->
+                new SimpleStringProperty(c.getValue().getDescription())
+        );
 
         List<Attraction> list = dao.getAllAttractions();
         attractionsTable.setItems(FXCollections.observableArrayList(list));
@@ -82,13 +87,16 @@ public class AdminAttractionPageController implements Initializable {
         attractionsTable.setMinWidth(1500);
     }
 
-    /** Ouvre la page “Ajouter une attraction” */
+    /**
+     * Ouvre la page “Ajouter une attraction”
+     * @param e l'event
+     * */
     @FXML
     private void addAttraction(ActionEvent e) {
         try {
-            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/attraction-add-view.fxml"))
+            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-add-attraction-view.fxml"))
             );
-            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "DOWN");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -98,10 +106,11 @@ public class AdminAttractionPageController implements Initializable {
     @FXML
     private void editAttraction(ActionEvent e) {
         Attraction sel = attractionsTable.getSelectionModel().getSelectedItem();
+        Session.setSelectedAttraction(sel);
         if (sel == null) return;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/Vue/attraction-edit-view.fxml")
+                    getClass().getResource("/Vue/admin-edit-attraction-view.fxml")
             );
             Parent view = loader.load();
             // (optionnel) passe “sel” au controller de la page d’édition
@@ -150,9 +159,18 @@ public class AdminAttractionPageController implements Initializable {
 
 
 
-    /** Bouton “quitter” / logout */
+    /** Bouton QUIT
+     * @param  e ActionEvent - bah c'est l'event
+     * */
     @FXML
     private void logoutClick(ActionEvent e) {
-        // ton code existant pour logoutClick
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "DOWN");
+            Session.clearSession();
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
     }
 }
