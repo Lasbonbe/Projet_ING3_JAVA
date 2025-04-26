@@ -7,12 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 
-<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.DayWindowController" stylesheets="@css/dayWindow.css, @css/calendar.css" styleClass="root">
+<?import javafx.geometry.Insets?>
+<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.DayWindowController" stylesheets="@css/dayWindow.css, @css/calendar.css, @css/homestyle.css" styleClass="root">
     <ImageView fx:id="img"/>
 
     <HBox alignment="CENTER" styleClass="title-container" fx:id="titleContainer">
         <Label fx:id="titleLabel" styleClass="header-label"/>
     </HBox>
+
+    <Button onAction="#backClick" styleClass="button-invisible" translateX="700" translateY="-469"> <graphic> <ImageView fx:id="backButton"/> </graphic> </Button>
+    <Button onAction="#logoutClick" styleClass="button-invisible" translateX="800" translateY="-469"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+
+
 
     <BorderPane fx:id="rootPane" maxWidth="1400" maxHeight="600">
         <top>

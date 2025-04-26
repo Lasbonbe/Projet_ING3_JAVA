@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.PromotionDAO;
 import Modele.Attraction;
+import Modele.Session;
 import Vue.Calendar.*;
 import Vue.MainApp;
 import Vue.Transition;
@@ -24,6 +25,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Objects;
 
 public class CalendarController {
     @FXML public ImageView img;
@@ -32,6 +34,8 @@ public class CalendarController {
     @FXML private Label monthLabel;
     @FXML private GridPane calendarGrid;
     @FXML private HBox navigationHBox;
+    @FXML private ImageView quitButton;
+    @FXML private ImageView backButton;
 
     private final String[] days = {"Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"};
     private YearMonth currentYearMonth;
@@ -43,9 +47,20 @@ public class CalendarController {
 
     @FXML public void initialize(Attraction attraction) {
         this.attraction = attraction;
-        // Chargement de l'image pour l'ImageView
-        Image image = new Image(getClass().getResource("/imgs/CALENDAR.png").toExternalForm());
-        img.setImage(image);
+
+        try {
+            img.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/CALENDAR.png")).toExternalForm()
+            ));
+            backButton.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()
+            ));
+            quitButton.setImage(new Image(
+                    Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()
+            ));
+        } catch (JavaFXImageException e) {
+            System.err.println("Erreur au chargement des images : " + e.getMessage());
+        }
 
         prevButton = new ButtonNavigation("Précédent", 175, 75);
         nextButton = new ButtonNavigation("Suivant", 175, 75);
@@ -150,6 +165,32 @@ public class CalendarController {
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la vue du jour : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void logoutClick() {
+        Session.setUser(null);
+        System.out.println("Session utilisateur réinitialisée.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "RIGHT");
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void backClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/code-view.fxml"));
+            Parent codeView = loader.load();
+
+            Transition.slideTransition(MainApp.rootPane, codeView, 1000, "RIGHT");
+
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
         }
     }
 

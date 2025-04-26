@@ -8,8 +8,21 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
-<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.CalendarController" stylesheets="@css/calendar.css">
+<?import javafx.geometry.Insets?>
+<StackPane xmlns:fx="https://javafx.com/fxml" fx:controller="Controller.CalendarController" stylesheets="@css/calendar.css, @css/homestyle.css">
     <ImageView fx:id="img"/>
+
+    <BorderPane>
+        <top>
+            <HBox alignment="CENTER" spacing="10">
+                <padding>
+                    <Insets left="1500" top="25"/>
+                </padding>
+                <Button onAction="#backClick" styleClass="button-invisible" > <graphic> <ImageView fx:id="backButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+        </top>
+    </BorderPane>
 
     <VBox alignment="CENTER" spacing="20">
         <HBox fx:id="navigationHBox" spacing="10" styleClass="navigation-hbox" BorderPane.alignment="CENTER">
