@@ -6,8 +6,19 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.sql.Date;
 
+/**
+ * Classe ClientDAO
+ * Cette classe gère les opérations de base de données liées aux clients.
+ * Elle permet d'ajouter, supprimer, modifier et rechercher des clients dans la base de données.
+ */
 public class ClientDAO {
     private static AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
+
+    /**
+     * Méthode pour recuperer tous les clients de la base de données.
+     *
+     * @return ArrayList<Client> - Liste de tous les clients
+     */
 
     public ArrayList<Client> getAllClient() {
         ArrayList<Client> listClients = new ArrayList<>();
@@ -47,6 +58,11 @@ public class ClientDAO {
         return listClients;
     }
 
+    /**
+     * Méthode pour ajouter un client à la base de données.
+     *
+     * @param client - Client à ajouter
+     */
     public void addClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -73,6 +89,11 @@ public class ClientDAO {
         }
     }
 
+    /**
+     * Méthode pour supprimer un client de la base de données.
+     *
+     * @param id - ID du client à supprimer
+     */
     public void deleteClientByID(int id ) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -95,6 +116,13 @@ public class ClientDAO {
         }
     }
 
+    /**
+     * Méthode pour vérifier si un client peut se connecter avec ses identifiants.
+     *
+     * @param email - Email du client
+     * @param password - Mot de passe du client
+     * @return boolean - true si les identifiants sont valides, false sinon
+     */
     public boolean loginClient(String email, String password) {
         boolean isValid = false;
         Connection connection;
@@ -127,6 +155,12 @@ public class ClientDAO {
     }
 
 
+    /**
+     * Méthode pour trouver un client par son ID.
+     *
+     * @param userID - ID du client à rechercher
+     * @return Client - Client trouvé ou null si non trouvé
+     */
     public static Client findClientByID(int userID) {
         Client clientFound = null;
         Connection connection;
@@ -167,6 +201,12 @@ public class ClientDAO {
         return clientFound;
     }
 
+    /**
+     * Méthode pour trouver un client par son email.
+     *
+     * @param email - Email du client à rechercher
+     * @return Client - Client trouvé ou null si non trouvé
+     */
     public static Client findClientByEmail(String email) {
         Client clientFound = null;
         Connection connection;
@@ -208,6 +248,12 @@ public class ClientDAO {
 
 
 
+    /**
+     * Méthode pour modifier un client dans la base de données.
+     *
+     * @param client - Client à modifier
+     * @return Client - Client modifié
+     */
     public Client editClient(Client client) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -239,6 +285,14 @@ public class ClientDAO {
     }
 
 
+    /**
+     * Méthode pour rechercher des clients dans la base de données en fonction de critères.
+     *
+     * @param searchClients - Critère de recherche (nom, prénom, email)
+     * @param clientsAge - Critère d'âge
+     * @param clientsOrdersTime - Critère de temps de commande
+     * @return ArrayList<Client> - Liste des clients trouvés
+     */
     public ArrayList<Client> searchClient (String searchClients, String clientsAge, String clientsOrdersTime) {
         ArrayList<Client> listClients = new ArrayList<>();
         Connection connection;

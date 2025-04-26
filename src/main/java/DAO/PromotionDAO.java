@@ -8,9 +8,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe DAO pour gérer les promotions dans la base de données.
+ * Fournit des méthodes pour récupérer, ajouter, modifier et supprimer des promotions.
+ */
 public class PromotionDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
 
+    /**
+     * Récupère les promotions applicables à une attraction pour une date de session donnée.
+     *
+     * @param attractionID l'ID de l'attraction
+     * @param sessionDate  la date de la session
+     * @return une liste de promotions applicables
+     */
     public List<Promotion> getApplicablePromotions(int attractionID, LocalDate sessionDate) {
         List<Promotion> applicablePromotions = new ArrayList<>();
         Connection conn = sqlDatabase.getConnection();
@@ -52,6 +63,13 @@ public class PromotionDAO {
         return applicablePromotions;
     }
 
+    /**
+     * Vérifie si une attraction a une promotion applicable pour une date de session donnée.
+     *
+     * @param attraction  l'attraction à vérifier
+     * @param sessionDate la date de la session
+     * @return true si une promotion est applicable, false sinon
+     */
     public boolean hasPromotion(Attraction attraction, LocalDate sessionDate) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -84,6 +102,11 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Récupère toutes les promotions de la base de données.
+     *
+     * @return une liste de toutes les promotions
+     */
     public List<Promotion> getAllPromotions() {
         List<Promotion> promotions = new ArrayList<>();
         Connection conn = sqlDatabase.getConnection();
@@ -123,6 +146,11 @@ public class PromotionDAO {
         return promotions;
     }
 
+    /**
+     * Supprime une promotion de la base de données par son ID.
+     *
+     * @param id l'ID de la promotion à supprimer
+     */
     public void deletePromotionByID(int id) {
         Connection conn = sqlDatabase.getConnection();
         // Supprime d'abord les liaisons enfants pour lever la contrainte FK
@@ -145,6 +173,11 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Supprime les jours associés à une promotion.
+     *
+     * @param promoId l'ID de la promotion
+     */
     public void clearPromotionDays(int promoId) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -163,6 +196,11 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Supprime les attractions associées à une promotion.
+     *
+     * @param promoId l'ID de la promotion
+     */
     public void clearPromotionAttractions(int promoId) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -181,6 +219,12 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Ajoute une nouvelle promotion à la base de données.
+     *
+     * @param promo la promotion à ajouter
+     * @return l'ID de la promotion ajoutée
+     */
     public int addPromotionReturnID(Promotion promo) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -213,6 +257,11 @@ public class PromotionDAO {
         return -1;
     }
 
+    /**
+     * Modifie une promotion existante dans la base de données.
+     *
+     * @param promotion la promotion à modifier
+     */
     public void editPromotion(Promotion promotion) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement ps = null;
@@ -250,6 +299,12 @@ public class PromotionDAO {
     }
 
 
+    /**
+     * Ajoute les jours de la semaine associés à une promotion.
+     *
+     * @param promoId l'ID de la promotion
+     * @param days    la liste des jours de la semaine
+     */
     public void addPromotionDays(int promoId, List<String> days) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -272,6 +327,12 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Ajoute les attractions associées à une promotion.
+     *
+     * @param promoId l'ID de la promotion
+     * @param attIds  la liste des IDs d'attractions
+     */
     public void addPromotionAttractions(int promoId, List<Integer> attIds) {
         Connection conn = sqlDatabase.getConnection();
         PreparedStatement preparedStatement = null;
@@ -294,6 +355,12 @@ public class PromotionDAO {
         }
     }
 
+    /**
+     * Récupère les IDs des attractions associées à une promotion.
+     *
+     * @param id l'ID de la promotion
+     * @return une liste d'IDs d'attractions
+     */
     public List<Integer> getPromotionAttractions(int id) {
         List<Integer> attIds = new ArrayList<>();
         Connection conn = sqlDatabase.getConnection();
@@ -321,6 +388,12 @@ public class PromotionDAO {
         return attIds;
     }
 
+    /**
+     * Récupère les jours de la semaine associés à une promotion.
+     *
+     * @param promoId l'ID de la promotion
+     * @return une liste de jours de la semaine
+     */
     public List<String> getPromotionDays(int promoId) {
         List<String> days = new ArrayList<>();
         Connection conn = sqlDatabase.getConnection();

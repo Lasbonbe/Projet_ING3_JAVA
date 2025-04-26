@@ -2,12 +2,18 @@ package DAO;
 
 import java.sql.*;
 
+/**
+ * Classe AccesSQLDatabase pour la gestion de la connexion à la base de données MYSQL
+ */
 public class AccesSQLDatabase {
     private Connection sql_connexion = null;
     private String url = "jdbc:mysql://72.145.14.178:3306/PROJET?useSSL=false";
     private String user = "pilote";
     private String pass = "rafale";
 
+    /**
+     * Constructeur de la classe AccesSQLDatabase
+     */
     public Connection getConnection() {
         if (sql_connexion == null) {
             try {
@@ -20,6 +26,10 @@ public class AccesSQLDatabase {
         return sql_connexion;
     }
 
+    /**
+     * Méthode Test pour tester la connexion à la base de données et enregistrer un client
+     * @deprecated
+     */
     public boolean registerClient(String prenom, String nom, Date b, String email, String password) {
         String sql = "INSERT INTO Client (prenom, nom, birthdate, email, password) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
@@ -38,6 +48,12 @@ public class AccesSQLDatabase {
     }
 
 
+    /**
+     * Méthode pour tester la connexion à la base de données et vérifier si l'utilisateur peut se connecter
+     * @param email
+     * @param password
+     * @return true si l'utilisateur peut se connecter, false sinon
+     */
     public boolean LoginUserSucces(String email, String password) {
         String sql = "SELECT * FROM Client WHERE email = ? AND password = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {

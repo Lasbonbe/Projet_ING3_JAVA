@@ -2,6 +2,9 @@ package DAO;
 
 import java.sql.*;
 
+/**
+ * Class to manage the connection to the SQL database and perform operations on it.
+ */
 public class ReservationDAO {
 
     /**
