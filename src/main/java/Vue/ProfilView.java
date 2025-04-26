@@ -1,8 +1,6 @@
 package Vue;
 
-import Controller.InformationController;
 import Controller.ProfilController;
-import Modele.Attraction;
 import Modele.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
