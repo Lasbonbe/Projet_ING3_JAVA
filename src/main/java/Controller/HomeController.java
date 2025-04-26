@@ -3,9 +3,11 @@ package Controller;
 import DAO.AttractionDAO;
 import Modele.Attraction;
 import Modele.Session;
+import Modele.Client;
 import Vue.Calendar.CalendarView;
 import Vue.MainApp;
 import Vue.Transition;
+import Vue.ProfilView;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -213,8 +215,24 @@ public class HomeController implements Initializable {
     /**
      * Méthode pour gérer le clic sur le bouton de déconnexion.
      */
+
     @FXML
     public void userIconClick(ActionEvent actionEvent) {
-        // à implémenter si besoin
+        /*
+        System.out.println("Profil de : " + c.getLastName() + " " + c.getFirstName());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
+            Parent profilView = loader.load();
+
+            ProfilController controller = loader.getController();
+            controller.initialize(c);
+
+            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "LEFT");
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
+        }
+
+         */
     }
 }
