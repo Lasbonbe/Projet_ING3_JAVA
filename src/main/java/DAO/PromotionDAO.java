@@ -104,6 +104,7 @@ public class PromotionDAO {
 
                 // le flag permanente (tinyint 0/1)
                 boolean permanente     = rs.getBoolean("permanente");
+                System.out.println(permanente);
 
                 // Créez votre constructeur qui prend ces champs
                 Promotion p = new Promotion(id, nom, pourcentage, desc, dateDebut, dateFin);
