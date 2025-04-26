@@ -1,5 +1,6 @@
 package Vue;
 
+import Controller.CalendarController;
 import Controller.InformationController;
 import Modele.Attraction;
 import javafx.application.Application;
@@ -24,6 +25,10 @@ public class InformationView extends Application {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/information-view.fxml"));
             Parent root = loader.load();
+
+            // Pour des tests
+            InformationController controller = loader.getController();
+            controller.initialize(new Attraction(1, "La roue tourne va tourner","Grande Roue", 50, 3, 15, "La roue tourne hyper vite", "/imgs/Attractions/attraction_GrandeRoue.png"));
 
             rootPane.getChildren().add(root);
             Scene scene = new Scene(rootPane);

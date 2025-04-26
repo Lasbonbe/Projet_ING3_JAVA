@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.PromotionDAO;
 import Modele.Promotion;
+import Modele.Session;
 import Vue.MainApp;
 import Vue.Transition;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -22,7 +23,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
+/**
+ * Controller de la page d'administration des promotions.
+ * Permet de gérer les promotions (ajout, modification, suppression).
+ */
 public class AdminPromotionPageController implements Initializable {
 
     @FXML private TableView<Promotion> promotionsTable;
@@ -42,7 +46,7 @@ public class AdminPromotionPageController implements Initializable {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
-    private final PromotionDAO attractionDAO = new PromotionDAO();
+    private final PromotionDAO promotionDAO = new PromotionDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,8 +79,10 @@ public class AdminPromotionPageController implements Initializable {
         colPermanente.setCellValueFactory(c ->
                 new SimpleBooleanProperty(c.getValue().isPermanent())
         );
+        System.out.println(colPermanente.getCellData(0));
 
-        List<Promotion> list = attractionDAO.getAllPromotions();
+
+        List<Promotion> list = promotionDAO.getAllPromotions();
         promotionsTable.setItems(FXCollections.observableArrayList(list));
 
         backgroundImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/ADMIN_PROMOTION_PANEL.png")).toExternalForm()));
@@ -98,10 +104,10 @@ public class AdminPromotionPageController implements Initializable {
         try {
             Parent view = FXMLLoader.load(
                     Objects.requireNonNull(
-                            getClass().getResource("/Vue/promotion-add-view.fxml")
+                            getClass().getResource("/Vue/admin-add-promotion-view.fxml")
                     )
             );
-            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "UP");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -111,13 +117,14 @@ public class AdminPromotionPageController implements Initializable {
     @FXML
     private void editPromotion(ActionEvent e) {
         Promotion sel = promotionsTable.getSelectionModel().getSelectedItem();
+        Session.setSelectedPromotion(sel);
         if (sel == null) return;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/Vue/promotion-edit-view.fxml")
+                    getClass().getResource("/Vue/admin-edit-promotion-view.fxml")
             );
             Parent view = loader.load();
-            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "UP");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -128,9 +135,10 @@ public class AdminPromotionPageController implements Initializable {
     private void deletePromotion(ActionEvent e) {
         Promotion sel = promotionsTable.getSelectionModel().getSelectedItem();
         if (sel == null) return;
-        attractionDAO.deletePromotionByID(sel.getId());
+        promotionDAO.deletePromotionByID(sel.getId());
         promotionsTable.getItems().remove(sel);
     }
+
 
 
     /**
@@ -164,7 +172,18 @@ public class AdminPromotionPageController implements Initializable {
         }
     }
 
-    /** Logout / fermer */
-    @FXML private void logoutClick(ActionEvent e){ /*…*/ }
-
+    /** Bouton QUIT
+     * @param  e ActionEvent - bah c'est l'event
+     * */
+    @FXML
+    private void logoutClick(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "DOWN");
+            Session.clearSession();
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
+    }
 }

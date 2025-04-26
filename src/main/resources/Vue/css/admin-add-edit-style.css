@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'JetBrains Mono SemiBold';
+    src: url('../../fonts/JetBrainsMono-SemiBold.ttf') format('truetype');
+}
+
+.body {
+    -fx-background-color: #000000;
+    -fx-font-family: "JetBrains Mono SemiBold";
+}
+
+.button-invisible {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.button-invisible:hover {
+    -fx-opacity: 0.8;
+}
+
+.button-invisible:pressed {
+    -fx-opacity: 0.6;
+}
+
+.form-label {
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-font-family: "JetBrains Mono SemiBold";
+
+}
+.form-textfield, .form-textarea {
+    -fx-font-family: "JetBrains Mono SemiBold";
+    -fx-background-color: #222222;
+    -fx-inner-border-color: #222222;
+    -fx-border-color: #222222;
+    -fx-control-inner-background: #222222;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8;
+    -fx-font-size: 30px;
+}
+
+.add-button {
+    -fx-font-family: "JetBrains Mono SemiBold";
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #5eb847;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 8 24;
+}
+.add-button:hover {
+    -fx-background-color: #4a8f37;
+}
+
+.form-datepicker {
+    -fx-font-family: "JetBrains Mono SemiBold";
+    -fx-background-color: #222222;
+    -fx-inner-border-color: #222222;
+    -fx-border-color: #222222;
+    -fx-control-inner-background: #222222;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8;
+    -fx-font-size: 30px;
+}
+
+.form-checkbox {
+    -fx-font-family: "JetBrains Mono SemiBold";
+    -fx-background-color: #222222;
+    -fx-inner-border-color: #222222;
+    -fx-border-color: #222222;
+    -fx-control-inner-background: #222222;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8;
+    -fx-font-size: 30px;
+}
+
+.form-listview {
+    -fx-font-family: "JetBrains Mono SemiBold";
+    -fx-background-color: #222222;
+    -fx-inner-border-color: #222222;
+    -fx-border-color: #222222;
+    -fx-control-inner-background: #222222;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8;
+    -fx-font-size: 30px;
+}

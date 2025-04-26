@@ -31,6 +31,7 @@
                     <TableColumn fx:id="colmax_capacity"  text="Capacité"     prefWidth="100"/>
                     <TableColumn fx:id="colbase_price"    text="Prix"         prefWidth="100"/>
                     <TableColumn fx:id="colduration"      text="Durée"        prefWidth="100"/>
+                    <TableColumn fx:id="coldescription"  text="Description"  prefWidth="750"/>
                 </columns>
             </TableView>
             </HBox>

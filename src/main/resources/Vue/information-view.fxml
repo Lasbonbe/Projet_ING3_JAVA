@@ -11,18 +11,17 @@
 
 
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.InformationController" stylesheets="@css/informationstyle.css">
-    <ImageView fx:id="img"/>
 
-    <!-- En-tête -->
-    <HBox spacing="10" alignment="CENTER">
-        <padding> <Insets top="25" right="10" left="600" /> </padding>
-        <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
-        <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
-    </HBox>
 
-    <BorderPane>
+    <BorderPane style="-fx-background-color: black">
+    <top>
+        <HBox spacing="10">
+            <padding> <Insets top="25" right="20" bottom="25" left="50"/> </padding>
+            <Button onAction="#backClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
+        </HBox>
+    </top>
     <left>
-        <VBox styleClass="information-vbox" BorderPane.alignment="CENTER" spacing="20.0">
+        <VBox styleClass="information-vbox" alignment="CENTER_LEFT" spacing="20.0">
             <Label fx:id="attractionName" styleClass="name-label"/>
             <ImageView fx:id="attractionImg" styleClass="attraction-img" fitWidth="800" fitHeight="400" />
             <TextArea fx:id="attractionDescription" styleClass="attraction-desc" wrapText="true" editable="false" focusTraversable="false"/>
@@ -30,13 +29,15 @@
     </left>
 
     <right>
-        <VBox styleClass="details-vbox" BorderPane.alignment="CENTER" spacing="20.0">
+        <VBox styleClass="details-vbox" BorderPane.alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
 
             <VBox spacing="5">
                 <Label fx:id="attractionType" styleClass="detail-label"/>
                 <Label fx:id="attractionPrice" styleClass="detail-label" />
                 <Label fx:id="attractionDuration" styleClass="detail-label"/>
             </VBox>
+
+            <Pane VBox.vgrow="ALWAYS"/>
 
             <Button fx:id="bookingButton" text="Allez réserver ->" styleClass="res-button" prefWidth="100"/>
         </VBox>
