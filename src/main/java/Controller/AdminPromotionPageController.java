@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.PromotionDAO;
 import Modele.Promotion;
+import Modele.Session;
 import Vue.MainApp;
 import Vue.Transition;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -22,7 +23,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
+/**
+ * Controller de la page d'administration des promotions.
+ * Permet de gérer les promotions (ajout, modification, suppression).
+ */
 public class AdminPromotionPageController implements Initializable {
 
     @FXML private TableView<Promotion> promotionsTable;
@@ -75,6 +79,8 @@ public class AdminPromotionPageController implements Initializable {
         colPermanente.setCellValueFactory(c ->
                 new SimpleBooleanProperty(c.getValue().isPermanent())
         );
+        System.out.println(colPermanente.getCellData(0));
+
 
         List<Promotion> list = attractionDAO.getAllPromotions();
         promotionsTable.setItems(FXCollections.observableArrayList(list));
@@ -164,7 +170,18 @@ public class AdminPromotionPageController implements Initializable {
         }
     }
 
-    /** Logout / fermer */
-    @FXML private void logoutClick(ActionEvent e){ /*…*/ }
-
+    /** Bouton QUIT
+     * @param  e ActionEvent - bah c'est l'event
+     * */
+    @FXML
+    private void logoutClick(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+            Parent loginView = loader.load();
+            Transition.slideTransition(MainApp.rootPane, loginView, 1000, "DOWN");
+            Session.clearSession();
+        } catch (IOException exception) {
+            System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+        }
+    }
 }
