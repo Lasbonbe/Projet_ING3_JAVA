@@ -46,7 +46,7 @@ public class AdminPromotionPageController implements Initializable {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
-    private final PromotionDAO attractionDAO = new PromotionDAO();
+    private final PromotionDAO promotionDAO = new PromotionDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,7 +82,7 @@ public class AdminPromotionPageController implements Initializable {
         System.out.println(colPermanente.getCellData(0));
 
 
-        List<Promotion> list = attractionDAO.getAllPromotions();
+        List<Promotion> list = promotionDAO.getAllPromotions();
         promotionsTable.setItems(FXCollections.observableArrayList(list));
 
         backgroundImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/ADMIN_PROMOTION_PANEL.png")).toExternalForm()));
@@ -104,10 +104,10 @@ public class AdminPromotionPageController implements Initializable {
         try {
             Parent view = FXMLLoader.load(
                     Objects.requireNonNull(
-                            getClass().getResource("/Vue/promotion-add-view.fxml")
+                            getClass().getResource("/Vue/admin-add-promotion-view.fxml")
                     )
             );
-            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "UP");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -117,13 +117,14 @@ public class AdminPromotionPageController implements Initializable {
     @FXML
     private void editPromotion(ActionEvent e) {
         Promotion sel = promotionsTable.getSelectionModel().getSelectedItem();
+        Session.setSelectedPromotion(sel);
         if (sel == null) return;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/Vue/promotion-edit-view.fxml")
+                    getClass().getResource("/Vue/admin-edit-promotion-view.fxml")
             );
             Parent view = loader.load();
-            Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
+            Transition.slideTransition(MainApp.rootPane, view, 1000, "UP");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -134,9 +135,10 @@ public class AdminPromotionPageController implements Initializable {
     private void deletePromotion(ActionEvent e) {
         Promotion sel = promotionsTable.getSelectionModel().getSelectedItem();
         if (sel == null) return;
-        attractionDAO.deletePromotionByID(sel.getId());
+        promotionDAO.deletePromotionByID(sel.getId());
         promotionsTable.getItems().remove(sel);
     }
+
 
 
     /**
