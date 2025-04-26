@@ -215,8 +215,10 @@ public class HomeController implements Initializable {
     /**
      * Méthode pour gérer le clic sur le bouton de déconnexion.
      */
+
     @FXML
-    public void userIconClick(Client c) {
+    public void userIconClick(ActionEvent actionEvent) {
+        /*
         System.out.println("Profil de : " + c.getLastName() + " " + c.getFirstName());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
@@ -230,5 +232,7 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
         }
+
+         */
     }
 }
