@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AttractionDAO;
+import DAO.ScheduleFillerProMax;
 import Modele.Attraction;
 import Modele.Session;
 import Vue.MainApp;
@@ -60,8 +61,10 @@ public class AdminAttractionCreateNewController implements Initializable {
     @FXML
     private void saveAttraction(ActionEvent e) {
         Attraction a = getAttraction();
-        attractionDAO.addAttraction(a);
-
+        int generatedID = attractionDAO.addAttraction(a);
+        System.out.println("Attraction ajoutée avec l'ID : " + generatedID);
+        a.setAttractionID( generatedID );
+        ScheduleFillerProMax.generateSchedulesForAttraction(a);
         // Transition retour
         try {
             Parent view = FXMLLoader.load(

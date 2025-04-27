@@ -149,6 +149,68 @@ public class ScheduleDAO{
             }
         }
     }
+    /**
+     * Méthode addScheduleWithDuration pour ajouter un horaire à la base de données avec en plus une durée
+     * @param attraction L'attraction associée
+     * @param currentTime L'heure de début
+     * @param endTime L'heure de fin
+     * @param date La date
+     */
+    public void addScheduleWithDuration(Attraction attraction, Date date, Time currentTime, Time endTime) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO Schedule(Attraction_ID, hour_debut, hour_end, total_places, reserved_places, date,statut) values(?,?,?,?,?,?,'Ouvert')");
+            preparedStatement.setInt(1, attraction.getAttractionID());
+            preparedStatement.setTime(2, currentTime);
+            preparedStatement.setTime(3, endTime);
+            preparedStatement.setInt(4, attraction.getCapacity());
+            preparedStatement.setInt(5, 0);
+            preparedStatement.setDate(6, date);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ajout de schedule impossible avec ID attraction " + attraction.getAttractionID());
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
+
+    /**
+     * Méthode pour supprimer tout les horaires d'une attraction
+     * @param attraction_ID l'ID de l'attraction
+     */
+    public void deleteScheduleByAttraction(int attraction_ID) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM Schedule WHERE Attraction_ID = ?");
+            preparedStatement.setInt(1, attraction_ID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Suppression de schedule impossible");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
+
+
+
+
 
     /**
      * Méthode pour mettre à jour un horaire dans la base de données
