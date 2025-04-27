@@ -189,4 +189,23 @@ public class PanierController {
             System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
         }
     }
+
+    @FXML private void paymentClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/payment-view.fxml"));
+            Parent paymentView = loader.load();
+
+            PaymentController controller = loader.getController();
+            controller.setSchedule(schedule, attraction, client);
+
+            if (schedule != null) {
+                Transition.slideTransition(MainApp.rootPane, paymentView, 1000, "LEFT");
+            } else {
+                Transition.slideTransition(MainApp.rootPane, paymentView, 1000, "UP");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
+        }
+    }
 }

@@ -43,7 +43,7 @@
                         </GridPane>
                     </ScrollPane>
                 </HBox>
-                <Button fx:id="PaymentButton" text="Effectuer le paiement" styleClass="order-button"/>
+                <Button fx:id="PaymentButton" onAction="#paymentClick" text="Effectuer le paiement" styleClass="order-button"/>
             </VBox>
         </center>
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.PaymentController" stylesheets="@css/profilstyle.css, @css/homestyle.css">
+    <BorderPane style="-fx-background-color: black">
+        <top>
+            <HBox spacing="10" alignment="TOP_RIGHT">
+                <padding> <Insets top="25" right="50" left="20"/> </padding>
+                <Button onAction="#backClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="backButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="INFORMATIONS DE PAIEMENT" alignment="CENTER" styleClass="grid-title"/>
+                <GridPane alignment="CENTER" styleClass="grid-info-panier">
+                    <Label text="Titulaire de la carte : " GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Numéro de carte : " GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Date d'expiration : " GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Cryptogramme : " GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="grid-value"/>
+                    <Label text="Adresse de facturation : " GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="grid-value"/>
+
+                    <TextField fx:id="titulaireField" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="Titulaire de la carte" prefWidth="800" prefHeight="90" styleClass="searchbox"/>
+                    <TextField fx:id="numCarteField" promptText="Numéro de carte" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="800" prefHeight="90" styleClass="searchbox"/>
+                    <TextField fx:id="dateExpField" promptText="Date d'expiration" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="800" prefHeight="90" styleClass="searchbox"/>
+                    <TextField fx:id="CryptoField" promptText="Cryptogramme" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="800" prefHeight="90" styleClass="searchbox"/>
+                    <TextField fx:id="adressField" promptText="Adresse de facturation" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="800" prefHeight="90" styleClass="searchbox"/>
+                </GridPane>
+                <Button fx:id="ordersButton" onAction="#paymentClick" text="Payer" styleClass="order-button"/>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>

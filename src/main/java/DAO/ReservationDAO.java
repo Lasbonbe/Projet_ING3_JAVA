@@ -131,6 +131,35 @@ public class ReservationDAO {
         return listReservations;
     }
 
+    public void addReservation(int clientID, int scheduleID, Date date, int nbrTickets, double price, int panierID) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO Reservation(client_ID, schedule_ID, date, nb_tickets, total_price, panier_ID) VALUES (?, ?, ?, ?, ?, ?)");
+            preparedStatement.setInt(1, clientID);
+            preparedStatement.setInt(2, scheduleID);
+            preparedStatement.setDate(3, date);
+            preparedStatement.setInt(4, nbrTickets);
+            preparedStatement.setDouble(5, price);
+            preparedStatement.setInt(6, panierID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Erreur d'ajout de réservation");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Erreur de fermeture des ressources");
+            }
+        }
+    }
+
+
 }
 
 
