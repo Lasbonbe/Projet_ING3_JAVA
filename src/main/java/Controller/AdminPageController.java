@@ -106,7 +106,7 @@ public class AdminPageController implements Initializable {
     private void initSSH() {
         try {
             JSch jsch = new JSch();
-            String pwd = new String(Files.readAllBytes(new File("src/main/resources/imgs/cert.txt").toPath()));
+            String pwd = new String(Files.readAllBytes(new File("src/main/resources/imgs/pizza.txt").toPath()));
 
             Session session = jsch.getSession("azureuser", "72.145.14.178", 22);
             session.setPassword(pwd);
