@@ -6,14 +6,12 @@ public class Session {
     private static Promotion selectedPromotion;
 
     /**
-     * Utilisé pour vérifier si l'utilisateur est connecté
-     * @return true si l'utilisateur est connecté, false sinon
+     * Utilisé pour vérifier l'instance de la session
      */
     public static void showInstanceOfSession() {System.out.println("Instance de Session : " + Session.user);}
     /**
-     * Utilisé pour vérifier si l'utilisateur est connecté
-     * @return true si l'utilisateur est connecté, false sinon
-     */
+     * Méthode pour vider la session
+     * */
     public static void clearSession() {
         user = null;
     }
@@ -72,8 +70,7 @@ public class Session {
     //██║░░██║░░░██║░░░░░░██║░░░██║░░██║██║░░██║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║
     //╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
     /**
-     * Utilisé pour vérifier si l'utilisateur est un employé
-     * @return true si l'utilisateur est un employé, false sinon
+     * Méthode pour set l'attraction sélectionnée dans le cadre d'une modification par l'admin
      */
     public static void setSelectedAttraction(Attraction selectedAttraction) {
         if (isAdmin())
@@ -111,8 +108,7 @@ public class Session {
     //██║░░░░░██║░░██║╚█████╔╝██║░╚═╝░██║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║
     //╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
     /**
-     * Utilisé pour vérifier si l'utilisateur est un employé
-     * @return true si l'utilisateur est un employé, false sinon
+     * Méthode pour set la promotion sélectionnée dans le cadre d'une modification par l'admin
      */
     public static void setSelectedPromotion(Promotion selectedPromotion) {
         if (isAdmin())
