@@ -133,6 +133,16 @@ public class ReservationDAO {
         return listReservations;
     }
 
+    /**
+     * Ajoute une réservation à la base de données
+     *
+     * @param clientID  L'ID du client
+     * @param scheduleID L'ID du calendrier
+     * @param date      La date de la réservation
+     * @param nbrTickets Le nombre de tickets réservés
+     * @param price     Le prix total de la réservation
+     * @param panierID  L'ID du panier
+     **/
     public void addReservation(int clientID, int scheduleID, Date date, int nbrTickets, double price, int panierID) {
         Connection connection;
         PreparedStatement preparedStatement = null;

@@ -10,11 +10,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe PanierDAO qui gère les opérations liées au panier dans la base de données.
+ * Elle permet d'ajouter, supprimer et récupérer des éléments du panier.
+ */
 public class PanierDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
     private int idPanier;
     private ScheduleDAO scheduleDAO = new ScheduleDAO();
 
+    /**
+     * Méthode qui permet d'ajouter une réservation au panier.
+     * Elle crée un panier si aucun n'existe pour le client.
+     * Ensuite, elle ajoute l'élément au panier et met à jour le prix total.
+     * Enfin, elle réserve temporairement les billets pour la session.
+     *
+     * @param clientID L'identifiant du client.
+     * @param schedule La session réservée.
+     * @param nbBillets Le nombre de billets réservés.
+     * @param prix Le prix total de la réservation.
+     */
     public void addReservationPanier(int clientID, Schedule schedule, int nbBillets, double prix) {
         int panierID = getPanierId(clientID);
         if (panierID == -1) {
@@ -32,6 +47,12 @@ public class PanierDAO {
         scheduleDAO.tempReservation(schedule, nbBillets);
     }
 
+    /**
+     * Méthode qui permet de récupérer l'identifiant du panier actif pour un client donné.
+     *
+     * @param clientID L'identifiant du client.
+     * @return L'identifiant du panier actif ou -1 si aucun panier n'est trouvé.
+     */
     public int getPanierId(int clientID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -59,6 +80,11 @@ public class PanierDAO {
         return -1;
     }
 
+    /**
+     * Méthode qui permet de créer un panier pour un client donné.
+     *
+     * @param clientID L'identifiant du client.
+     */
     private void createPanier(int clientID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -88,6 +114,14 @@ public class PanierDAO {
         }
     }
 
+    /**
+     * Méthode qui permet d'ajouter un élément au panier.
+     *
+     * @param panier_ID L'identifiant du panier.
+     * @param schedule La session réservée.
+     * @param nbBillets Le nombre de billets réservés.
+     * @param prix Le prix total de la réservation.
+     */
     private void addElementPanier(int panier_ID, Schedule schedule, int nbBillets, double prix ) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -113,6 +147,11 @@ public class PanierDAO {
         }
     }
 
+    /**
+     * Méthode qui permet de mettre à jour un panier.
+     *
+     * @param panierID L'identifiant du panier.
+     */
     private void updatePrixPanier(int panierID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -135,6 +174,12 @@ public class PanierDAO {
         }
     }
 
+    /**
+     * Méthode qui permet de récupérer tous les éléments du panier pour un client donné.
+     *
+     * @param clientID L'identifiant du client.
+     * @return Une liste d'objets PanierItem représentant les éléments du panier.
+     */
     public ArrayList<PanierItem> getAllPanier(int clientID) {
         ArrayList<PanierItem> panierItems = new ArrayList<PanierItem>();
         Connection connection;
@@ -167,6 +212,12 @@ public class PanierDAO {
         return panierItems;
     }
 
+    /**
+     * Méthode qui permet de supprimer un élément du panier.
+     *
+     * @param scheduleID L'identifiant de la session.
+     * @param panierID L'identifiant du panier.
+     */
     public void supprimerElementPanier(int scheduleID, int panierID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -203,6 +254,12 @@ public class PanierDAO {
         }
     }
 
+    /**
+     * Méthode qui permet de récupérer l'identifiant de la session à partir de l'identifiant de l'élément du panier.
+     *
+     * @param panierElementID L'identifiant de l'élément du panier.
+     * @return L'identifiant de la session ou -1 si aucun identifiant n'est trouvé.
+     */
     public int getScheduleIdFromPanierElement(int panierElementID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -230,6 +287,12 @@ public class PanierDAO {
         return -1;
     }
 
+    /**
+     * Méthode qui permet de payer le panier d'un client.
+     * Elle transfère les éléments du panier vers les réservations et met à jour le statut du panier.
+     *
+     * @param clientID L'identifiant du client.
+     */
     public void payerPanier(int clientID) {
         Connection connection = sqlDatabase.getConnection();;
         PreparedStatement preparedStatement = null;

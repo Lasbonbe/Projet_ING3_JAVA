@@ -18,6 +18,10 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Controller de la page de paiement.
+ * Permet de gérer le paiement d'une réservation.
+ */
 public class PaymentController {
     @FXML private ImageView backButton;
     @FXML private ImageView quitButton;
@@ -32,6 +36,10 @@ public class PaymentController {
     private Attraction attraction;
     private boolean isUpdatingDateExp = false;
 
+    /**
+     * Initialisation de la vue de paiement.
+     * Charge les images et initialise les champs de texte.
+     */
     @FXML public void initialize() {
         try {
             backButton.setImage(new Image(
@@ -45,12 +53,24 @@ public class PaymentController {
         }
     }
 
+    /**
+     * Méthode pour initialiser le paiement avec un client, une attraction et un calendrier.
+     *
+     * @param schedule  Le calendrier de la réservation.
+     * @param attraction L'attraction réservée.
+     * @param client    Le client effectuant la réservation.
+     */
     public void setSchedule(Schedule schedule, Attraction attraction, Client client) {
         this.schedule = schedule;
         this.attraction = attraction;
         this.client = client;
         setupTextFields();
     }
+
+    /**
+     * Méthode pour initialiser les champs de texte.
+     * Ajoute des écouteurs pour vérifier la validité des champs.
+     */
 
     private void setupTextFields() {
         ordersButton.setDisable(true);
@@ -99,6 +119,12 @@ public class PaymentController {
         adressField.textProperty().addListener(listener);
     }
 
+    /**
+     * Méthode pour vérifier si le numéro de carte est valide.
+     *
+     * @param numCarte Le numéro de carte à vérifier.
+     * @return true si le numéro de carte est valide, false sinon.
+     */
     private boolean isValidCard(String numCarte) {
         boolean valid = false;
         if ((numCarte.startsWith("34") || numCarte.startsWith("37")) && numCarte.length() == 15) {
@@ -119,6 +145,10 @@ public class PaymentController {
         return valid;
     }
 
+    /**
+     * Méthode pour vérifier si tous les champs sont remplis.
+     * Active ou désactive le bouton de commande en fonction de la validité des champs.
+     */
     private void checkFieldsFull() {
         boolean allFilled = !titulaireField.getText().trim().isEmpty() &&
                 !numCarteField.getText().trim().isEmpty() &&
@@ -129,6 +159,12 @@ public class PaymentController {
         ordersButton.setDisable(!allFilled);
     }
 
+    /**
+     * Méthode pour limiter la longueur du texte dans un champ de texte.
+     *
+     * @param textField Le champ de texte à limiter.
+     * @param maxLength La longueur maximale autorisée.
+     */
     private void limitTextLength(TextField textField, int maxLength) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
@@ -182,6 +218,9 @@ public class PaymentController {
         }
     }
 
+    /**
+     * PAYMENT BUTTON
+     */
     @FXML private void paymentClick() {
         PanierDAO panierDAO = new PanierDAO();
         panierDAO.payerPanier(client.getUserID());
