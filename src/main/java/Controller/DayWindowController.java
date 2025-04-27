@@ -119,6 +119,9 @@ public class DayWindowController {
 
                 ButtonNavigation button = schedule.getBtnNav();
                 button.setOnAction(e -> resButtonOnClick(schedule, attraction));
+                if (schedule.getPDispos() == 0) {
+                    schedule.setStatut("Complet");
+                }
                 if (!Objects.equals(schedule.getStatut(), "Ouvert")) {
                     button.setDisable(true);
                     schedule.setPlacesDispos(0);

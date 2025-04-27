@@ -105,6 +105,13 @@ public class Schedule {
         this.placesDispos = placesDispos;
     }
 
+    /** SETTER setStatut
+     *
+     * @param statut Le statut de la session de l'attraction
+     */
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
     //░█████╗░░█████╗░███╗░░██╗░██████╗████████╗██████╗░██╗░░░██╗░█████╗░████████╗░█████╗░██████╗░░██████╗
     //██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔════╝
     //██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░░░░██║░░░██████╔╝██║░░░██║██║░░╚═╝░░░██║░░░██║░░██║██████╔╝╚█████╗░
