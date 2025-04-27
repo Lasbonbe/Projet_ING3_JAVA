@@ -247,13 +247,13 @@ public class AdminPageController implements Initializable {
     }
 
     /**
-     * Bouton PREVIOUS, fait le lien ADMIN-VIEW -> USERS-VIEW.
+     * Bouton PREVIOUS, fait le lien ADMIN-VIEW -> RESERVATION-VIEW.
      *
      * @param event Bah c'est l'event
      */
     @FXML private void previousClick(ActionEvent event) {
         try {
-            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-user-view.fxml"))
+            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-reservation-view.fxml"))
             );
             Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
         } catch (IOException ex) {
