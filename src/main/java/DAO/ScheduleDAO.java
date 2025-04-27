@@ -204,4 +204,24 @@ public class ScheduleDAO{
         }
         return tab;
     }
+
+    public int getPdispos(Schedule schedule) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT total_places, reserved_places FROM Schedule WHERE ID = ?");
+            preparedStatement.setInt(1, schedule.getIdSchedule());
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total_places") - resultSet.getInt("reserved_places");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Récupération du nombre de places disponibles impossible");
+        }
+        return 0;
+    }
 }

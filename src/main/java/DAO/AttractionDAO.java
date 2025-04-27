@@ -268,6 +268,35 @@ public class AttractionDAO {
         return basePrice;
     }
 
+    public String getAttractionNameFromSchedule(int idSchedule) {
+        String attractionName = "";
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT nom FROM Attraction JOIN Schedule ON Attraction.ID = Schedule.Attraction_ID WHERE Schedule.ID = ?";
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, idSchedule);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                attractionName = resultSet.getString("nom");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Récupération du nom de l'attraction impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return attractionName;
+    }
+
 
 }
 

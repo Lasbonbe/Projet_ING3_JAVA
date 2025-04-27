@@ -27,6 +27,7 @@ public class PanierController {
     private Attraction attraction;
     private ArrayList<PanierItem> panierItems = new ArrayList<>();
     private Client client;
+    PanierDAO panierDAO = new PanierDAO();
     @FXML private GridPane gridPanePanier;
     @FXML private ImageView backButton;
     @FXML private ImageView quitButton;
@@ -59,8 +60,7 @@ public class PanierController {
     }
 
     private void chargerPanier() {
-        PanierDAO panierDAO = new PanierDAO();
-        panierItems = panierDAO.getAllPanier(12);
+        panierItems = panierDAO.getAllPanier(client.getUserID());
     }
 
     private void afficherPanier() {
@@ -71,7 +71,8 @@ public class PanierController {
             Label finLabel = new Label(panierItem.getHeureFin().toLocalTime().format(formatter));
             Label nbBilletLabel = new Label(String.valueOf(panierItem.getNbBillets()));
             Label prixLabel = new Label(String.format("%.2f€", panierItem.getPrix()));
-            Label reservationLabel = new Label("Réservation " + rowIndex);
+            Label reservationLabel = new Label(panierItem.getAttractionName());
+            reservationLabel.setWrapText(true);
             debutLabel.getStyleClass().add("grid-value");
             finLabel.getStyleClass().add("grid-value");
             nbBilletLabel.getStyleClass().add("grid-value");
@@ -104,10 +105,39 @@ public class PanierController {
     private void supprimerPanierItem(PanierItem panierItem) {
         panierItems.remove(panierItem);
         gridPanePanier.getChildren().clear();
-        gridPanePanier.add(new Label("Début"), 1, 0);
-        gridPanePanier.add(new Label("Fin"), 2, 0);
-        gridPanePanier.add(new Label("Nombre de Billets"), 3, 0);
-        gridPanePanier.add(new Label("Prix"), 4, 0);
+        Label labelReservation = new Label("Attraction");
+        labelReservation.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelReservation, 0, 0);
+        GridPane.setHalignment(labelReservation, HPos.CENTER);
+        GridPane.setValignment(labelReservation, VPos.CENTER);
+        Label labelDeb = new Label("Début");
+        labelDeb.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelDeb, 1, 0);
+        GridPane.setHalignment(labelDeb, HPos.CENTER);
+        GridPane.setValignment(labelDeb, VPos.CENTER);
+        Label labelFin = new Label("Fin");
+        labelFin.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelFin, 2, 0);
+        GridPane.setHalignment(labelFin, HPos.CENTER);
+        GridPane.setValignment(labelFin, VPos.CENTER);
+        Label labelNbBil = new Label("Nombre de Billets");
+        labelNbBil.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelNbBil, 3, 0);
+        GridPane.setHalignment(labelNbBil, HPos.CENTER);
+        GridPane.setValignment(labelNbBil, VPos.CENTER);
+        Label labelPrix = new Label("Prix");
+        labelPrix.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelPrix, 4, 0);
+        GridPane.setHalignment(labelPrix, HPos.CENTER);
+        GridPane.setValignment(labelPrix, VPos.CENTER);
+        Label labelSuppr = new Label("Supprimer");
+        labelSuppr.getStyleClass().add("grid-value");
+        gridPanePanier.add(labelSuppr, 5, 0);
+        GridPane.setHalignment(labelSuppr, HPos.CENTER);
+        GridPane.setValignment(labelSuppr, VPos.CENTER);
+        int panierID = panierDAO.getPanierId(client.getUserID());
+        int scheduleID = panierDAO.getScheduleIdFromPanierElement(panierItem.getId());
+        panierDAO.supprimerElementPanier(scheduleID, panierID);
         afficherPanier();
     }
 

@@ -25,7 +25,7 @@ public class PanierDAO {
         tempReservation(schedule, nbBillets);
     }
 
-    private int getPanierId(int clientID) {
+    public int getPanierId(int clientID) {
         Connection connection;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -159,10 +159,11 @@ public class PanierDAO {
             preparedStatement.setInt(1, clientID);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
                 int prix = resultSet.getInt("prix");
                 int nbBillets = resultSet.getInt("nbBillets");
                 int scheduleID = resultSet.getInt("schedule_ID");
-                panierItems.add(new PanierItem(scheduleID, nbBillets, prix));
+                panierItems.add(new PanierItem(id, scheduleID, nbBillets, prix));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,5 +178,71 @@ public class PanierDAO {
             }
         }
         return panierItems;
+    }
+
+    public void supprimerElementPanier(int scheduleID, int panierID) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT nbBillets FROM PanierElement WHERE schedule_ID = ? AND panier_ID = ?");
+            preparedStatement.setInt(1, scheduleID);
+            preparedStatement.setInt(2, panierID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int nbBillets = resultSet.getInt("nbBillets");
+                preparedStatement = connection.prepareStatement("UPDATE Schedule SET reserved_places = reserved_places - ? WHERE ID = ?");
+                preparedStatement.setInt(1, nbBillets);
+                preparedStatement.setInt(2, scheduleID);
+                preparedStatement.executeUpdate();
+
+                preparedStatement = connection.prepareStatement("DELETE FROM PanierElement WHERE schedule_ID = ? AND panier_ID = ?");
+                preparedStatement.setInt(1, scheduleID);
+                preparedStatement.setInt(2, panierID);
+                preparedStatement.executeUpdate();
+                updatePrixPanier(panierID);
+            } else {
+                System.out.println("Aucun element trouvé dans le panier");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Suppression de l'élément du panier impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Fermeture des ressources impossible");
+            }
+        }
+    }
+
+    public int getScheduleIdFromPanierElement(int panierElementID) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT PanierElement.schedule_ID FROM PanierElement WHERE ID = ?");
+            preparedStatement.setInt(1, panierElementID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("schedule_ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Récupération de l'identifiant de la sessions impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Fermeture des ressources impossible");
+            }
+        }
+        return -1;
     }
 }
