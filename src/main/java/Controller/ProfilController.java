@@ -5,16 +5,15 @@ import DAO.ReservationDAO;
 import Modele.*;
 import Vue.MainApp;
 import Vue.Transition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
@@ -65,27 +64,7 @@ public class ProfilController {
     public void setupReservations (Client client){
         ArrayList<Reservation> clientReservation = ReservationDAO.getReservationsByClient(client.getUserID());
 
-        int rowIndex = 0;
-
-        Label hourDebutTitle= new Label("Heure de début");
-        Label hourEndTitle = new Label("Heure de fin");
-        Label dateTitle = new Label("Date");
-        Label nbrTicketsTitle = new Label("Nombre de tickets");
-        Label priceTitle = new Label("Prix total");
-
-        hourDebutTitle.getStyleClass().add("title-label");
-        hourEndTitle.getStyleClass().add("title-label");
-        dateTitle.getStyleClass().add("title-label");
-        nbrTicketsTitle.getStyleClass().add("title-label");
-        priceTitle.getStyleClass().add("title-label");
-
-        gridPaneReservations.add(hourDebutTitle, 0, rowIndex);
-        gridPaneReservations.add(hourEndTitle, 1, rowIndex);
-        gridPaneReservations.add(dateTitle, 2, rowIndex);
-        gridPaneReservations.add(nbrTicketsTitle, 3, rowIndex);
-        gridPaneReservations.add(priceTitle, 4, rowIndex);
-
-        rowIndex++;
+        int rowIndex = 1;
 
         for (Reservation reservation : clientReservation) {
             Label hourDebutRes= new Label(reservation.getHeureDebut().toString());
@@ -100,11 +79,24 @@ public class ProfilController {
             nbrTicketsRes.getStyleClass().add("data-label");
             priceRes.getStyleClass().add("data-label");
 
+            GridPane.setHalignment(hourDebutRes, HPos.CENTER);
+            GridPane.setValignment(hourDebutRes, VPos.CENTER);
+            GridPane.setHalignment(hourEndRes, HPos.CENTER);
+            GridPane.setValignment(hourEndRes, VPos.CENTER);
+            GridPane.setHalignment(dateRes, HPos.CENTER);
+            GridPane.setValignment(dateRes, VPos.CENTER);
+            GridPane.setHalignment(nbrTicketsRes, HPos.CENTER);
+            GridPane.setValignment(nbrTicketsRes, VPos.CENTER);
+            GridPane.setHalignment(priceRes, HPos.CENTER);
+            GridPane.setValignment(priceRes, VPos.CENTER);
+
             gridPaneReservations.add(hourDebutRes, 0, rowIndex);
             gridPaneReservations.add(hourEndRes, 1, rowIndex);
             gridPaneReservations.add(dateRes, 2, rowIndex);
             gridPaneReservations.add(nbrTicketsRes, 3, rowIndex);
             gridPaneReservations.add(priceRes, 4, rowIndex);
+
+            rowIndex++;
         }
     }
 

@@ -87,7 +87,11 @@ public class ReservationWindowController {
      */
     public void setSchedule(Schedule schedule, Attraction attraction, Client client) {
         this.client = client;
-        this.birthdate = client.getBirthDate().toLocalDate();
+        if (this.client != null) {
+            this.birthdate = client.getBirthDate().toLocalDate();
+        } else {
+            this.birthdate = null;
+        }
         this.schedule = schedule;
         this.attraction = attraction;
         chargeDatas();
@@ -111,8 +115,14 @@ public class ReservationWindowController {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
         this.heureLabel.setText(tempHourDebut.format(formatter2) + " - " + tempHourEnd.format(formatter2));
 
-        applicablePromotions = promotionDAO.getApplicablePromotions(attraction.getAttractionID(), sessionDate);
-        filtrerPromotions();
+        if (this.client != null) {
+            applicablePromotions = promotionDAO.getApplicablePromotions(attraction.getAttractionID(), sessionDate);
+            filtrerPromotions();
+        } else {
+            applicablePromotions = new ArrayList<>();
+        }
+
+
 
         panierButton = new ButtonNavigation("Ajouter au panier", 250, 75);
         panierButton.setDisable(true);
@@ -214,14 +224,21 @@ public class ReservationWindowController {
             return; // Pas de sélection de nombre de billets
         }
 
-        int clientID = Session.getUser().getUserID(); // Récupérer l'ID de l'utilisateur connecté
         int nbBillets = comboboxNbPers.getValue();
 
-        PanierDAO panierDAO = new PanierDAO();
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-        System.out.println("ID du schedule : " + schedule.getIdSchedule());
-        panierDAO.addReservationPanier(clientID, schedule, nbBillets, totalPrice);
-        schedule.setPlacesDispos(scheduleDAO.getPdispos(schedule));
+        if (this.client != null) {
+            int clientID = Session.getUser().getUserID(); // Récupérer l'ID de l'utilisateur connecté
+            PanierDAO panierDAO = new PanierDAO();
+            System.out.println("ID du schedule : " + schedule.getIdSchedule());
+            panierDAO.addReservationPanier(clientID, schedule, nbBillets, totalPrice);
+            schedule.setPlacesDispos(scheduleDAO.getPdispos(schedule));
+        } else {
+            PanierItem panierItem = new PanierItem(99, schedule.getIdSchedule(), nbBillets, totalPrice);
+            PanierInvite.addPanierItem(panierItem);
+            scheduleDAO.tempReservation(schedule, nbBillets);
+            schedule.setPlacesDispos(scheduleDAO.getPdispos(schedule));
+        }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/panier-view.fxml"));

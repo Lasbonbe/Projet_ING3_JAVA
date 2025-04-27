@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.PanierDAO;
+import DAO.ScheduleDAO;
 import Modele.*;
 import Vue.Calendar.ButtonNavigation;
 import Vue.MainApp;
@@ -84,7 +85,11 @@ public class PanierController {
      * Récupère tous les éléments du panier à partir de la base de données.
      */
     private void chargerPanier() {
-        panierItems = panierDAO.getAllPanier(client.getUserID());
+        if (this.client != null) {
+            panierItems = panierDAO.getAllPanier(client.getUserID());
+        } else {
+            panierItems = new ArrayList<>(PanierInvite.getPanierItems());
+        }
     }
 
     /**
@@ -137,6 +142,19 @@ public class PanierController {
      */
     private void supprimerPanierItem(PanierItem panierItem) {
         panierItems.remove(panierItem);
+        int ticketsToReturn = panierItem.getNbBillets();
+
+        if (this.client != null) {
+            int panierID = panierDAO.getPanierId(client.getUserID());
+            int scheduleID = panierDAO.getScheduleIdFromPanierElement(panierItem.getId());
+            panierDAO.supprimerElementPanier(scheduleID, panierID);
+        } else {
+            PanierInvite.removePanierItem(panierItem);
+            int scheduleID = panierItem.getIdSchedule();
+            ScheduleDAO scheduleDAO = new ScheduleDAO();
+            scheduleDAO.deleteTempReservation(scheduleID, ticketsToReturn);
+        }
+
         gridPanePanier.getChildren().clear();
         Label labelReservation = new Label("Attraction");
         labelReservation.getStyleClass().add("grid-value");
@@ -168,9 +186,7 @@ public class PanierController {
         gridPanePanier.add(labelSuppr, 5, 0);
         GridPane.setHalignment(labelSuppr, HPos.CENTER);
         GridPane.setValignment(labelSuppr, VPos.CENTER);
-        int panierID = panierDAO.getPanierId(client.getUserID());
-        int scheduleID = panierDAO.getScheduleIdFromPanierElement(panierItem.getId());
-        panierDAO.supprimerElementPanier(scheduleID, panierID);
+
         afficherPanier();
     }
 

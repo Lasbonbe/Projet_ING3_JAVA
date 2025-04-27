@@ -1,5 +1,6 @@
 package DAO;
 
+import Modele.PanierInvite;
 import Modele.PanierItem;
 import Modele.Schedule;
 
@@ -8,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -318,6 +320,10 @@ public class PanierDAO {
             preparedStatement = connection.prepareStatement("UPDATE Panier SET statut = 'Payé' WHERE ID = ?");
             preparedStatement.setInt(1, panierID);
             preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM PanierElement WHERE panier_ID = ?");
+            preparedStatement.setInt(1, panierID);
+            preparedStatement.executeUpdate();
             connection.commit();
 
         } catch (SQLException e) {
@@ -333,6 +339,23 @@ public class PanierDAO {
                 System.err.println("Fermeture des ressources impossible");
             }
         }
+
+    }
+
+    public void payerPanierInvite() {
+        ReservationInviteDAO reservationInviteDAO = new ReservationInviteDAO();
+        int inviteId = reservationInviteDAO.getNextInviteId();
+
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+
+        for (PanierItem panierItem : PanierInvite.getPanierItems()) {
+            int scheduleID = panierItem.getIdSchedule();
+            int nbBillets = panierItem.getNbBillets();
+            double prix = panierItem.getPrix();
+
+            reservationInviteDAO.addReservationInvite(inviteId, scheduleID, scheduleDAO.getScheduleDateById(scheduleID), nbBillets, prix);
+        }
+        PanierInvite.clearPanierItems();
 
     }
 }
