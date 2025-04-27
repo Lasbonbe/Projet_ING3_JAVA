@@ -221,7 +221,7 @@ public class CalendarController {
     @FXML
     private void backClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/code-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
             Parent codeView = loader.load();
 
             Transition.slideTransition(MainApp.rootPane, codeView, 1000, "RIGHT");

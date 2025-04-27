@@ -34,6 +34,19 @@
     -fx-background-radius: 8px;
 }
 
+.grid-info-panier {
+    -fx-background-color: BLACK;
+    -fx-min-height: 400;
+    -fx-min-width: 1600;
+    -fx-hgap: 50;
+    -fx-vgap: 30;
+    -fx-alignment: center;
+    -fx-border-color: WHITE;
+    -fx-border-width: 4px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
 .grid-value {
     -fx-text-fill: WHITE;
     -fx-font-family: 'JetBrains Mono';

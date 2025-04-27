@@ -2,6 +2,7 @@ package Controller;
 
 
 import DAO.AttractionDAO;
+import DAO.PanierDAO;
 import DAO.PromotionDAO;
 import Modele.Attraction;
 import Modele.Promotion;
@@ -22,7 +23,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -122,13 +125,14 @@ public class ReservationWindowController {
                 afficherPromos();
             }
         });
+        panierButton.setOnAction(e -> panierButtonClick());
 
         placesDispos.setText("Nombre de places disponibles : " + schedule.getPDispos());
 
         hboxPanier.getChildren().add(panierButton.getRoot());
 
         ObservableList<Integer> personnesOptions = FXCollections.observableArrayList();
-        for (int i = 1; i <= schedule.getPDispos(); i++) { ///  Test à changer avec le nombre de places dispos
+        for (int i = 1; i <= schedule.getPDispos(); i++) {
             personnesOptions.add(i);
         }
         comboboxNbPers.setItems(personnesOptions);
@@ -199,4 +203,32 @@ public class ReservationWindowController {
             System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
         }
     }
+
+    private void panierButtonClick() {
+        if (comboboxNbPers.getValue() == null) {
+            return; // Pas de sélection de nombre de billets
+        }
+
+        int clientID = Session.getUser().getUserID(); // Récupérer l'ID de l'utilisateur connecté
+        int nbBillets = comboboxNbPers.getValue();
+
+        PanierDAO panierDAO = new PanierDAO();
+        System.out.println("ID du schedule : " + schedule.getIdSchedule());
+        panierDAO.addReservationPanier(clientID, schedule, nbBillets, totalPrice);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/panier-view.fxml"));
+            Parent calendarView = loader.load();
+
+            PanierController controller = loader.getController();
+            controller.setSchedule();
+
+            Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "LEFT");
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
+        }
+
+
+    }
+
 }

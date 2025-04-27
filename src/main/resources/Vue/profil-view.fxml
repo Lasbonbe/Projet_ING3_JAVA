@@ -36,7 +36,7 @@
                     <Label fx:id="clientEmail" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="grid-value"/>
                     <PasswordField fx:id="clientPassword" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="password-info" editable="false" focusTraversable="false"/>
                 </GridPane>
-                <Button fx:id="ordersButton" text="Accéder à votre panier" styleClass="order-button"/>
+                <Button fx:id="ordersButton" onAction="#panierClick" text="Accéder à votre panier" styleClass="order-button"/>
             </VBox>
         </center>
     </BorderPane>

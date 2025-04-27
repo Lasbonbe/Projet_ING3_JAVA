@@ -59,6 +59,20 @@ public class ProfilController {
         clientPassword.setText(client.getPassword());
     }
 
+    @FXML private void panierClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/panier-view.fxml"));
+            Parent panierView = loader.load();
+
+            PanierController controller = loader.getController();
+            controller.setSchedule();
+
+            Transition.slideTransition(MainApp.rootPane, panierView, 1000, "DOWN");
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la page des différentes attractions : " + e.getMessage());
+        }
+    }
+
     @FXML
     private void backClick() {
         try {

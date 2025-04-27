@@ -83,12 +83,13 @@ public class ScheduleDAO{
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT nom, hour_debut, hour_end, total_places, reserved_places, statut " +
+            preparedStatement = connection.prepareStatement("SELECT Schedule.ID, nom, hour_debut, hour_end, total_places, reserved_places, statut " +
                     "FROM Schedule JOIN Attraction ON Schedule.Attraction_ID = Attraction.ID WHERE Attraction.ID = ? AND date = ? ORDER BY Schedule.hour_debut");
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setDate(2, java.sql.Date.valueOf(date));
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
                 String nameAttraction = resultSet.getString("nom");
                 Time hourDebut = resultSet.getTime("hour_debut");
                 Time hourEnd = resultSet.getTime("hour_end");
@@ -96,7 +97,7 @@ public class ScheduleDAO{
                 int reservedPlaces = resultSet.getInt("reserved_places");
                 String statut = resultSet.getString("statut");
 
-                Schedule schedule = new Schedule(nameAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, statut, date);
+                Schedule schedule = new Schedule(id, nameAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, statut, date);
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -173,5 +174,34 @@ public class ScheduleDAO{
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
+    }
+
+    public Time[] getScheduleTimes(int idSchedule) {
+        Time[] tab = new Time[2];
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT Schedule.hour_debut, Schedule.hour_end FROM Schedule WHERE Schedule.ID = ?");
+            preparedStatement.setInt(1, idSchedule);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                tab[0] = resultSet.getTime("hour_debut");
+                tab[1] = resultSet.getTime("hour_end");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Récupération des horaires de la session impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return tab;
     }
 }

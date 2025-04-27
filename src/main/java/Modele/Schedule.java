@@ -145,7 +145,8 @@ public class Schedule {
      * @param statut Le statut de l'horaire.
      * @param date La date de l'horaire.
      */
-    public Schedule(String nameAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, String statut, LocalDate date) {
+    public Schedule(int id, String nameAttraction, Time hourDebut, Time hourEnd, int reservedPlaces, int totalPlaces, String statut, LocalDate date) {
+        this.idSchedule = id;
         this.nameAttraction = nameAttraction;
         this.hourDebut = hourDebut;
         this.hourEnd = hourEnd;

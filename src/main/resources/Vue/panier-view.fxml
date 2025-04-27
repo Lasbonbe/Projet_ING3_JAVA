@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.PanierController" stylesheets="@css/profilstyle.css, @css/calendar.css">
+    <BorderPane style="-fx-background-color: black">
+        <top>
+            <HBox spacing="10" alignment="TOP_RIGHT">
+                <padding> <Insets top="25" right="50" left="20"/> </padding>
+                <Button onAction="#backClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="backButton"/> </graphic> </Button>
+                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+            </HBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="VOTRE PANIER" alignment="CENTER" styleClass="grid-title"/>
+                <HBox alignment="CENTER">
+                    <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS" style="-fx-min-height: 400; -fx-min-width: 1700; -fx-background-color: transparent; -fx-background: transparent;">
+                        <GridPane alignment="CENTER" styleClass="grid-info-panier" fx:id="gridPanePanier" GridPane.halignment="CENTER">
+                            <padding>
+                                <Insets left="10" right="10" top="10" bottom="10"/>
+                            </padding>
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="18.0"/>
+                                <ColumnConstraints percentWidth="16.0"/>
+                                <ColumnConstraints percentWidth="14.0"/>
+                                <ColumnConstraints percentWidth="26.0"/>
+                                <ColumnConstraints percentWidth="16.0"/>
+                                <ColumnConstraints percentWidth="14.0"/>
+                            </columnConstraints>
+                            <Label text="Réservation " GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-value"/>
+                            <Label text="Début" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="grid-value"/>
+                            <Label text="Fin" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="grid-value"/>
+                            <Label text="Nombre de billets" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="grid-value"/>
+                            <Label text="Prix" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="4" styleClass="grid-value"/>
+                            <Label text="Supprimer" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="5" styleClass="grid-value"/>
+                        </GridPane>
+                    </ScrollPane>
+                </HBox>
+                <Button fx:id="PaymentButton" text="Effectuer le paiement" styleClass="order-button"/>
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>
