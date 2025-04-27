@@ -6,18 +6,28 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="Controller.AdminAttractionPageController"
-           stylesheets="@css/adminAttractionpage.css">
-
-    <ImageView fx:id="backgroundImage" mouseTransparent="true"/>
+           stylesheets="@css/adminAttractionpage.css" styleClass="body">
 
     <BorderPane>
         <top>
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <padding> <Insets top="25"/> </padding>
-                <Button onAction="#previousClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="previousButton"/> </graphic> </Button>
-                <Button onAction="#nextClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="nextButton"/> </graphic> </Button>
-                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
-            </HBox>
+            <VBox spacing="5">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+
+                    <padding><Insets top="25" left="25"/></padding>
+                    <Label text="Panel d'Administration" styleClass="name-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Button onAction="#previousClick" styleClass="button-invisible"> <graphic><ImageView fx:id="previousButton"/></graphic></Button>
+                        <Button onAction="#nextClick" styleClass="button-invisible"><graphic><ImageView fx:id="nextButton"/></graphic></Button>
+                        <Button onAction="#logoutClick" styleClass="button-invisible"><graphic><ImageView fx:id="quitButton"/></graphic></Button>
+                    </HBox>
+
+                </HBox>
+                <Label text="ATTRACTIONS" styleClass="header-title">
+                    <padding><Insets left="25"/></padding>
+                </Label>
+            </VBox>
         </top>
 
         <center>

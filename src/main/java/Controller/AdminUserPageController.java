@@ -41,8 +41,6 @@ public class AdminUserPageController implements Initializable {
     private TableColumn<Client, String> colDateNaissance;
 
     @FXML
-    private ImageView backgroundImage;
-    @FXML
     private ImageView quitButton;
     @FXML
     private ImageView nextButton;
@@ -80,7 +78,6 @@ public class AdminUserPageController implements Initializable {
         List<Client> list = clientDAO.getAllClient();
         usersTable.setItems(FXCollections.observableArrayList(list));
 
-        backgroundImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/ADMIN_USERS_PANEL.png")).toExternalForm()));
         nextButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/NEXT_BUTTON.png")).toExternalForm()));
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));

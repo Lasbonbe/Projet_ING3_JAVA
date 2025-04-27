@@ -37,7 +37,7 @@
                         </Button>
                     </HBox>
                 </HBox>
-                <Label text="RESERVATIONS" styleClass="header-title" alignment="CENTER_LEFT">
+                <Label text="RESERVATIONS" styleClass="header-title">
                     <padding><Insets left="25"/></padding>
                 </Label>
             </VBox>

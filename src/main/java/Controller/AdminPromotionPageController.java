@@ -37,7 +37,6 @@ public class AdminPromotionPageController implements Initializable {
     @FXML private TableColumn<Promotion, String>  colFin;
     @FXML private TableColumn<Promotion, Boolean> colPermanente;
 
-    @FXML private ImageView backgroundImage;
     @FXML private ImageView quitButton;
     @FXML private ImageView nextButton;
     @FXML private ImageView previousButton;
@@ -85,7 +84,6 @@ public class AdminPromotionPageController implements Initializable {
         List<Promotion> list = promotionDAO.getAllPromotions();
         promotionsTable.setItems(FXCollections.observableArrayList(list));
 
-        backgroundImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/ADMIN_PROMOTION_PANEL.png")).toExternalForm()));
         nextButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/NEXT_BUTTON.png")).toExternalForm()));
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
