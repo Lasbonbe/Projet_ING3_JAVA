@@ -1,6 +1,5 @@
 package DAO;
 
-import Modele.Client;
 import Modele.Reservation;
 
 import java.sql.*;
@@ -132,6 +131,59 @@ public class ReservationDAO {
         }
         return listReservations;
     }
+
+    /**
+     * Vérifie si une attraction est réservée
+     *
+     * @param attractionID L'ID de l'attraction
+     * @return true si l'attraction est réservée, false sinon
+     */
+    public boolean isAttractionBooked(int attractionID) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean reserved = false;
+        try {
+            connection = sqlDatabase.getConnection();
+
+            // D'abord, vérifions les schedules pour cette attraction
+            String scheduleCheck = "SELECT ID FROM Schedule WHERE attraction_ID = ?";
+            preparedStatement = connection.prepareStatement(scheduleCheck);
+            preparedStatement.setInt(1, attractionID);
+            resultSet = preparedStatement.executeQuery();
+
+            // Affichage pour debug
+            System.out.println("Schedules trouvés pour l'attraction " + attractionID + ":");
+            while (resultSet.next()) {
+                System.out.println("Schedule ID: " + resultSet.getInt("ID"));
+            }
+
+            // Ensuite, vérifions les réservations
+            String reservationCheck = "SELECT COUNT(*) as total FROM Reservation WHERE schedule_ID IN (SELECT ID FROM Schedule WHERE attraction_ID = ?)";
+            preparedStatement = connection.prepareStatement(reservationCheck);
+            preparedStatement.setInt(1, attractionID);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt("total");
+                System.out.println("Nombre de réservations trouvées : " + count);
+                reserved = count > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors de la vérification des réservations pour l'attraction ID " + attractionID);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return reserved;
+    }
+
 
     /**
      * Ajoute une réservation à la base de données
