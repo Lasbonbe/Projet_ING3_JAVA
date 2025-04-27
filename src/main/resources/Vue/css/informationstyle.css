@@ -32,10 +32,10 @@
 
 .attraction-desc{
     -fx-alignment: center;
-    -fx-max-width: 800px;
-    -fx-max-height: 200px;
+    -fx-max-width: 1000px;
+    -fx-max-height: 400px;
     -fx-font-family: 'JetBrains Mono';
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-text-fill: WHITE;
     -fx-border-color: BLACK;
     -fx-background-color: BLACK;
