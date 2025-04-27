@@ -3,6 +3,12 @@
     src: url('../../fonts/JetBrainsMono-SemiBold.ttf') format('truetype');
 }
 
+.body {
+    -fx-background-color: #000000; /* Couleur de fond de la scène */
+    -fx-font-family: 'JetBrains Mono SemiBold'; /* Police de caractères */
+    -fx-font-size: 14px; /* Taille de la police */
+}
+
 .button-invisible {
     -fx-background-color: transparent;
     -fx-padding: 0;
@@ -15,6 +21,15 @@
 
 .button-invisible:pressed {
     -fx-opacity: 0.6;
+}
+
+.name-label{
+    -fx-alignment: center;
+    -fx-font-family: 'JetBrains Mono SemiBold';
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 66px;
+    -fx-max-height: 50px;
 }
 
 /* ----- Bouton ADD (vert) ----- */
@@ -144,4 +159,10 @@
     -fx-background-color: rgba(255,255,255,0.3);
     -fx-background-insets: 2;
     -fx-background-radius: 5;
+}
+
+.header-title {
+    -fx-font-family: 'JetBrains Mono SemiBold';
+    -fx-text-fill: WHITE;
+    -fx-font-size: 100px;
 }
