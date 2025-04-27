@@ -27,6 +27,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la page d'administration des réservations.
+ * Permet de gérer les réservations (ajout, modification, suppression).
+ */
 public class AdminReservationPageController implements Initializable{
     @FXML private TableView<Reservation> reservationsTable;
     @FXML private TableColumn<Reservation, Integer> colID;
@@ -43,6 +47,12 @@ public class AdminReservationPageController implements Initializable{
 
     private final ReservationDAO reservationDAO = new ReservationDAO();
 
+    /**
+     * Initialisation de la page d'administration des réservations, methode implementée de l'interface Initializable.
+     *
+     * @param url URL de la page
+     * @param rb ResourceBundle de la page
+     */
     public void initialize(URL url, ResourceBundle rb) {
 
         colID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
@@ -60,9 +70,9 @@ public class AdminReservationPageController implements Initializable{
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
 
-        reservationsTable.setPrefHeight(700);
-        reservationsTable.setMaxHeight(700);
-        reservationsTable.setMinHeight(700);
+        reservationsTable.setPrefHeight(600);
+        reservationsTable.setMaxHeight(600);
+        reservationsTable.setMinHeight(600);
         reservationsTable.setPrefWidth(1500);
         reservationsTable.setMaxWidth(1500);
         reservationsTable.setMinWidth(1500);

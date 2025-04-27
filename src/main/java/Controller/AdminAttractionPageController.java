@@ -81,9 +81,9 @@ public class AdminAttractionPageController implements Initializable {
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
 
-        attractionsTable.setPrefHeight(700);
-        attractionsTable.setMaxHeight(700);
-        attractionsTable.setMinHeight(700);
+        attractionsTable.setPrefHeight(600);
+        attractionsTable.setMaxHeight(600);
+        attractionsTable.setMinHeight(600);
         attractionsTable.setPrefWidth(1500);
         attractionsTable.setMaxWidth(1500);
         attractionsTable.setMinWidth(1500);

@@ -47,11 +47,6 @@ public class AdminUserPageController implements Initializable {
     @FXML
     private ImageView previousButton;
 
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
-
     private final ClientDAO clientDAO = new ClientDAO();
 
     /**
@@ -82,47 +77,14 @@ public class AdminUserPageController implements Initializable {
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
 
-        usersTable.setPrefHeight(700);
-        usersTable.setMaxHeight(700);
-        usersTable.setMinHeight(700);
+        usersTable.setPrefHeight(600);
+        usersTable.setMaxHeight(600);
+        usersTable.setMinHeight(600);
         usersTable.setPrefWidth(1500);
         usersTable.setMaxWidth(1500);
         usersTable.setMinWidth(1500);
     }
 
-
-    /**
-     * Methode qui gere le click sur le bouton "Modifier" de la page d'administration des utilisateurs.
-     *
-     * @param event Bah c'est un event
-     */
-    @FXML private void editUserButtonOnClick(ActionEvent event) {
-        try {
-            Client selectedUser = usersTable.getSelectionModel().getSelectedItem();
-            if (selectedUser == null) return;
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/user-edit-view.fxml"));
-                Parent view = loader.load();
-                Transition.slideTransition(MainApp.rootPane, view, 1000, "RIGHT");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Methode qui gere le click sur le bouton "Supprimer" de la page d'administration des utilisateurs.
-     *
-     * @param event
-     */
-    @FXML private void deleteUserButtonOnClick(ActionEvent event) {
-        Client selectedUser = usersTable.getSelectionModel().getSelectedItem();
-        if (selectedUser == null) return;
-        clientDAO.deleteClientByID(selectedUser.getUserID());
-        usersTable.getItems().remove(selectedUser);
-    }
 
     /**
      * Bouton NEXT, fait le lien USER-VIEW -> RESERVATION-VIEW.
