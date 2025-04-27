@@ -19,6 +19,7 @@ public class Reservation {
     private LocalDate date;
     private Time heureDebut;
     private Time heureFin;
+    private String statut;
 
 
 
@@ -47,6 +48,27 @@ public class Reservation {
         this.date = date;
         this.prix = prix;
         this.nbBillets = nbBillets;
+    }
+
+    /**
+     * Constructeur de la classe Reservation.
+     *
+     * @param id        L'identifiant de la réservation.
+     * @param clientID  L'identifiant du client.
+     * @param scheduleID L'identifiant du programme.
+     * @param date      La date de la réservation.
+     * @param nbBillets Le nombre de billets réservés.
+     * @param prix      Le prix total de la réservation.
+     * @param payementStatus Le statut de paiement de la réservation.
+     **/
+    public Reservation(int id, int clientID, int scheduleID, LocalDate date, int nbBillets, float prix, String payementStatus) {
+        this.id = id;
+        this.clientID = clientID;
+        this.scheduleID = scheduleID;
+        this.date = date;
+        this.nbBillets = nbBillets;
+        this.prix = prix;
+        this.statut = payementStatus;
     }
 
     /** GETTER getID
@@ -85,4 +107,8 @@ public class Reservation {
      * @return Le prix total de la réservation.
      */
     public double getPrix() {return prix;}
+    /** GETTER getStatut
+     * @return Le statut de paiement de la réservation.
+     */
+    public String getStatut() {return statut;}
 }
