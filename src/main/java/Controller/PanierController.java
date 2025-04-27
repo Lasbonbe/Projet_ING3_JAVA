@@ -153,6 +153,9 @@ public class PanierController {
             int scheduleID = panierItem.getIdSchedule();
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             scheduleDAO.deleteTempReservation(scheduleID, ticketsToReturn);
+            if (this.schedule != null && this.schedule.getIdSchedule() == scheduleID) {
+                this.schedule.setPlacesDispos(scheduleDAO.getPdispos(this.schedule));
+            }
         }
 
         gridPanePanier.getChildren().clear();
