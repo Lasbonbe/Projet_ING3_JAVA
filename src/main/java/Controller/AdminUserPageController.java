@@ -128,14 +128,14 @@ public class AdminUserPageController implements Initializable {
     }
 
     /**
-     * Bouton NEXT, fait le lien USER-VIEW -> ADMIN-VIEW.
+     * Bouton NEXT, fait le lien USER-VIEW -> RESERVATION-VIEW.
      *
      * @param event Bah c'est l'event
      */
     @FXML
     private void nextClick(ActionEvent event) {
         try {
-            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-view.fxml"))
+            Parent view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Vue/admin-reservation-view.fxml"))
             );
             Transition.slideTransition(MainApp.rootPane, view, 1000, "LEFT");
         } catch (IOException ex) {
