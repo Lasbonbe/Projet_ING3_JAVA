@@ -34,7 +34,7 @@ public class MainApp extends Application {
         rootPane = new StackPane();
         rootPane.getChildren().add(loginView);
 
-        Scene scene = new Scene(rootPane, 1920, 1080);
+        Scene scene = new Scene(rootPane, 1720, 970);
         primaryStage.setScene(scene);
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imgs/LOGO.png")));
         primaryStage.getIcons().add(icon);
