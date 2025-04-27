@@ -75,6 +75,7 @@ public class AdminAttractionEditController implements Initializable {
         current.setImagePath(   imageNameField.getText().trim());
 
         attractionDAO.editAttraction(current);
+        Session.clearSelectedAttraction();
 
         try {
             Parent view = FXMLLoader.load(

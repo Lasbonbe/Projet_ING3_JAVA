@@ -126,6 +126,7 @@ public class AdminPromotionEditController implements Initializable {
             validatePromotionInput();
             updatePromotionFromInput();
             updatePromotionAssociations();
+            Session.clearSelectedPromotion();
             navigateToView("/Vue/admin-promotion-view.fxml", 1000, "DOWN");
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur de validation", e.getMessage());
