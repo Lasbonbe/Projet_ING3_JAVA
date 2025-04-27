@@ -9,9 +9,7 @@ public class Session {
      * Utilisé pour vérifier si l'utilisateur est connecté
      * @return true si l'utilisateur est connecté, false sinon
      */
-    public static void showInstanceOfSession() {
-        System.out.println("Instance de Session : " + Session.user);
-    }
+    public static void showInstanceOfSession() {System.out.println("Instance de Session : " + Session.user);}
     /**
      * Utilisé pour vérifier si l'utilisateur est connecté
      * @return true si l'utilisateur est connecté, false sinon
