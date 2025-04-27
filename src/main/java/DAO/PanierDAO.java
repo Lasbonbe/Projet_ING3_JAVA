@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -341,10 +342,20 @@ public class PanierDAO {
 
     }
 
-    /*public void payerPanierInvite() {
+    public void payerPanierInvite() {
         ReservationInviteDAO reservationInviteDAO = new ReservationInviteDAO();
         int inviteId = reservationInviteDAO.getNextInviteId();
+
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 
-    }*/
+        for (PanierItem panierItem : PanierInvite.getPanierItems()) {
+            int scheduleID = panierItem.getIdSchedule();
+            int nbBillets = panierItem.getNbBillets();
+            double prix = panierItem.getPrix();
+
+            reservationInviteDAO.addReservationInvite(inviteId, scheduleID, scheduleDAO.getScheduleDateById(scheduleID), nbBillets, prix);
+        }
+        PanierInvite.clearPanierItems();
+
+    }
 }

@@ -356,6 +356,43 @@ public class ScheduleDAO{
                 System.err.println("Fermeture des ressources impossible");
             }
         }
+    }
 
+    public Schedule getScheduleById(int idSchedule) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Schedule schedule = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Schedule WHERE ID = ?");
+            preparedStatement.setInt(1, idSchedule);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                int idAttraction = resultSet.getInt("Attraction_ID");
+                Time hourDebut = resultSet.getTime("hour_debut");
+                Time hourEnd = resultSet.getTime("hour_end");
+                int totalPlaces = resultSet.getInt("total_places");
+                int reservedPlaces = resultSet.getInt("reserved_places");
+                Date date = resultSet.getDate("date");
+                String statut = resultSet.getString("statut");
+                LocalDate localDate = date.toLocalDate();
+                schedule = new Schedule(id, idAttraction, hourDebut, hourEnd, reservedPlaces, totalPlaces, localDate, statut);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Récupération de la session impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Fermeture des ressources impossible");
+            }
+        }
+        return schedule;
     }
 }

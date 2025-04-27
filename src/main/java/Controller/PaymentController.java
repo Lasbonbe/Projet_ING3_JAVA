@@ -223,7 +223,14 @@ public class PaymentController {
      */
     @FXML private void paymentClick() {
         PanierDAO panierDAO = new PanierDAO();
-        panierDAO.payerPanier(client.getUserID());
+
+        if (this.client != null) {
+            panierDAO.payerPanier(client.getUserID());
+        } else {
+            panierDAO.payerPanierInvite();
+        }
+
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Paiement");

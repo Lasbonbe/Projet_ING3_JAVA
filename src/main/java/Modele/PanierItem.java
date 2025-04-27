@@ -13,6 +13,7 @@ public class PanierItem {
     private int nbBillets;
     private double prix;
     private String attractionName;
+    private int idSchedule;
 
     public int getId() {
         return id;
@@ -32,9 +33,13 @@ public class PanierItem {
     public String getAttractionName() {
         return attractionName;
     }
+    public int getIdSchedule() {
+        return idSchedule;
+    }
 
     public PanierItem(int id, int scheduleID, int nbBillets, double prix) {
         this.id = id;
+        this.idSchedule = scheduleID;
         ScheduleDAO dao = new ScheduleDAO();
         Time[] tab = new Time[2];
         tab = dao.getScheduleTimes(scheduleID);
