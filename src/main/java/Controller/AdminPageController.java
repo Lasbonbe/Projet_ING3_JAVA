@@ -3,6 +3,7 @@ package Controller;
 import DAO.ClientDAO;
 import DAO.ReservationDAO;
 
+import Modele.UserNotAdminException;
 import Modele.User;
 
 import Vue.MainApp;
@@ -61,6 +62,18 @@ public class AdminPageController implements Initializable {
      **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(!Modele.Session.isAdmin()) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
+                Parent loginView = loader.load();
+                Transition.slideTransition(MainApp.rootPane, loginView, 1000, "DOWN");
+                throw new UserNotAdminException("Vous n'avez pas les droits d'accès à cette page.");
+            } catch (IOException exception) {
+                System.out.println("Erreur lors du chargement de la vue : " + exception.getMessage());
+            }
+        }
+
         colId.setCellValueFactory(new PropertyValueFactory<>("userID"));
         colNom.setCellValueFactory(cellData -> {
             String firstName = cellData.getValue().getFirstName();
