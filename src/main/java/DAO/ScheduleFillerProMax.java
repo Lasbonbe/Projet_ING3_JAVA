@@ -14,6 +14,7 @@ public class ScheduleFillerProMax {
     private static LocalTime endTime = LocalTime.of(17, 0);
     // 3 mois de réservation en avance
     private static ScheduleDAO scheduleDAO = new ScheduleDAO();
+    private static AttractionDAO attractionDAO = new AttractionDAO();
 
     /**
      * Remplit les horaires d'une attraction entre startTime et endTime
@@ -39,5 +40,22 @@ public class ScheduleFillerProMax {
             }
             currentDate = currentDate.plusDays(1);
         }
+    }
+
+    /**
+     * Remplit les horaires de toutes les attractions
+     * La méthode va chercher toutes les attractions dans la base de données
+     * puis génère tout les schedules entre startTime et endTime par intervalles de la durée de l'attraction
+     */
+    public static void generateAllSchedulesForAttractions() {
+        for (Attraction attraction : attractionDAO.getAllAttractions()) {
+            System.out.println("Generating schedules for " + attraction.getName());
+            generateSchedulesForAttraction(attraction);
+            System.out.println("Schedules generated for " + attraction.getName());
+        }
+    }
+
+    public static void main(String[] args) {
+        generateAllSchedulesForAttractions();
     }
 }
