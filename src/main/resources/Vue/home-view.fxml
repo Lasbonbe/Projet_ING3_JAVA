@@ -13,24 +13,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.HomeController" stylesheets="@css/homestyle.css">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.HomeController" stylesheets="@css/homestyle.css">
     <ImageView fx:id="img" mouseTransparent="true"/>
 
-        <!-- En-tête -->
-            <HBox spacing="10" alignment="CENTER">
-                <padding> <Insets top="25" right="10" left="600" /> </padding>
-                <TextField fx:id="searchField" promptText="Rechercher" prefWidth="700" prefHeight="90" styleClass="searchbox"/>
-                <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
-                <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
-            </HBox>
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <padding> <Insets top="140" left="600"/> </padding>
+            <TextField fx:id="searchField" promptText="Rechercher" prefWidth="900" prefHeight="90" minWidth="900" styleClass="searchbox"/>
+            <Button onAction="#userIconClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="searchButton"/> </graphic> </Button>
+            <Button onAction="#logoutClick" styleClass="button-invisible"> <graphic> <ImageView fx:id="quitButton"/> </graphic> </Button>
+        </HBox>
+    </top>
 
-    <BorderPane>
-        <padding> <Insets top="150" left="60" /> </padding>
-
-        <center>
-            <ScrollPane fitToWidth="true" pannable="true" styleClass="grid">
-                <GridPane fx:id="cardsGrid" hgap="30" vgap="30" alignment="TOP_CENTER"/>
-            </ScrollPane>
-        </center>
-    </BorderPane>
-</AnchorPane>
+    <center>
+        <ScrollPane fitToWidth="true" pannable="true" styleClass="grid">
+            <padding>
+                <Insets top="150"/>
+            </padding>
+            <GridPane fx:id="cardsGrid" hgap="30" vgap="30" alignment="TOP_CENTER"/>
+        </ScrollPane>
+    </center>
+</BorderPane>
