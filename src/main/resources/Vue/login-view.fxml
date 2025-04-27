@@ -26,7 +26,7 @@
 
         <HBox alignment="BOTTOM_CENTER" spacing="10">
             <Button text="S'enregistrer" onAction="#onRegisterButtonClick" styleClass="discrete-button"/>
-            <Button text="Se connecter avec un code" onAction="#onCodeLoginButtonClick" styleClass="discrete-button"/>
+            <Button text="Se connecter en tant qu'invité" onAction="#onCodeLoginButtonClick" styleClass="discrete-button"/>
         </HBox>
     </VBox>
 </StackPane>

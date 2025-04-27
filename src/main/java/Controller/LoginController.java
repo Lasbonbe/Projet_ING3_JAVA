@@ -3,6 +3,7 @@ package Controller;
 import DAO.AdministratorDAO;
 import DAO.ClientDAO;
 import Modele.Administrator;
+import Modele.Invite;
 import Modele.Session;
 import Modele.User;
 import Vue.MainApp;
@@ -110,8 +111,10 @@ public class LoginController {
      * Redirige vers la page de code.
      */
     @FXML protected void onCodeLoginButtonClick() {
+        User invite = new Invite();
+        Session.setUser(invite);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/code-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/home-view.fxml"));
             Parent codeView = loader.load();
 
             Transition.slideTransition(MainApp.rootPane, codeView, 1000, "DOWN");

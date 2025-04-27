@@ -2,9 +2,7 @@ package Controller;
 
 import DAO.AttractionDAO;
 import DAO.ClientDAO;
-import Modele.Attraction;
-import Modele.Session;
-import Modele.Client;
+import Modele.*;
 import Vue.Calendar.CalendarView;
 import Vue.MainApp;
 import Vue.Transition;
@@ -184,7 +182,7 @@ public class HomeController implements Initializable {
      * @param a Attraction - attraction sélectionnée
      */
     private void moreInfo(Attraction a) {
-        System.out.println("Plus d'infos sur : " + a.getName());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/information-view.fxml"));
             Parent informationView = loader.load();
@@ -197,6 +195,7 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la vue des informations : " + e.getMessage());
         }
+
     }
 
     /**
@@ -204,7 +203,7 @@ public class HomeController implements Initializable {
      */
     @FXML
     private void logoutClick() {
-        Session.setUser(null);
+        Session.clearSession();
         System.out.println("Session utilisateur réinitialisée.");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/login-view.fxml"));
@@ -221,18 +220,39 @@ public class HomeController implements Initializable {
 
     @FXML
     public void userIconClick() {
-        System.out.println("Ouverture du profil");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
-            Parent profilView = loader.load();
-
-            ProfilController controller = loader.getController();
-            controller.initialize(Session.getUser());
-
-            Transition.slideTransition(MainApp.rootPane, profilView, 1500, "UP");
-
-        } catch (IOException e) {
-            System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
+        if (Session.isInvite()) {
+            Session.showInstanceOfSession();
+            showAlert(Alert.AlertType.INFORMATION, "Information", "Veuillez vous connecter pour réserver.");
+            throw new UserIsInviteException("L'utilisateur est un invité, il n'a pas accès à cette fonctionnalité.");
         }
+        else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
+                Parent profilView = loader.load();
+
+                ProfilController controller = loader.getController();
+                controller.initialize(Session.getUser());
+
+                Transition.slideTransition(MainApp.rootPane, profilView, 1500, "UP");
+
+            } catch (IOException e) {
+                System.err.println("Erreur lors du chargement de la page de profil : " + e.getMessage());
+            }
+        }
+
+    }
+
+    /**
+     * Méthode pour afficher une alerte.
+     * @param alertType Type de l'alerte
+     * @param title Titre de l'alerte
+     * @param message Message de l'alerte
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
