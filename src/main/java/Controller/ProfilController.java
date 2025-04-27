@@ -1,7 +1,6 @@
 package Controller;
 
 import DAO.ClientDAO;
-import Modele.Attraction;
 import Modele.Session;
 import Modele.Client;
 import Modele.User;
@@ -59,6 +58,8 @@ public class ProfilController {
         clientPassword.setText(client.getPassword());
     }
 
+
+
     @FXML private void panierClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/panier-view.fxml"));
@@ -67,9 +68,9 @@ public class ProfilController {
             PanierController controller = loader.getController();
             controller.setSchedule();
 
-            Transition.slideTransition(MainApp.rootPane, panierView, 1000, "DOWN");
+            Transition.slideTransition(MainApp.rootPane, panierView, 1000, "UP");
         } catch (IOException e) {
-            System.err.println("Erreur lors du chargement de la page des différentes attractions : " + e.getMessage());
+            System.err.println("Erreur lors du chargement du panier : " + e.getMessage());
         }
     }
 

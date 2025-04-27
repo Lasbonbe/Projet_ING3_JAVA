@@ -152,7 +152,7 @@ public class PanierController {
                 ProfilController controller = loader.getController();
                 controller.initialize(Session.getUser());
 
-                Transition.slideTransition(MainApp.rootPane, profilView, 1500, "UP");
+                Transition.slideTransition(MainApp.rootPane, profilView, 1500, "DOWN");
             }
 
         } catch (IOException e) {
