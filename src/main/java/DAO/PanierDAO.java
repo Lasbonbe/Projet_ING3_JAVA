@@ -1,5 +1,6 @@
 package DAO;
 
+import Modele.PanierInvite;
 import Modele.PanierItem;
 import Modele.Schedule;
 
@@ -318,6 +319,10 @@ public class PanierDAO {
             preparedStatement = connection.prepareStatement("UPDATE Panier SET statut = 'Payé' WHERE ID = ?");
             preparedStatement.setInt(1, panierID);
             preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM PanierElement WHERE panier_ID = ?");
+            preparedStatement.setInt(1, panierID);
+            preparedStatement.executeUpdate();
             connection.commit();
 
         } catch (SQLException e) {
@@ -335,4 +340,11 @@ public class PanierDAO {
         }
 
     }
+
+    /*public void payerPanierInvite() {
+        ReservationInviteDAO reservationInviteDAO = new ReservationInviteDAO();
+        int inviteId = reservationInviteDAO.getNextInviteId();
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+
+    }*/
 }
