@@ -77,9 +77,10 @@ public class PromotionDAO {
         String sql = "SELECT * FROM Promotion p " +
                 "JOIN Promotion_Attraction pa ON p.ID = pa.promotion_id " +
                 "LEFT JOIN Promotion_Jour pj ON p.ID = pj.promotion_id " +
-                "WHERE pa.attraction_id = ? " +
-                "AND ((p.date_debut <= ? AND p.date_fin >= ?) OR p.permanente = TRUE) " +
-                "AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?))";
+                "WHERE pa.attraction_id = ? AND ((p.date_debut <= ? " +
+                "AND p.date_fin >= ?) OR (p.permanente = TRUE AND pj.promotion_id = p.ID) " +
+                "AND (pj.promotion_id IS NULL OR pj.jour_semaine = DAYNAME(?)))";
+
         try {
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, attraction.getAttractionID());
