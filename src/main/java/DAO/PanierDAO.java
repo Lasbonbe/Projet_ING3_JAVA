@@ -13,6 +13,7 @@ import java.util.List;
 public class PanierDAO {
     private AccesSQLDatabase sqlDatabase = new AccesSQLDatabase();
     private int idPanier;
+    private ScheduleDAO scheduleDAO = new ScheduleDAO();
 
     public void addReservationPanier(int clientID, Schedule schedule, int nbBillets, double prix) {
         int panierID = getPanierId(clientID);
@@ -20,9 +21,15 @@ public class PanierDAO {
             createPanier(clientID);
             panierID = idPanier;
         }
+
+        if (panierID <= 0) {
+            System.err.println("Échec de la création du panier. Opération annulée.");
+            return;
+        }
+
         addElementPanier(panierID, schedule, nbBillets, prix);
         updatePrixPanier(panierID);
-        tempReservation(schedule, nbBillets);
+        scheduleDAO.tempReservation(schedule, nbBillets);
     }
 
     public int getPanierId(int clientID) {
@@ -61,10 +68,12 @@ public class PanierDAO {
             preparedStatement = connection.prepareStatement("INSERT INTO Panier(client_ID, statut, prix) VALUES (?, 'actif', 0)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, clientID);
-            preparedStatement.executeUpdate();
-            resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                idPanier = resultSet.getInt("ID");
+            int rowAffected = preparedStatement.executeUpdate();
+            if (rowAffected > 0) {
+                resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    idPanier = resultSet.getInt(1);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,28 +103,6 @@ public class PanierDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Erreur d'ajout d'élément au panier");
-        } finally {
-            try {
-                if (preparedStatement != null) preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("Fermeture des ressources impossible");
-            }
-        }
-    }
-
-    public void tempReservation(Schedule schedule, int nbBillets) {
-        Connection connection;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE Schedule SET reserved_places = reserved_places + ? WHERE ID = ?");
-            preparedStatement.setInt(1, nbBillets);
-            preparedStatement.setInt(2, schedule.getIdSchedule());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Réservation temporaire impossible");
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -192,10 +179,7 @@ public class PanierDAO {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int nbBillets = resultSet.getInt("nbBillets");
-                preparedStatement = connection.prepareStatement("UPDATE Schedule SET reserved_places = reserved_places - ? WHERE ID = ?");
-                preparedStatement.setInt(1, nbBillets);
-                preparedStatement.setInt(2, scheduleID);
-                preparedStatement.executeUpdate();
+                scheduleDAO.deleteTempReservation(scheduleID, nbBillets);
 
                 preparedStatement = connection.prepareStatement("DELETE FROM PanierElement WHERE schedule_ID = ? AND panier_ID = ?");
                 preparedStatement.setInt(1, scheduleID);
@@ -244,5 +228,48 @@ public class PanierDAO {
             }
         }
         return -1;
+    }
+
+    public void payerPanier(int clientID) {
+        Connection connection = sqlDatabase.getConnection();;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        try {
+            int panierID = getPanierId(clientID);
+            if (panierID == -1) {
+                System.err.println("Aucun panier actif pour ce client");
+                return;
+            }
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement("SELECT * FROM PanierElement WHERE panier_ID = ?");
+            preparedStatement.setInt(1, panierID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int scheduleID = resultSet.getInt("schedule_ID");
+                int nbBillets = resultSet.getInt("nbBillets");
+                double prix = resultSet.getDouble("prix");
+                ReservationDAO reservationDAO = new ReservationDAO();
+                reservationDAO.addReservation(clientID, scheduleID, scheduleDAO.getScheduleDateById(scheduleID), nbBillets, prix, panierID);
+            }
+            preparedStatement = connection.prepareStatement("UPDATE Panier SET statut = 'Payé' WHERE ID = ?");
+            preparedStatement.setInt(1, panierID);
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors du transfert du panier vers les réservations");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Fermeture des ressources impossible");
+            }
+        }
+
     }
 }

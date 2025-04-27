@@ -224,4 +224,76 @@ public class ScheduleDAO{
         }
         return 0;
     }
+
+    public Date getScheduleDateById(int idSchedule) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT date FROM Schedule WHERE ID = ?");
+            preparedStatement.setInt(1, idSchedule);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDate("date");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Récupération de la date de la session impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Erreur de fermeture des ressources");
+            }
+        }
+        return null;
+    }
+
+    public void tempReservation(Schedule schedule, int nbBillets) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE Schedule SET reserved_places = reserved_places + ? WHERE ID = ?");
+            preparedStatement.setInt(1, nbBillets);
+            preparedStatement.setInt(2, schedule.getIdSchedule());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Réservation temporaire impossible");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Fermeture des ressources impossible");
+            }
+        }
+    }
+
+    public void deleteTempReservation(int scheduleId, int nbBillets) {
+        Connection connection;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE Schedule SET reserved_places = reserved_places - ? WHERE ID = ?");
+            preparedStatement.setInt(1, nbBillets);
+            preparedStatement.setInt(2, scheduleId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Mise à jour de la session impossible");
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Fermeture des ressources impossible");
+            }
+        }
+
+    }
 }
