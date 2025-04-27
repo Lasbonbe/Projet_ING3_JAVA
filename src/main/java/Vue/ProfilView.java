@@ -1,7 +1,6 @@
 package Vue;
 
 import Controller.ProfilController;
-import Modele.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,11 +25,6 @@ public class ProfilView extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/profil-view.fxml"));
             Parent root = loader.load();
 
-            // Pour des tests
-            ProfilController controller = loader.getController();
-            Date specificDate = Date.valueOf("2001-09-11");
-            controller.initialize(new Client(14, "NGNGNGNGNGNGNG", "GAGAGAGAGAGA",specificDate, "a", "a"));
-
             rootPane.getChildren().add(root);
             Scene scene = new Scene(rootPane);
 
@@ -48,7 +42,4 @@ public class ProfilView extends Application {
         showProfil(stage);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
