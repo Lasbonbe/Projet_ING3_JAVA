@@ -21,7 +21,7 @@
             <VBox alignment="CENTER" spacing="20">
                 <Label text="VOTRE PANIER" alignment="CENTER" styleClass="grid-title"/>
                 <HBox alignment="CENTER">
-                    <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS" style="-fx-min-height: 400; -fx-min-width: 1700; -fx-background-color: transparent; -fx-background: transparent;">
+                    <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS" style="-fx-min-height: 600; -fx-max-height: 600; -fx-min-width: 1700; -fx-max-width: 1700; -fx-background-color: transparent; -fx-background: transparent;">
                         <GridPane alignment="CENTER" styleClass="grid-info-panier" fx:id="gridPanePanier" GridPane.halignment="CENTER">
                             <padding>
                                 <Insets left="10" right="10" top="10" bottom="10"/>
@@ -37,7 +37,7 @@
                             <Label text="Réservation " GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-value"/>
                             <Label text="Début" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="grid-value"/>
                             <Label text="Fin" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="grid-value"/>
-                            <Label text="Nombre de billets" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="grid-value"/>
+                            <Label text="Nombre de Billets" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="grid-value"/>
                             <Label text="Prix" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="4" styleClass="grid-value"/>
                             <Label text="Supprimer" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="5" styleClass="grid-value"/>
                         </GridPane>

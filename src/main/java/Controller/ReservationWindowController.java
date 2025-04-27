@@ -4,6 +4,7 @@ package Controller;
 import DAO.AttractionDAO;
 import DAO.PanierDAO;
 import DAO.PromotionDAO;
+import DAO.ScheduleDAO;
 import Modele.*;
 import Vue.Calendar.ButtonNavigation;
 import Vue.MainApp;
@@ -217,15 +218,17 @@ public class ReservationWindowController {
         int nbBillets = comboboxNbPers.getValue();
 
         PanierDAO panierDAO = new PanierDAO();
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
         System.out.println("ID du schedule : " + schedule.getIdSchedule());
         panierDAO.addReservationPanier(clientID, schedule, nbBillets, totalPrice);
+        schedule.setPlacesDispos(scheduleDAO.getPdispos(schedule));
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/panier-view.fxml"));
             Parent calendarView = loader.load();
 
             PanierController controller = loader.getController();
-            controller.setSchedule(client);
+            controller.setSchedule(schedule, attraction, client);
 
             Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "LEFT");
         } catch (IOException e) {

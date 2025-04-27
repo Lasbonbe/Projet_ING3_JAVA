@@ -36,7 +36,7 @@
 
 .grid-info-panier {
     -fx-background-color: BLACK;
-    -fx-min-height: 400;
+    -fx-min-height: 600;
     -fx-min-width: 1600;
     -fx-hgap: 50;
     -fx-vgap: 30;
