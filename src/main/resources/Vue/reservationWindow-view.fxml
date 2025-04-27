@@ -10,10 +10,10 @@
 <?import javafx.scene.image.ImageView?>
 
 <StackPane xmlns:fx="http://javafx.com/javafx" fx:controller="Controller.ReservationWindowController" stylesheets="@css/reservationWindow.css, @css/calendar.css, @css/homestyle.css" styleClass="root">
-    <ImageView fx:id="img"/>
+    <ImageView fx:id="img" fitWidth="1720" fitHeight="970"/>
 
-    <Label fx:id="sessionDateLabel" translateX="-200" translateY="-487" styleClass="session-label"/>
-    <Label fx:id="heureLabel" translateX="-200" translateY="-445" styleClass="session-label"/>
+    <Label fx:id="sessionDateLabel" translateX="-185" translateY="-440" styleClass="session-label"/>
+    <Label fx:id="heureLabel" translateX="-185" translateY="-398" styleClass="session-label"/>
 
     <BorderPane>
         <top>

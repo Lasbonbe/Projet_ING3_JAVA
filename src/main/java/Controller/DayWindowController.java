@@ -66,8 +66,8 @@ public class DayWindowController {
         } catch (JavaFXImageException e) {
             System.err.println("Erreur au chargement des images : " + e.getMessage());
         }
-        titleContainer.setTranslateY(-469);
-        titleContainer.setTranslateX(-200);
+        titleContainer.setTranslateY(-422);
+        titleContainer.setTranslateX(-185);
     }
 
     /**

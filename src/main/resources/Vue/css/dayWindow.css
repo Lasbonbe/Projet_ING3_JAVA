@@ -16,7 +16,7 @@
 .header-label {
     -fx-font-family: 'JetBrains Mono SemiBold';
     -fx-text-fill: BLACK;
-    -fx-font-size: 66px;
+    -fx-font-size: 56px;
 }
 
 .grid-pane {
