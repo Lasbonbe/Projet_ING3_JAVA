@@ -38,7 +38,6 @@ public class Reservation {
         ScheduleDAO dao = new ScheduleDAO();
         Time[] tab = new Time[2];
         tab = dao.getScheduleTimes(scheduleID);
-        System.out.println("" + tab[0]);
         this.heureDebut = tab[0];
         this.heureFin = tab[1];
         this.id = id;
