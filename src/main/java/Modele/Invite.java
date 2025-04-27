@@ -17,4 +17,8 @@ public class Invite extends User {
     public Invite(int userID,String firstName, String lastName,String email) {
         super(0,firstName,lastName,email,"");
     }
+
+    public Invite() {
+        super(0,"Invité","Invité","","");
+    }
 }
