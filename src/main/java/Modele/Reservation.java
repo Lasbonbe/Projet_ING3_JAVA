@@ -6,6 +6,9 @@ import DAO.ScheduleDAO;
 import java.sql.Time;
 import java.time.LocalDate;
 
+/**
+ * Classe représentant une réservation.
+ */
 public class Reservation {
     private int id;
     private int clientID;
@@ -19,6 +22,17 @@ public class Reservation {
 
 
 
+    /**
+     * Constructeur de la classe Reservation.
+     *
+     * @param id        L'identifiant de la réservation.
+     * @param clientID  L'identifiant du client.
+     * @param scheduleID L'identifiant du programme.
+     * @param date      La date de la réservation.
+     * @param nbBillets Le nombre de billets réservés.
+     * @param prix      Le prix total de la réservation.
+     * @param panierID  L'identifiant du panier.
+     */
     public Reservation(int id, int clientID, int scheduleID, LocalDate date, int nbBillets, float prix, int panierID) {
         ScheduleDAO dao = new ScheduleDAO();
         Time[] tab = new Time[2];
@@ -35,20 +49,40 @@ public class Reservation {
         this.nbBillets = nbBillets;
     }
 
+    /** GETTER getID
+     * @return L'identifiant de la réservation.
+     */
     public int getId() { return id; }
+    /** GETTER getClientID
+     * @return L'identifiant du client.
+     */
     public int getClientID() { return clientID; }
+    /** GETTER getScheduleID
+     * @return L'identifiant du programme.
+     */
     public int getScheduleID() { return scheduleID; }
+    /** GETTER getDate
+     * @return La date de la réservation.
+     */
+    public LocalDate getDate() { return date; }
+    /** GETTER getPanierID
+     * @return L'identifiant du panier.
+     */
     public int getPanierID() { return panierID; }
-    public Time getHeureDebut() {
-        return heureDebut;
-    }
-    public Time getHeureFin() {
-        return heureFin;
-    }
-    public int getNbBillets() {
-        return nbBillets;
-    }
-    public double getPrix() {
-        return prix;
-    }
+    /** GETTER getHeureDebut
+     * @return L'heure de début de la réservation.
+     */
+    public Time getHeureDebut() {return heureDebut;}
+    /** GETTER getHeureFin
+     * @return L'heure de fin de la réservation.
+     */
+    public Time getHeureFin() {return heureFin;}
+    /** GETTER getNbBillets
+     * @return Le nombre de billets réservés.
+     */
+    public int getNbBillets() {return nbBillets;}
+    /** GETTER getPrix
+     * @return Le prix total de la réservation.
+     */
+    public double getPrix() {return prix;}
 }
