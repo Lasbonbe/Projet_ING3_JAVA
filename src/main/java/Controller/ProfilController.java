@@ -68,7 +68,7 @@ public class ProfilController {
             PanierController controller = loader.getController();
             controller.setSchedule(client);
 
-            Transition.slideTransition(MainApp.rootPane, panierView, 1000, "DOWN");
+            Transition.slideTransition(MainApp.rootPane, panierView, 1000, "UP");
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la page des différentes attractions : " + e.getMessage());
         }
