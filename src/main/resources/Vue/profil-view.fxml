@@ -22,7 +22,7 @@
         </top>
         <center>
             <VBox alignment="CENTER" spacing="20">
-                <Label text="INFORMATIONS PERSONELLES" alignment="CENTER" styleClass="grid-title"/>
+                <Label text="INFORMATIONS PERSONNELLES" alignment="CENTER" styleClass="grid-title"/>
                 <GridPane alignment="CENTER" styleClass="grid-info">
                     <Label text="Nom : " GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-value"/>
                     <Label text="Prénom : " GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-value"/>
