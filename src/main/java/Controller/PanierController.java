@@ -1,10 +1,7 @@
 package Controller;
 
 import DAO.PanierDAO;
-import Modele.Attraction;
-import Modele.PanierItem;
-import Modele.Schedule;
-import Modele.Session;
+import Modele.*;
 import Vue.Calendar.ButtonNavigation;
 import Vue.MainApp;
 import Vue.Transition;
@@ -29,6 +26,7 @@ public class PanierController {
     private Schedule schedule;
     private Attraction attraction;
     private ArrayList<PanierItem> panierItems = new ArrayList<>();
+    private Client client;
     @FXML private GridPane gridPanePanier;
     @FXML private ImageView backButton;
     @FXML private ImageView quitButton;
@@ -46,12 +44,14 @@ public class PanierController {
         }
     }
 
-    public void setSchedule() {
+    public void setSchedule(Client client) {
+        this.client = client;
         chargerPanier();
         afficherPanier();
     }
 
-    public void setSchedule(Schedule schedule, Attraction attraction) {
+    public void setSchedule(Schedule schedule, Attraction attraction, Client client) {
+        this.client = client;
         this.schedule = schedule;
         this.attraction = attraction;
         chargerPanier();
@@ -60,7 +60,7 @@ public class PanierController {
 
     private void chargerPanier() {
         PanierDAO panierDAO = new PanierDAO();
-        panierItems = panierDAO.getAllPanier(13);
+        panierItems = panierDAO.getAllPanier(12);
     }
 
     private void afficherPanier() {
@@ -142,7 +142,7 @@ public class PanierController {
                 Parent calendarView = loader.load();
 
                 ReservationWindowController controller = loader.getController();
-                controller.setSchedule(schedule, attraction);
+                controller.setSchedule(schedule, attraction, client);
 
                 Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "RIGHT");
             } else {

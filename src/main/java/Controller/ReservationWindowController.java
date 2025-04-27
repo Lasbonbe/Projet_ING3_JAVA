@@ -4,10 +4,7 @@ package Controller;
 import DAO.AttractionDAO;
 import DAO.PanierDAO;
 import DAO.PromotionDAO;
-import Modele.Attraction;
-import Modele.Promotion;
-import Modele.Schedule;
-import Modele.Session;
+import Modele.*;
 import Vue.Calendar.ButtonNavigation;
 import Vue.MainApp;
 import Vue.Transition;
@@ -30,7 +27,9 @@ import javafx.stage.Popup;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,6 +57,8 @@ public class ReservationWindowController {
     private int PercentageReduc = 0;
     private double basePrice;
     private double totalPrice;
+    private Client client;
+    private LocalDate birthdate;
 
     /**
      * Initialisation de la vue
@@ -83,7 +84,9 @@ public class ReservationWindowController {
      * @param schedule Schedule - Horaire de la réservation
      * @param attraction Attraction - Attraction à réserver
      */
-    public void setSchedule(Schedule schedule, Attraction attraction) {
+    public void setSchedule(Schedule schedule, Attraction attraction, Client client) {
+        this.client = client;
+        this.birthdate = client.getBirthDate().toLocalDate();
         this.schedule = schedule;
         this.attraction = attraction;
         chargeDatas();
@@ -108,6 +111,7 @@ public class ReservationWindowController {
         this.heureLabel.setText(tempHourDebut.format(formatter2) + " - " + tempHourEnd.format(formatter2));
 
         applicablePromotions = promotionDAO.getApplicablePromotions(attraction.getAttractionID(), sessionDate);
+        filtrerPromotions();
 
         panierButton = new ButtonNavigation("Ajouter au panier", 250, 75);
         panierButton.setDisable(true);
@@ -196,7 +200,7 @@ public class ReservationWindowController {
             Parent dayWindowView = loader.load();
 
             DayWindowController controller = loader.getController();
-            controller.setDate(schedule.getDate(), attraction);
+            controller.setDate(schedule.getDate(), attraction, client);
 
             Transition.slideTransition(MainApp.rootPane, dayWindowView, 1000, "RIGHT");
         } catch (IOException e) {
@@ -221,14 +225,66 @@ public class ReservationWindowController {
             Parent calendarView = loader.load();
 
             PanierController controller = loader.getController();
-            controller.setSchedule();
+            controller.setSchedule(client);
 
             Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "LEFT");
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la vue de connexion : " + e.getMessage());
         }
+    }
 
+    private void filtrerPromotions() {
+        ArrayList<Promotion> promotionsToRemove = new ArrayList<>();
+        for (Promotion promotion : applicablePromotions) {
+            if (promotion.getDescription().contains("Réduction sur l'âge")) {
+                boolean cond = false;
+                if (promotion.getDescription().contains("moins de")) {
+                    String condition = "moins de";
+                    int startIndex = promotion.getDescription().indexOf(condition) + condition.length();
+                    StringBuilder ageString = new StringBuilder();
+                    for (int i = startIndex; i < promotion.getDescription().length(); i++) {
+                        char c = promotion.getDescription().charAt(i);
+                        if (Character.isDigit(c)) {
+                            ageString.append(c);
+                        } else if (ageString.length() > 0) {
+                            break;
+                        }
+                    }
+                    int age = Integer.parseInt(ageString.toString());
+                    int ageClient = calculateAgeClient();
+                    if (ageClient < age) {
+                        cond = true;
+                    }
+                }
+                if (promotion.getDescription().contains("plus de")) {
+                    String condition = "plus de";
+                    int startIndex = promotion.getDescription().indexOf(condition) + condition.length();
+                    StringBuilder ageString = new StringBuilder();
+                    for (int i = startIndex; i < promotion.getDescription().length(); i++) {
+                        char c = promotion.getDescription().charAt(i);
+                        if (Character.isDigit(c)) {
+                            ageString.append(c);
+                        } else if (ageString.length() > 0) {
+                            break;
+                        }
+                    }
+                    int age = Integer.parseInt(ageString.toString());
+                    int ageClient = calculateAgeClient();
+                    if (ageClient > age) {
+                        cond = true;
+                    }
+                }
+                if (!cond) {
+                    promotionsToRemove.add(promotion);
+                }
+            }
+        }
+        applicablePromotions.removeAll(promotionsToRemove);
+    }
 
+    private int calculateAgeClient() {
+        LocalDate today = LocalDate.now();
+        return today.getYear() - birthdate.getYear() - (today.getDayOfYear() < birthdate.getDayOfYear() ? 1 : 0);
     }
 
 }

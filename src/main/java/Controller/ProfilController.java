@@ -35,6 +35,7 @@ public class ProfilController {
     @FXML public Label clientEmail;
     @FXML public PasswordField clientPassword;
     @FXML public Button ordersButton;
+    private Client client;
 
     @FXML public void initialize(User user) {
         try {
@@ -47,7 +48,7 @@ public class ProfilController {
         } catch (JavaFXImageException e) {
             System.err.println("Erreur au chargement des images : " + e.getMessage());
         }
-        Client client = ClientDAO.findClientByEmail(user.getEmail());
+        this.client = ClientDAO.findClientByEmail(user.getEmail());
         setupProfil(client);
     }
 
@@ -65,7 +66,7 @@ public class ProfilController {
             Parent panierView = loader.load();
 
             PanierController controller = loader.getController();
-            controller.setSchedule();
+            controller.setSchedule(client);
 
             Transition.slideTransition(MainApp.rootPane, panierView, 1000, "DOWN");
         } catch (IOException e) {

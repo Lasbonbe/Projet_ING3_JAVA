@@ -1,6 +1,8 @@
 package Controller;
 
+import DAO.ClientDAO;
 import Modele.Attraction;
+import Modele.Client;
 import Modele.Session;
 import Vue.MainApp;
 import Vue.Transition;
@@ -36,6 +38,7 @@ public class InformationController {
     @FXML public Label attractionPrice;
     @FXML public Label attractionDuration;
     @FXML public Button bookingButton;
+    private Client client;
 
     /**
      * Initialise la vue d'information d'une attraction.
@@ -78,12 +81,13 @@ public class InformationController {
      */
     private void reserve(Attraction a) {
         System.out.println("Réservation pour : " + a.getName());
+        client = ClientDAO.findClientByEmail(Session.getUser().getEmail());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/calendar-view.fxml"));
             Parent calendarView = loader.load();
 
             CalendarController controller = loader.getController();
-            controller.initialize(a);
+            controller.initialize(a, client);
 
             Transition.slideTransition(MainApp.rootPane, calendarView, 1500, "LEFT");
 

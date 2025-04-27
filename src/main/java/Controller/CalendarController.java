@@ -2,7 +2,9 @@ package Controller;
 
 import DAO.PromotionDAO;
 import Modele.Attraction;
+import Modele.Client;
 import Modele.Session;
+import Modele.User;
 import Vue.Calendar.*;
 import Vue.MainApp;
 import Vue.Transition;
@@ -23,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.lang.ref.Cleaner;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Objects;
@@ -48,12 +51,14 @@ public class CalendarController {
     private ButtonNavigation nextButton;
     private PromotionDAO promotionDAO = new PromotionDAO();
     private Attraction attraction;
+    private Client client;
 
     /**
      * Initialisation de la page de calendrier.
      * @param attraction Attraction associée au calendrier.
      */
-    @FXML public void initialize(Attraction attraction) {
+    @FXML public void initialize(Attraction attraction, Client client) {
+        this.client = client;
         this.attraction = attraction;
 
         try {
@@ -188,7 +193,7 @@ public class CalendarController {
             Parent dayWindowView = loader.load();
 
             DayWindowController controller = loader.getController();
-            controller.setDate(selectedDate, attraction);
+            controller.setDate(selectedDate, attraction, client);
 
             Transition.slideTransition(MainApp.rootPane, dayWindowView, 1500, "LEFT");
 

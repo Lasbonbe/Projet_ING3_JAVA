@@ -1,9 +1,7 @@
 package Controller;
 
 import DAO.ScheduleDAO;
-import Modele.Attraction;
-import Modele.Schedule;
-import Modele.Session;
+import Modele.*;
 import Vue.Calendar.ButtonNavigation;
 import Vue.Calendar.ReservationWindow;
 import Vue.MainApp;
@@ -49,6 +47,7 @@ public class DayWindowController {
     private final ObservableList<Schedule> scheduleData = FXCollections.observableArrayList();
     private LocalDate date;
     private Attraction attraction;
+    private Client client;
 
     /**
      * Initialisation de la vue
@@ -76,7 +75,8 @@ public class DayWindowController {
      * @param date Date sélectionnée
      * @param attraction Attraction associée
      */
-    public void setDate(LocalDate date, Attraction attraction) {
+    public void setDate(LocalDate date, Attraction attraction, Client client) {
+        this.client = client;
         this.date = date;
         this.attraction = attraction;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -150,7 +150,7 @@ public class DayWindowController {
             Parent reservationView = loader.load();
 
             ReservationWindowController controller = loader.getController();
-            controller.setSchedule(schedule, attraction);
+            controller.setSchedule(schedule, attraction, client);
 
             StackPane rootPane = (StackPane) this.rootPane.getScene().getRoot();
             reservationView.translateXProperty().set(rootPane.getWidth());
@@ -204,7 +204,7 @@ public class DayWindowController {
             Parent calendarView = loader.load();
 
             CalendarController controller = loader.getController();
-            controller.initialize(this.attraction);
+            controller.initialize(this.attraction, client);
 
             Transition.slideTransition(MainApp.rootPane, calendarView, 1000, "RIGHT");
         } catch (IOException e) {

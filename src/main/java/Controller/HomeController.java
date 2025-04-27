@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AttractionDAO;
+import DAO.ClientDAO;
 import Modele.Attraction;
 import Modele.Session;
 import Modele.Client;
@@ -44,6 +45,7 @@ public class HomeController implements Initializable {
     );
     // Map pour stocker la couleur associée à chaque type d'attraction
     private final Map<String, String> typeColorMap = new HashMap<>();
+    private Client client;
 
     /**
      * Méthode d'initialisation de la vue.
@@ -162,12 +164,13 @@ public class HomeController implements Initializable {
      */
     private void reserve(Attraction a) {
         System.out.println("Réservation pour : " + a.getName());
+        client = ClientDAO.findClientByEmail(Session.getUser().getEmail());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/calendar-view.fxml"));
             Parent calendarView = loader.load();
 
             CalendarController controller = loader.getController();
-            controller.initialize(a);
+            controller.initialize(a, client);
 
             Transition.slideTransition(MainApp.rootPane, calendarView, 1500, "LEFT");
 
