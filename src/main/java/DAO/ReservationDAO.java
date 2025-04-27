@@ -50,16 +50,18 @@ public class ReservationDAO {
     /**
      * Retourne la liste de réservations pour un client donné
      **/
-    public ArrayList<Reservation> getReservationsByClient (int clientID) {
+    public static ArrayList<Reservation> getReservationsByClient (int clientID) {
         ArrayList<Reservation> listReservations = new ArrayList<>();
         Connection connection;
-        Statement preparedStatement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.createStatement();
-            resultSet = preparedStatement.executeQuery("SELECT * FROM Reservation WHERE client_ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Reservation WHERE client_ID = ?");
+            preparedStatement.setInt(1, clientID);
+            resultSet = preparedStatement.executeQuery();
+
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
