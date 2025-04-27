@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller de la page Panier.
+ * Permet de gérer le panier de l'utilisateur.
+ */
 public class PanierController {
     private Schedule schedule;
     private Attraction attraction;
@@ -32,6 +36,10 @@ public class PanierController {
     @FXML private ImageView backButton;
     @FXML private ImageView quitButton;
 
+    /**
+     * Initialisation de la vue Panier.
+     * Charge les images et initialise le panier.
+     */
     @FXML public void initialize() {
         try {
             backButton.setImage(new Image(
@@ -45,12 +53,24 @@ public class PanierController {
         }
     }
 
+    /**
+     * Méthode pour initialiser le panier avec un client, le charger et l'afficher.
+     *
+     * @param client Le client dont le panier doit être affiché.
+     */
     public void setSchedule(Client client) {
         this.client = client;
         chargerPanier();
         afficherPanier();
     }
 
+    /**
+     * Méthode pour initialiser le panier avec un horaire, une attraction et un client.
+     *
+     * @param schedule L'horaire de la réservation.
+     * @param attraction L'attraction réservée.
+     * @param client Le client qui a réservé.
+     */
     public void setSchedule(Schedule schedule, Attraction attraction, Client client) {
         this.client = client;
         this.schedule = schedule;
@@ -59,10 +79,18 @@ public class PanierController {
         afficherPanier();
     }
 
+    /**
+     * Méthode pour charger le panier du client.
+     * Récupère tous les éléments du panier à partir de la base de données.
+     */
     private void chargerPanier() {
         panierItems = panierDAO.getAllPanier(client.getUserID());
     }
 
+    /**
+     * Méthode pour afficher le panier dans la vue.
+     * Crée les labels et les boutons pour chaque élément du panier.
+     */
     private void afficherPanier() {
         int rowIndex = 1;
         for (PanierItem panierItem : panierItems) {
@@ -102,6 +130,11 @@ public class PanierController {
         }
     }
 
+    /**
+     * Méthode pour supprimer un élément du panier.
+     *
+     * @param panierItem L'élément à supprimer du panier.
+     */
     private void supprimerPanierItem(PanierItem panierItem) {
         panierItems.remove(panierItem);
         gridPanePanier.getChildren().clear();
@@ -190,6 +223,9 @@ public class PanierController {
         }
     }
 
+    /**
+     * PAYMENT BUTTON
+     */
     @FXML private void paymentClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/payment-view.fxml"));
