@@ -89,6 +89,48 @@ public class ReservationDAO {
         return listReservations;
     }
 
+    /**
+     * Retourne la liste de toutes les réservations
+     **/
+    public ArrayList<Reservation> getAllReservations() {
+        ArrayList<Reservation> listReservations = new ArrayList<>();
+        Connection connection;
+        Statement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = sqlDatabase.getConnection();
+            preparedStatement = connection.createStatement();
+            resultSet = preparedStatement.executeQuery("SELECT * FROM Reservation");
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                int clientId = resultSet.getInt("client_ID");
+                int scheduleId = resultSet.getInt("schedule_ID");
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+                int nbrTickets = resultSet.getInt("nb_tickets");
+                float price = resultSet.getFloat("total_price");
+                int panierId = resultSet.getInt("panier_ID");
+
+                Reservation reservation = new Reservation(id, clientId, scheduleId, date, nbrTickets, price, panierId);
+
+                listReservations.add(reservation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Création de la liste de toutes les réservations impossible");
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de fermeture des ressources");
+            }
+        }
+        return listReservations;
+    }
+
 }
 
 
