@@ -56,6 +56,18 @@
     -fx-max-height: 50px;
 }
 
+.grid-title {
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+    -fx-text-alignment: center;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-font-size: 36px;
+    -fx-max-height: 50;
+    -fx-max-width: 1000;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
 .details-vbox{
     -fx-padding: 40 0 20 0;
     -fx-alignment: center;
