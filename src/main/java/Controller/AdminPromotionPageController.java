@@ -88,9 +88,9 @@ public class AdminPromotionPageController implements Initializable {
         quitButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/QUIT_BUTTON.png")).toExternalForm()));
         previousButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/PREVIOUS_BUTTON.png")).toExternalForm()));
 
-        promotionsTable.setPrefHeight(700);
-        promotionsTable.setMaxHeight(700);
-        promotionsTable.setMinHeight(700);
+        promotionsTable.setPrefHeight(600);
+        promotionsTable.setMaxHeight(600);
+        promotionsTable.setMinHeight(600);
         promotionsTable.setPrefWidth(1500);
         promotionsTable.setMaxWidth(1500);
         promotionsTable.setMinWidth(1500);
