@@ -1,6 +1,9 @@
 package Controller;
 
 import DAO.AttractionDAO;
+import DAO.AttractionIsBookedException;
+import DAO.ReservationDAO;
+import DAO.ScheduleDAO;
 import Modele.Attraction;
 import Modele.Session;
 import Vue.MainApp;
@@ -46,7 +49,9 @@ public class AdminAttractionPageController implements Initializable {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
-    private final AttractionDAO dao = new AttractionDAO();
+    private final AttractionDAO attractionDAO = new AttractionDAO();
+    private final ScheduleDAO scheduleDAO = new ScheduleDAO();
+    private final ReservationDAO reservationDAO = new ReservationDAO();
     /**
      * Initialisation de la page d'administration des attractions, methode implementée de l'interface Initializable.
      */
@@ -74,7 +79,7 @@ public class AdminAttractionPageController implements Initializable {
                 new SimpleStringProperty(c.getValue().getDescription())
         );
 
-        List<Attraction> list = dao.getAllAttractions();
+        List<Attraction> list = attractionDAO.getAllAttractions();
         attractionsTable.setItems(FXCollections.observableArrayList(list));
 
         nextButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/imgs/NEXT_BUTTON.png")).toExternalForm()));
@@ -127,7 +132,17 @@ public class AdminAttractionPageController implements Initializable {
     private void deleteAttraction(ActionEvent e) {
         Attraction sel = attractionsTable.getSelectionModel().getSelectedItem();
         if (sel == null) return;
-        dao.deleteAttractionByID(sel.getAttractionID());
+        System.out.println(reservationDAO.isAttractionBooked(sel.getAttractionID()));
+        if (reservationDAO.isAttractionBooked(sel.getAttractionID())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Impossible de supprimer l'attraction");
+            alert.setContentText("Cette attraction est réservée et ne peut pas être supprimée.");
+            alert.showAndWait();
+            throw new AttractionIsBookedException("L'aattraction ID " + sel.getAttractionID() + " est réservée.");
+        }
+        scheduleDAO.deleteScheduleByAttraction(sel.getAttractionID());
+        attractionDAO.deleteAttractionByID(sel.getAttractionID());
         attractionsTable.getItems().remove(sel);
     }
 
