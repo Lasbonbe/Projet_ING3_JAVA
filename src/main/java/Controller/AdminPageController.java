@@ -52,7 +52,6 @@ public class AdminPageController implements Initializable {
     @FXML private ImageView previousButton;
 
     @FXML private TextArea consoleOutput;
-    @FXML private ImageView backgroundImage;
 
     private ChannelShell shellChannel;
     private OutputStream  sshStdIn;
@@ -77,12 +76,10 @@ public class AdminPageController implements Initializable {
             return new SimpleIntegerProperty(count).asObject();
         });
 
-        Image img = new Image(getClass().getResource("/imgs/ADMIN_PANEL.png").toExternalForm());
         Image nextImg = new Image(getClass().getResource("/imgs/NEXT_BUTTON.png").toExternalForm());
         Image quitImg = new Image(getClass().getResource("/imgs/QUIT_BUTTON.png").toExternalForm());
 
         Font.loadFont(getClass().getResourceAsStream("/fonts/JetBrainsMono-Medium.ttf"), 20);
-        backgroundImage.setImage(img);
         quitButton.setImage(quitImg);
         nextButton.setImage(nextImg);
         previousButton.setImage(new Image(getClass().getResource("/imgs/PREVIOUS_BUTTON.png").toExternalForm()));
