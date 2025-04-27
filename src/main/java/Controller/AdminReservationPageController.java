@@ -77,9 +77,6 @@ public class AdminReservationPageController implements Initializable{
         reservationsTable.setMaxWidth(1500);
         reservationsTable.setMinWidth(1500);
 
-        List<Reservation> list = reservationDAO.getAllReservations();
-        reservationsTable.setItems(FXCollections.observableArrayList(list));
-
     }
 
 

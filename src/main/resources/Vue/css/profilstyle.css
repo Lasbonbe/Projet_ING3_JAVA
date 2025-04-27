@@ -23,7 +23,7 @@
 
 .grid-info {
     -fx-background-color: BLACK;
-    -fx-max-height: 400;
+    -fx-pref-height: 400;
     -fx-max-width: 1000;
     -fx-hgap: 50;
     -fx-vgap: 30;
@@ -50,13 +50,13 @@
 .grid-value {
     -fx-text-fill: WHITE;
     -fx-font-family: 'JetBrains Mono';
-    -fx-font-size: 28px;
+    -fx-font-size: 22px;
 }
 
 .password-info{
     -fx-text-fill: WHITE;
     -fx-font-family: 'JetBrains Mono';
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-background-color: BLACK;
     -fx-border-color: BLACK;
 }
@@ -95,29 +95,31 @@
     -fx-border-color: LIGHTGREY;
 }
 
-
-
-
-
 .title-label {
-    -fx-font-weight: bold;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-alignment: top;
     -fx-font-size: 16px;
-    -fx-text-fill: #ffffff;
-    -fx-background-color: #2a2a2a;
-    -fx-padding: 10px;
-    -fx-alignment: center;
+    -fx-text-fill: WHITE;
+    -fx-background-color: BLACK;
 }
 
 .data-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #dddddd;
-    -fx-padding: 8px;
-    -fx-alignment: center;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-alignment: top;
+    -fx-font-size: 12px;
+    -fx-text-fill: WHITE;
+    -fx-background-color: BLACK;
 }
 
-.grid-reservation {
-    -fx-background-color: #1c1c1c;
-    -fx-padding: 20px;
-    -fx-hgap: 20px;
-    -fx-vgap: 10px;
+.grid-res {
+    -fx-padding: 0 20 0 20;
+    -fx-background-color: BLACK;
+    -fx-pref-height: 400;
+    -fx-max-width: 1000;
+    -fx-hgap: 50;
+    -fx-vgap: 30;
+    -fx-border-color: WHITE;
+    -fx-border-width: 4px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
 }

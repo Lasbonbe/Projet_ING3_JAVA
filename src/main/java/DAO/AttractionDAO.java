@@ -57,14 +57,16 @@ public class AttractionDAO {
      *
      * @param attraction Attraction à ajouter.
      */
-    public void addAttraction(Attraction attraction) {
-
+    public int addAttraction(Attraction attraction) {
+        int generatedId = 0;
         Connection connection;
         PreparedStatement preparedStatement = null;
+        ResultSet generatedKeys = null;
 
         try {
             connection = sqlDatabase.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, type, max_capacity, base_price, duration,image, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Attraction(ID, nom, type, max_capacity, base_price, duration,image, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS
+            );
             preparedStatement.setInt(1, attraction.getAttractionID());
             preparedStatement.setString(2, attraction.getName());
             preparedStatement.setString(3, attraction.getType());
@@ -75,6 +77,12 @@ public class AttractionDAO {
             preparedStatement.setString(8, attraction.getDescription());
 
             preparedStatement.executeUpdate();
+
+            generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                generatedId = generatedKeys.getInt(1);
+                attraction.setAttractionID(generatedId);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,6 +95,7 @@ public class AttractionDAO {
                 System.out.println("Erreur de fermeture des ressources");
             }
         }
+        return generatedId;
     }
 
     /**

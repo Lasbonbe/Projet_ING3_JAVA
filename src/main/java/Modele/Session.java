@@ -76,7 +76,7 @@ public class Session {
         if (isAdmin())
             Session.selectedAttraction = selectedAttraction;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to set selected attraction");
+            throw new UserNotAdminException("Client is not admin, tried to set selected attraction");
     }
 
     /**
@@ -87,7 +87,7 @@ public class Session {
         if (isAdmin())
             return selectedAttraction;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to get selected attraction");
+            throw new UserNotAdminException("Client is not admin, tried to get selected attraction");
     }
 
     /**
@@ -97,7 +97,7 @@ public class Session {
         if (isAdmin())
             selectedAttraction = null;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to clear selected attraction");
+            throw new UserNotAdminException("Client is not admin, tried to clear selected attraction");
     }
 
 
@@ -114,7 +114,7 @@ public class Session {
         if (isAdmin())
             Session.selectedPromotion = selectedPromotion;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to set selected promotion");
+            throw new UserNotAdminException("Client is not admin, tried to set selected promotion");
     }
 
     /**
@@ -125,7 +125,7 @@ public class Session {
         if (isAdmin())
             return selectedPromotion;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to get selected promotion");
+            throw new UserNotAdminException("Client is not admin, tried to get selected promotion");
     }
 
     /**
@@ -135,7 +135,7 @@ public class Session {
         if (isAdmin())
             selectedPromotion = null;
         else
-            throw new ClientNotAdminException("Client is not admin, tried to clear selected promotion");
+            throw new UserNotAdminException("Client is not admin, tried to clear selected promotion");
     }
 
 
