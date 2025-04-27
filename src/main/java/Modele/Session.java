@@ -5,29 +5,13 @@ public class Session {
     private static Attraction selectedAttraction;
     private static Promotion selectedPromotion;
 
-
-    //░██████╗███████╗████████╗░░░░██╗░██████╗░███████╗████████╗
-    //██╔════╝██╔════╝╚══██╔══╝░░░██╔╝██╔════╝░██╔════╝╚══██╔══╝
-    //╚█████╗░█████╗░░░░░██║░░░░░██╔╝░██║░░██╗░█████╗░░░░░██║░░░
-    //░╚═══██╗██╔══╝░░░░░██║░░░░██╔╝░░██║░░╚██╗██╔══╝░░░░░██║░░░
-    //██████╔╝███████╗░░░██║░░░██╔╝░░░╚██████╔╝███████╗░░░██║░░░
-    //╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░░╚═════╝░╚══════╝░░░╚═╝░░░
     /**
-     * Utilisé pour stocker l'utilisateur connecté
-     * @param user l'utilisateur connecté
+     * Utilisé pour vérifier si l'utilisateur est connecté
+     * @return true si l'utilisateur est connecté, false sinon
      */
-    public static void setUser(User user) {
-        Session.user = user;
+    public static void showInstanceOfSession() {
+        System.out.println("Instance de Session : " + Session.user);
     }
-
-    /**
-     * Utilisé pour récupérer l'utilisateur connecté
-     * @return l'utilisateur connecté
-     */
-    public static User getUser() {
-        return user;
-    }
-
     /**
      * Utilisé pour vérifier si l'utilisateur est connecté
      * @return true si l'utilisateur est connecté, false sinon
@@ -51,6 +35,36 @@ public class Session {
     public static boolean isAdmin() {
         return user instanceof Administrator;
     }
+    /**
+     * Utilisé pour vérifier si l'utilisateur est un invité
+     * @return true si l'utilisateur est un invité, false sinon
+     */
+    public static boolean isInvite() {return user instanceof Invite;}
+
+
+    //░██████╗███████╗████████╗░░░░██╗░██████╗░███████╗████████╗
+    //██╔════╝██╔════╝╚══██╔══╝░░░██╔╝██╔════╝░██╔════╝╚══██╔══╝
+    //╚█████╗░█████╗░░░░░██║░░░░░██╔╝░██║░░██╗░█████╗░░░░░██║░░░
+    //░╚═══██╗██╔══╝░░░░░██║░░░░██╔╝░░██║░░╚██╗██╔══╝░░░░░██║░░░
+    //██████╔╝███████╗░░░██║░░░██╔╝░░░╚██████╔╝███████╗░░░██║░░░
+    //╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░░░░╚═════╝░╚══════╝░░░╚═╝░░░
+    /**
+     * Utilisé pour stocker l'utilisateur connecté
+     * @param user l'utilisateur connecté
+     */
+    public static void setUser(User user) {
+        Session.user = user;
+    }
+
+    /**
+     * Utilisé pour récupérer l'utilisateur connecté
+     * @return l'utilisateur connecté
+     */
+    public static User getUser() {
+        return user;
+    }
+
+
 
 
     //░█████╗░████████╗████████╗██████╗░░█████╗░░█████╗░████████╗██╗░█████╗░███╗░░██╗
@@ -129,6 +143,8 @@ public class Session {
         else
             throw new ClientNotAdminException("Client is not admin, tried to clear selected promotion");
     }
+
+
 
 
 
