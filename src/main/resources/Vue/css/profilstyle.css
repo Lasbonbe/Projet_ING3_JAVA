@@ -94,3 +94,30 @@
     -fx-text-fill: WHITE;
     -fx-border-color: LIGHTGREY;
 }
+
+
+
+
+
+.title-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2a2a2a;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+.data-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #dddddd;
+    -fx-padding: 8px;
+    -fx-alignment: center;
+}
+
+.grid-reservation {
+    -fx-background-color: #1c1c1c;
+    -fx-padding: 20px;
+    -fx-hgap: 20px;
+    -fx-vgap: 10px;
+}
