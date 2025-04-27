@@ -25,17 +25,17 @@ import java.util.Objects;
  * Permet d'afficher les informations détaillées sur une attraction.
  */
 public class InformationController {
-    @FXML public ImageView img;
+    @FXML private ImageView img;
     @FXML private ImageView previousButton;
     @FXML private ImageView quitButton;
 
-    @FXML public Label attractionName;
-    @FXML public ImageView attractionImg;
-    @FXML public TextArea attractionDescription;
-    @FXML public Label attractionType;
-    @FXML public Label attractionPrice;
-    @FXML public Label attractionDuration;
-    @FXML public Button bookingButton;
+    @FXML private Label attractionName;
+    @FXML private ImageView attractionImg;
+    @FXML private TextArea attractionDescription;
+    @FXML private Label attractionType;
+    @FXML private Label attractionPrice;
+    @FXML private Label attractionDuration;
+    @FXML private Button bookingButton;
 
     /**
      * Initialise la vue d'information d'une attraction.

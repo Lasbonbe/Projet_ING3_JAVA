@@ -28,12 +28,12 @@ public class ProfilController {
     @FXML private ImageView previousButton;
     @FXML private ImageView quitButton;
 
-    @FXML public Label clientLName;
-    @FXML public Label clientFName;
-    @FXML public Label clientBDate;
-    @FXML public Label clientEmail;
-    @FXML public PasswordField clientPassword;
-    @FXML public Button ordersButton;
+    @FXML private Label clientLName;
+    @FXML private Label clientFName;
+    @FXML private Label clientBDate;
+    @FXML private Label clientEmail;
+    @FXML private PasswordField clientPassword;
+    @FXML private Button ordersButton;
 
     @FXML public void initialize(User user) {
         try {
